@@ -1,1 +1,14 @@
-<p>exam-detail works!</p>
+<div class="container">
+  <div class="row mt-3">
+    <div class="col text-center mx-auto">
+      <img [src]='exam?.image' alt="https://static.india.com/wp-content/uploads/2021/02/exam-ians.jpg">
+      <h1>{{exam?.title}}</h1>
+      <h3>{{exam?.description}}</h3>
+      <p><b>Duration: {{exam?.duration}} minutes</b></p>
+      <p><b>Passing Score: {{exam?.passingScore}} %</b></p>
+      <p><b>Number of questions: {{exam?.question?.length}}</b></p>
+    </div>
+  </div>
+  <button class="btn btn-secondary float-left" routerLink='..'>Back</button>
+    <button class="btn btn-danger float-right">Edit</button>
+</div>

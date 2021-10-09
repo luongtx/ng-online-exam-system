@@ -15,6 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ProfileComponent } from './profile/profile.component';
 import { ExamsComponent } from './exams/exams.component';
 import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
+import { ExamListComponent } from './exams/exam-list/exam-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
     ExamReviewComponent,
     ProfileComponent,
     ExamsComponent,
-    ExamUnitComponent
+    ExamUnitComponent,
+    ExamListComponent
   ],
   imports: [
     BrowserModule,
