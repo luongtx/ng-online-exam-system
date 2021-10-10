@@ -22,7 +22,7 @@ export class QuestionDetailComponent implements OnInit {
   markForReview: boolean = false;
   onClickReviewMarker() {
     this.markForReview = !this.markForReview
-    this.questionService.markForReview(this.question.id, this.markForReview);
+    this.questionService.markForReview(this.question, this.markForReview);
   }
 
   onCheckEvent(answer: Answer, event: any) {

@@ -28,17 +28,22 @@ export class QuestionsComponent implements OnInit {
   onChangeFilterOption(value: string) {
     switch (value) {
       case "1":
+        //all questions
         this.questions = this.questionsCopy;
         break;
       case "2":
+        //fitler unanswered questions
         this.questions = this.questionsCopy?.filter(
-          question => !this.questionService.userAnsForQuestion.get(question.id) ||
-            this.questionService.userAnsForQuestion.get(question.id)?.length == 0
+          question => {
+            const answersChecked = question.answers.filter(ans => ans.checked)
+            return !answersChecked || !answersChecked.length;
+          }
         );
         break;
       case "3":
+        //filter marked for review question
         this.questions = this.questionsCopy?.filter(
-          question => this.questionService.questionsMarkedForReview.get(question.id)
+          question => question.isMarkedForReview
         );
         break;
       default:
