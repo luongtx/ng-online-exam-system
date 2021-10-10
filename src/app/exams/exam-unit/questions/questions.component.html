@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row mt-3">
     <div class="col">
-      <select class="custom-select float-right" (change)="onChangeFilterOption($event.target)">
-        <option value="1" selected>All questions</option>
-        <option value="2">Not answered</option>
-        <option value="3">Mark for review</option>
+      <select class="custom-select float-right">
+        <option value="1" selected (click)="onChangeFilterOption('1')">All questions</option>
+        <option value="2" (click)="onChangeFilterOption('2')">Not answered</option>
+        <option value="3" (click)="onChangeFilterOption('3')">Mark for review</option>
       </select>
     </div>
   </div>

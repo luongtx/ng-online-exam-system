@@ -25,8 +25,8 @@ export class QuestionsComponent implements OnInit {
     )
   }
 
-  onChangeFilterOption(option: any) {
-    switch (option.value) {
+  onChangeFilterOption(value: string) {
+    switch (value) {
       case "1":
         this.questions = this.questionsCopy;
         break;
