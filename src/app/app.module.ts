@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { QuestionsComponent } from './exams/exam-unit/questions/questions.component';
 import { QuestionDetailComponent } from './exams/exam-unit/questions/question-detail/question-detail.component';
 import { ExamDetailComponent } from './exams/exam-detail/exam-detail.component';
 import { ExamReviewComponent } from './exams/exam-review/exam-review.component';
@@ -21,6 +22,7 @@ import { ExamListComponent } from './exams/exam-list/exam-list.component';
   declarations: [
     AppComponent,
     QuestionDetailComponent,
+    QuestionsComponent,
     ExamDetailComponent,
     ExamReviewComponent,
     ProfileComponent,

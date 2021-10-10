@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Question } from '../question.model';
+import { QuestionService } from '../question.service';
 
 @Component({
   selector: 'app-question-detail',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./question-detail.component.css']
 })
 export class QuestionDetailComponent implements OnInit {
-
-  constructor() { }
+  @Input() question!: Question
+  constructor(private questionService: QuestionService) { }
 
   ngOnInit(): void {
   }
 
+  convertToChar(num: number) {
+    return String.fromCharCode(64+num);
+  }
+
+  markForReview: boolean = false;
+  onClickReviewMarker() {
+    this.markForReview = !this.markForReview
+    this.questionService.markForReview(this.question.id, this.markForReview);
+  }
 }

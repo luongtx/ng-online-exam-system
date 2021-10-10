@@ -2,12 +2,14 @@ import { Answer } from "./answer.model";
 
 export class Question {
   public id: number
-  public title: string
+  public content: string
   public answers: Answer[];
+  public isMultipleOptions: boolean;
 
-  constructor(id: number,title: string, answers: Answer[]) {
+  constructor(id: number,content: string, answers: Answer[], isMultipleOptions: boolean) {
     this.id = id;
-    this.title = title;
+    this.content = content;
     this.answers = answers;
+    this.isMultipleOptions = isMultipleOptions
   }
 }

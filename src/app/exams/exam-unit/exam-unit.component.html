@@ -1,9 +1,10 @@
-<div class="card shadow bg-white rounded" style="width: 18rem;" [routerLink]='[exam?.id]'>
+<div class="card shadow bg-white rounded" style="width: 18rem;">
   <img [src]='exam?.image' class="card-img-top" alt="https://static.india.com/wp-content/uploads/2021/02/exam-ians.jpg">
   <div class="card-body">
     <h3 class="card-title"><b>{{exam?.title}}</b></h3>
     <p class="card-text">{{exam?.description}}</p>
     <p class="card-text"> <b>Duration: {{exam?.duration}} mins </b></p>
-    <a class="btn btn-primary">Enroll</a>
+    <a class="btn btn-primary float-left" [routerLink]='[exam?.id, "start"]'>Start</a>
+    <a class="btn btn-secondary float-right" [routerLink]='[exam?.id]'>Details</a>
   </div>
 </div>

@@ -7,15 +7,15 @@ export class Exam {
   image: string
   duration: number
   passingScore: number
-  question: Question[]
+  questions: Question[]
 
-  constructor(id: number, title: string, description: string, image: string, duration: number, passingScore: number, question: Question[]) {
+  constructor(id: number, title: string, description: string, image: string, duration: number, passingScore: number, questions: Question[]) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.image = image;
     this.duration = duration;
     this.passingScore = passingScore
-    this.question = question
+    this.questions = questions
   }
 }

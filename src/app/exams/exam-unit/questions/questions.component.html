@@ -1,1 +1,31 @@
-<p>questions works!</p>
+<div class="container">
+  <div class="row mt-3">
+    <div class="col">
+      <select class="custom-select float-right" (change)="onChangeFilterOption($event.target)">
+        <option value="1" selected>All questions</option>
+        <option value="2">Not answered</option>
+        <option value="3">Mark for review</option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="questions?.length">
+    <div class="row border-top m-3 p-3" *ngFor="let question of questions">
+      <div class="col">
+        <app-question-detail [question]="question"></app-question-detail>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!questions?.length">
+    <div class="row p-5">
+      <div class="col">
+        <h1>No questions found!</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row p-3">
+    <div class="col">
+      <button class="btn btn-secondary float-left" [routerLink]='["/exams"]'>Exit</button>
+      <button class="btn btn-primary float-right">Submit</button>
+    </div>
+  </div>
+</div>

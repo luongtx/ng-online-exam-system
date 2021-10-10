@@ -1,1 +1,20 @@
-<p>question-detail works!</p>
+<h1>{{question?.id}}: {{question?.content}}?</h1>
+<div *ngIf="question?.isMultipleOptions">
+  <div class="form-check" *ngFor="let answer of question?.answers; let i = index">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" [value]="i">
+      {{answer.content}}
+    </label>
+  </div>
+</div>
+
+<div *ngIf="!question?.isMultipleOptions">
+  <div class="form-check" *ngFor="let answer of question?.answers; let i = index">
+    <label class="form-check-label">
+      <input class="form-check-input" type="radio" [id]="'radio'+i" name="radio" [value]="i">
+      {{answer.content}}
+    </label>
+  </div>
+</div>
+<span class="mt-3 float-right">Mark for review <i (click)="onClickReviewMarker()"
+    [ngClass]="markForReview?'fas fa-star': 'far fa-star'"></i></span>

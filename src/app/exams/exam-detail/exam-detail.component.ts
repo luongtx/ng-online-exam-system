@@ -15,7 +15,6 @@ export class ExamDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.params.subscribe(
       (params: Params) => {
-        console.log(params);
         let id = +params['id'];
         this.exam = this.examService.getById(id);
       }
