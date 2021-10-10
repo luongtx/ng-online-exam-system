@@ -1,3 +1,9 @@
 select {
   width: auto;
 }
+
+.timer {
+  font-family: Times;
+  font-weight: bold;
+  font-size: 15px;
+}

@@ -1,6 +1,6 @@
 <h1>{{question?.id}}: {{question?.content}}?</h1>
 <div *ngIf="question?.isMultipleOptions">
-  <div class="form-check" *ngFor="let answer of question?.answers; let i = index">
+  <div class="form-check shadow" *ngFor="let answer of question?.answers; let i = index">
     <label class="form-check-label">
       <input type="checkbox" class="form-check-input" [checked]="answer.checked" [value]="i"
         (change)="onCheckEvent(answer, $event)">
@@ -10,7 +10,7 @@
 </div>
 
 <div *ngIf="!question?.isMultipleOptions">
-  <div class="form-check" *ngFor="let answer of question?.answers; let i = index">
+  <div class="form-check shadow" *ngFor="let answer of question?.answers; let i = index">
     <label class="form-check-label">
       <input class="form-check-input" type="radio" [id]="'radio'+i" name="radio" [checked]="answer.checked" [value]="i"
         (change)="onCheckEvent(answer, $event)">

@@ -8,14 +8,17 @@ import { ExamsComponent } from './exams/exams.component';
 import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  {path: 'exams', component: ExamsComponent, children: [
-    {path: '', component: ExamListComponent},
-    {path: ':id', component: ExamDetailComponent},
-    {path: ':id/start', component: QuestionsComponent},
-    {path: ':id/review', component: ExamReviewComponent}
-  ]},
-  {path: 'recent-exams', component: ExamsComponent},
-  {path: 'profile', component: ProfileComponent}
+  { path: '', redirectTo: 'exams', pathMatch: 'full' },
+  {
+    path: 'exams', component: ExamsComponent, children: [
+      { path: '', component: ExamListComponent },
+      { path: ':id', component: ExamDetailComponent },
+      { path: ':id/start', component: QuestionsComponent },
+      { path: ':id/review', component: ExamReviewComponent }
+    ]
+  },
+  { path: 'recent-exams', component: ExamsComponent },
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({

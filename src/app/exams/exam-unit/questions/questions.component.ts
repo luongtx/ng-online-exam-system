@@ -1,27 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Exam } from '../../exam.model';
 import { ExamService } from '../../exam.service';
 import { Question } from './question.model';
-import { QuestionService } from './question.service';
 
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css']
 })
-export class QuestionsComponent implements OnInit {
+export class QuestionsComponent implements OnInit, OnDestroy {
+  exam!: Exam;
   questions?: Question[]
-  questionsCopy?: Question[];
+  timer: { min: number, sec: number } = { min: 0, sec: 0 };
+  timerSubscription?: Subscription
+  timeOutSubcription?: Subscription;
   constructor(private activatedRoute: ActivatedRoute, private examService: ExamService,
-    private questionService: QuestionService, private router: Router) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         const id = +params['id'];
-        const exam = this.examService.getById(id)
-        this.questions = exam.questions;
-        this.questionsCopy = this.questions.slice();
+        this.exam = this.examService.getById(id)
+        this.questions = this.exam.questions.slice();
+
+        this.timerSubscription = this.examService.timer?.subscribe(
+          (nextTime) => this.timer = nextTime
+        )
+        this.timeOutSubcription = this.examService.timeOut?.subscribe(
+          () => {
+            this.submitExam()
+          }
+        );
+        this.examService.startTimerForExam(this.exam.duration);
       }
     )
   }
@@ -30,40 +43,45 @@ export class QuestionsComponent implements OnInit {
     switch (value) {
       case "1":
         //all questions
-        this.questions = this.questionsCopy;
+        this.questions = this.exam.questions?.slice();
         break;
       case "2":
         //fitler unanswered questions
-        this.questions = this.filterUnAnsweredQuestion();
+        this.questions = this.examService.filterUnAnsweredQuestion(this.exam)
         break;
       case "3":
         //filter marked for review question
-        this.questions = this.questionsCopy?.filter(
-          question => question.isMarkedForReview
-        );
+        this.questions = this.examService.filterMarkForReviews(this.exam);
         break;
       default:
         break;
     }
   }
 
-  filterUnAnsweredQuestion(): Question[] {
-    const questions = this.questionsCopy?.filter(
-      question => {
-        const answersChecked = question.answers.filter(ans => ans.checked)
-        return !answersChecked || !answersChecked.length;
-      }
-    );
-    return questions ? questions : [];
-  }
-
   onSubmit() {
-    if (this.filterUnAnsweredQuestion().length) {
+    if (this.examService.filterUnAnsweredQuestion(this.exam).length) {
       if (confirm("Are you sure to submit, there are some questions not answered yet?")) {
-        this.router.navigate(['..', 'review'], {relativeTo: this.activatedRoute})
+        this.submitExam()
       };
       return;
     }
-    this.router.navigate(['..', 'review'], {relativeTo: this.activatedRoute})
+    this.submitExam()
+  }
+
+  ngOnDestroy(): void {
+    this.timerSubscription?.unsubscribe();
+    this.timeOutSubcription?.unsubscribe();
+  }
+
+  submitExam() {
+    this.examService.submitExam();
+    this.router.navigate(['..', 'review'], { relativeTo: this.activatedRoute });
+  }
+
+  onExit() {
+    if (confirm("Are you sure to exit, all progress will be lost")) {
+      this.examService.exitExam(this.exam);
+      this.router.navigate(['/exams'])
+    };
   }
 }
