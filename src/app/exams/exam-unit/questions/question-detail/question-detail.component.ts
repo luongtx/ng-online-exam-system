@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Answer } from '../answer.model';
 import { Question } from '../question.model';
 import { QuestionService } from '../question.service';
 
@@ -23,4 +24,9 @@ export class QuestionDetailComponent implements OnInit {
     this.markForReview = !this.markForReview
     this.questionService.markForReview(this.question.id, this.markForReview);
   }
+
+  onCheckEvent(answer: Answer, event: any) {
+    this.questionService.selectAnswer(answer, event.target.checked)
+  }
+
 }
