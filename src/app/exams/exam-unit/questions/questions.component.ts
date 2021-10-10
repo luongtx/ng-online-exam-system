@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ExamService } from '../../exam.service';
 import { Question } from './question.model';
 import { QuestionService } from './question.service';
@@ -12,10 +12,11 @@ import { QuestionService } from './question.service';
 export class QuestionsComponent implements OnInit {
   questions?: Question[]
   questionsCopy?: Question[];
-  constructor(private activatedRpoute: ActivatedRoute, private examService: ExamService, private questionService: QuestionService) { }
+  constructor(private activatedRoute: ActivatedRoute, private examService: ExamService,
+    private questionService: QuestionService, private router: Router) { }
 
   ngOnInit(): void {
-    this.activatedRpoute.params.subscribe(
+    this.activatedRoute.params.subscribe(
       (params: Params) => {
         const id = +params['id'];
         const exam = this.examService.getById(id)
@@ -33,12 +34,7 @@ export class QuestionsComponent implements OnInit {
         break;
       case "2":
         //fitler unanswered questions
-        this.questions = this.questionsCopy?.filter(
-          question => {
-            const answersChecked = question.answers.filter(ans => ans.checked)
-            return !answersChecked || !answersChecked.length;
-          }
-        );
+        this.questions = this.filterUnAnsweredQuestion();
         break;
       case "3":
         //filter marked for review question
@@ -49,5 +45,25 @@ export class QuestionsComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  filterUnAnsweredQuestion(): Question[] {
+    const questions = this.questionsCopy?.filter(
+      question => {
+        const answersChecked = question.answers.filter(ans => ans.checked)
+        return !answersChecked || !answersChecked.length;
+      }
+    );
+    return questions ? questions : [];
+  }
+
+  onSubmit() {
+    if (this.filterUnAnsweredQuestion().length) {
+      if (confirm("Are you sure to submit, there are some questions not answered yet?")) {
+        this.router.navigate(['..', 'review'], {relativeTo: this.activatedRoute})
+      };
+      return;
+    }
+    this.router.navigate(['..', 'review'], {relativeTo: this.activatedRoute})
   }
 }
