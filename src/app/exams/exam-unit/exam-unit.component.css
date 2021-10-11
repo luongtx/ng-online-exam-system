@@ -1,3 +1,7 @@
 .card {
   cursor: pointer;
 }
+
+img {
+  background-image: url('https://miro.medium.com/max/352/1*L8DJfg003QUh02WiAQLc7g.png');
+}

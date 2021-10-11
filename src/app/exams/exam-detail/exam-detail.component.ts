@@ -16,7 +16,9 @@ export class ExamDetailComponent implements OnInit {
     this.activateRoute.params.subscribe(
       (params: Params) => {
         let id = +params['id'];
-        this.exam = this.examService.getById(id);
+        this.examService.getById(id).subscribe(
+          (exam) => this.exam = exam
+        );
       }
     )
   }

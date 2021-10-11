@@ -12,7 +12,9 @@ export class ExamListComponent implements OnInit {
   constructor(private examService: ExamService) { }
 
   ngOnInit(): void {
-    this.exams = this.examService.getExams();
+    this.examService.getExams().subscribe(
+      (exams) => this.exams = exams
+    )
   }
 
 }

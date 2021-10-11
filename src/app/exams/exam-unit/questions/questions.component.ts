@@ -12,7 +12,7 @@ import { Question } from './question.model';
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   exam!: Exam;
-  questions?: Question[]
+  questions?: Question[];
   timer: { min: number, sec: number } = { min: 0, sec: 0 };
   timerSubscription?: Subscription
   timeOutSubcription?: Subscription;
@@ -23,9 +23,18 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         const id = +params['id'];
-        this.exam = this.examService.getById(id)
-        this.questions = this.exam.questions.slice();
-
+        this.examService.getById(id).subscribe(
+          (exam) => {
+            this.exam = exam;
+            this.examService.getQuestionsByExamId(id).subscribe(
+              (questions) => {
+                this.exam.questions = questions
+                this.questions = this.exam.questions;
+              }
+            )
+            this.examService.startTimerForExam(this.exam.duration);
+          }
+        )
         this.timerSubscription = this.examService.timer?.subscribe(
           (nextTime) => this.timer = nextTime
         )
@@ -34,7 +43,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             this.submitExam()
           }
         );
-        this.examService.startTimerForExam(this.exam.duration);
       }
     )
   }
@@ -43,7 +51,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     switch (value) {
       case "1":
         //all questions
-        this.questions = this.exam.questions?.slice();
+        this.questions = this.exam.questions;
         break;
       case "2":
         //fitler unanswered questions
