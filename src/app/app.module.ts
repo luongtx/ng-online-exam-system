@@ -17,6 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ExamsComponent } from './exams/exams.component';
 import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
 import { ExamListComponent } from './exams/exam-list/exam-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ExamListComponent } from './exams/exam-list/exam-list.component';
     MatSidenavModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

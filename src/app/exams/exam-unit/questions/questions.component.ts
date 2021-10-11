@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Exam } from '../../exam.model';
 import { ExamService } from '../../exam.service';
-import { Question } from './question.model';
 
 @Component({
   selector: 'app-questions',
@@ -12,7 +11,6 @@ import { Question } from './question.model';
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   exam!: Exam;
-  questions?: Question[]
   timer: { min: number, sec: number } = { min: 0, sec: 0 };
   timerSubscription?: Subscription
   timeOutSubcription?: Subscription;
@@ -23,9 +21,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         const id = +params['id'];
-        this.exam = this.examService.getById(id)
-        this.questions = this.exam.questions.slice();
-
+        this.examService.getById(id).subscribe(
+          (exam) => {
+            this.exam = exam;
+            this.examService.getQuestionsByExamId(id).subscribe(
+              (questions) => this.exam.questions = questions
+            )
+            this.examService.startTimerForExam(this.exam.duration);
+          }
+        )
         this.timerSubscription = this.examService.timer?.subscribe(
           (nextTime) => this.timer = nextTime
         )
@@ -34,7 +38,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             this.submitExam()
           }
         );
-        this.examService.startTimerForExam(this.exam.duration);
       }
     )
   }
@@ -43,15 +46,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     switch (value) {
       case "1":
         //all questions
-        this.questions = this.exam.questions?.slice();
+        this.examService.getQuestionsByExamId(this.exam.id).subscribe(
+          (questions) => this.exam.questions = questions
+        )
         break;
       case "2":
         //fitler unanswered questions
-        this.questions = this.examService.filterUnAnsweredQuestion(this.exam)
+        this.exam.questions = this.examService.filterUnAnsweredQuestion(this.exam)
         break;
       case "3":
         //filter marked for review question
-        this.questions = this.examService.filterMarkForReviews(this.exam);
+        this.exam.questions = this.examService.filterMarkForReviews(this.exam);
         break;
       default:
         break;

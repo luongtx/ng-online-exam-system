@@ -12,14 +12,14 @@
       </select>
     </div>
   </div>
-  <div *ngIf="questions?.length">
-    <div class="row border-top m-3 p-3" *ngFor="let question of questions">
+  <div *ngIf="exam?.questions?.length">
+    <div class="row border-top m-3 p-3" *ngFor="let question of exam?.questions">
       <div class="col">
         <app-question-detail [question]="question"></app-question-detail>
       </div>
     </div>
   </div>
-  <div *ngIf="!questions?.length">
+  <div *ngIf="!exam?.questions?.length">
     <div class="row p-5">
       <div class="col text-center">
         <h1>No questions found!</h1>
