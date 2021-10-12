@@ -1,1 +1,28 @@
-<p>exam-review works!</p>
+<div class="container">
+  <div class="progress-overall">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+      <defs>
+        <linearGradient id="GradientColor">
+          <stop offset="0%" stop-color="#17202a" />
+          <stop offset="100%" stop-color="#34495e" />
+        </linearGradient>
+      </defs>
+      <circle cx="80" cy="80" r="70" stroke-linecap="round"></circle>
+
+    </svg>
+    <div class="score" id="score">
+      Score: 0%
+    </div>
+    <div class="status" id="status">
+
+    </div>
+  </div>
+  <div>
+    <button class="btn btn-outline-info float-right">Review all questions</button>
+    <button class="btn btn-outline-info float-left" [routerLink]="['..', 'start']">Try again</button>
+  </div>
+  <div>
+
+  </div>
+
+</div>

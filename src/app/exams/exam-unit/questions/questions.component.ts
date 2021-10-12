@@ -82,7 +82,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   submitExam() {
-    this.examService.submitExam();
+    this.examService.submitExam(this.exam);
     this.router.navigate(['..', 'review'], { relativeTo: this.activatedRoute });
   }
 
