@@ -1,10 +1,39 @@
-.progress-overall {
+.progress-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.progress-container {
   height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Times New Roman', Times, serif;
   font-size: 20px;
+}
+
+.outer {
+  width: 160px;
+  height: 160px;
+  padding: 20px;
+  border-radius: 50%;
+  box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
+    -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
+}
+
+.inner {
+  width: 120px;
+  height: 120px;
+  margin: 20px !important;
+  border-radius: 50%;
+  box-shadow: inset 4px 4px 6px -1px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+    -0.5px -0.5px 0px rgba(255, 255, 255, 1),
+    0.5px 0.5px 0px rgba(0, 0, 0, 0.15), 0px 12px 10px -10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 circle {
@@ -22,5 +51,5 @@ svg {
 
 .status {
   position: absolute;
-  margin-top: 200px;
+  margin-top: 50px !important;
 }

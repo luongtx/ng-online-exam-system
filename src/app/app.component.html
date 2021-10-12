@@ -1,13 +1,17 @@
 <mat-toolbar class="mat-elevation-z8">
-  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
-    <mat-icon *ngIf="!sidenav.opened">
-      menu
-    </mat-icon>
-    <mat-icon *ngIf="sidenav.opened">
-      close
-    </mat-icon>
-  </button>
-  <span class="ml-3">Online examination</span>
+  <mat-toolbar-row>
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+        menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+        close
+      </mat-icon>
+    </button>
+    <span class="ml-3">Online examination</span>
+    <span class="tool-bar-spacer"></span>
+    <a class="float-right">Login</a>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
