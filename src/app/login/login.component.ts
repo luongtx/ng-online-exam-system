@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { LoginService } from './login.service';
+import { AuthService } from '../services/auth.service';
 import { LoginRequest } from './login.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
   errorMessage?: string;
   errorSubcription?: Subscription;
-  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private loginService: AuthService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnDestroy(): void {
     this.errorSubcription?.unsubscribe();

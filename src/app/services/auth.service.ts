@@ -1,12 +1,13 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LoginRequest } from "./login.model";
+import { LoginRequest } from "../login/login.model";
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from "rxjs";
+import { AppConstants } from "../constants/app.constants";
+import { Profile } from "../profile/profile.model";
 
 @Injectable({ providedIn: 'root' })
-export class LoginService {
-  API_END_POINT = "http://localhost:8080/login"
+export class AuthService {
   errorMessage: Subject<string> = new Subject();
   isLoggedin: Subject<boolean> = new Subject();
   constructor(private httpClient: HttpClient) {
@@ -16,14 +17,18 @@ export class LoginService {
   }
 
   login(user: LoginRequest) {
-    this.httpClient.post<any>(this.API_END_POINT, user).pipe(
+    this.httpClient.post<any>(AppConstants.API_END_POINT + "login", user).pipe(
       tap((data) => {
-        localStorage.setItem("jwtToken", data.token);
+        localStorage.setItem("auth", data.token);
         this.errorMessage.next("");
         this.isLoggedin.next(true)
       }),
       catchError(this.handleError())
     ).subscribe()
+  }
+
+  register(profile: Profile) {
+    return this.httpClient.post(AppConstants.API_END_POINT + "register", profile);
   }
 
   private handleError<T>(result?: T) {
