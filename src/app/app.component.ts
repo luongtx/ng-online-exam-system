@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LoginService } from './login/login.service';
 
 @Component({
@@ -7,14 +8,22 @@ import { LoginService } from './login/login.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'online-exam-system';
   isLoggedin = false;
+  loggedInSubcription?: Subscription;
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) { }
+
+  ngOnDestroy(): void {
+    this.loggedInSubcription?.unsubscribe()
+  }
+
   ngOnInit(): void {
-    this.loginService.isLoggedin.subscribe(
-      (data) => this.isLoggedin = data
-    );
+    this.loggedInSubcription = this.loginService.isLoggedin.subscribe(
+      (value) => {
+        this.isLoggedin = value
+      }
+    )
   }
 
   onClickExplore() {
