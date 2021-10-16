@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionsComponent } from './exams/exam-unit/questions/questions.component';
@@ -18,6 +18,7 @@ import { ExamsComponent } from './exams/exams.component';
 import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
 import { ExamListComponent } from './exams/exam-list/exam-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileComponent,
     ExamsComponent,
     ExamUnitComponent,
-    ExamListComponent
+    ExamListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

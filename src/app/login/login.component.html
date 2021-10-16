@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row justify-content-center pt-5">
+    <form #formSignIn="ngForm" class="form-signin">
+      <h1 class="text-center">Please sign in</h1>
+      <input id="username" type="text" class="form-control" placeholder="Username" #usernameInput>
+      <input id="password" type="text" class="form-control" placeholder="Password" #passwordInput>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="" value="remember-me">
+          Remember me
+        </label>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" (click)="login(usernameInput, passwordInput)">Sign
+        in</button>
+      <span class="text-danger">{{errorMessage}}</span>
+    </form>
+  </div>
+</div>
