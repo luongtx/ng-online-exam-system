@@ -12,7 +12,7 @@ export class BasicAuthInterceptorService implements HttpInterceptor {
           Authorization: 'Bearer ' + localStorage.getItem('auth')
         }
       })
-      console.log(req);
+      // console.log(req);
     }
     return next.handle(req)
   }

@@ -18,7 +18,6 @@ export class ExamReviewComponent implements OnInit {
         this.animateProgress(this.examResult.score, this.examResult.status)
       }
     )
-    this.animateProgress(50, false);
   }
 
   animateProgress(progressValue: number, progressStatus: boolean) {

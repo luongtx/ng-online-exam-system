@@ -3,6 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { Profile } from './profile/profile.model';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private loginService: AuthService
+    private loginService: AuthService,
+    private userService: UserService
   ) { }
 
   ngOnDestroy(): void {
@@ -28,10 +30,11 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loggedInSubcription = this.loginService.isLoggedin.subscribe(
       (value) => {
         this.isLoggedin = value
+        this.profile = new Profile();
         if (this.isLoggedin) {
-          // this.profileService.getCurrentProfile().subscribe(
-          //   (data) => this.profile = data
-          // )
+          this.userService.getCurrentProfile().subscribe(
+            (data) => this.profile = data
+          )
         }
       }
     )

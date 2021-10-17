@@ -20,6 +20,7 @@ export class AuthService {
     this.httpClient.post<any>(AppConstants.API_END_POINT + "login", user).pipe(
       tap((data) => {
         localStorage.setItem("auth", data.token);
+        localStorage.setItem("user", user.username);
         this.errorMessage.next("");
         this.isLoggedin.next(true)
       }),

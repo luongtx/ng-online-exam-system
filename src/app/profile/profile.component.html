@@ -1,0 +1,26 @@
+<div class="container mt-3">
+  <header class="jumbotron text-center">
+    <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" />
+
+  </header>
+  <p>
+    <strong>Fullname:</strong>
+    {{profile?.fullName}}
+  </p>
+  <p>
+    <strong>Email:</strong  >
+    {{profile?.email}}
+  </p>
+  <p>
+    <strong>Phone:</strong>
+    {{profile?.phoneNo}}
+  </p>
+  <p>
+    <strong>Date of birth:</strong>
+    {{profile?.birthDay}}
+  </p>
+</div>
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>
