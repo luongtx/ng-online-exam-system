@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Exam } from '../../exam.model';
 import { ExamService } from '../../exam.service';
-import { Question } from './question.model';
 
 @Component({
   selector: 'app-questions',
@@ -55,11 +54,11 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         break;
       case "2":
         //fitler unanswered questions
-        this.questions = this.examService.filterUnAnsweredQuestion(this.exam)
+        this.exam.questions = this.examService.filterUnAnsweredQuestion(this.exam)
         break;
       case "3":
         //filter marked for review question
-        this.questions = this.examService.filterMarkForReviews(this.exam);
+        this.exam.questions = this.examService.filterMarkForReviews(this.exam);
         break;
       default:
         break;
