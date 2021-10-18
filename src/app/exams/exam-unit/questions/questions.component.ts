@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Exam } from '../../exam.model';
-import { ExamService } from '../../exam.service';
+import { Exam } from '../../shared/exam.model';
+import { ExamService } from '../../shared/exam.service';
 import { Question } from './question.model';
 
 @Component({

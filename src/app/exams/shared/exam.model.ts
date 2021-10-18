@@ -1,4 +1,4 @@
-import { Question } from "./exam-unit/questions/question.model"
+import { Question } from "../exam-unit/questions/question.model"
 
 export class Exam {
   id: number

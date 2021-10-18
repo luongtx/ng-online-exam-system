@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ExamResult } from '../exam-review/exam-result.model';
-import { ExamService } from '../exam.service';
+import { ExamResult } from '../shared/exam-result.model';
+import { ExamService } from '../shared/exam.service';
 
 @Component({
   selector: 'app-exam-recents',

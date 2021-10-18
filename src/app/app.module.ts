@@ -19,7 +19,7 @@ import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
 import { ExamListComponent } from './exams/exam-list/exam-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
-import { BasicAuthInterceptorService } from './services/auth-interceptor.service';
+import { BasicAuthInterceptorService } from './core/auth-interceptor.service';
 import { RegisterComponent } from './register/register.component';
 import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.component';
 
