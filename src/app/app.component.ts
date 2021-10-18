@@ -15,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLoggedin = false;
   loggedInSubcription?: Subscription;
   profile?: Profile;
+  profileChangedSubcription?: Subscription;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.loggedInSubcription?.unsubscribe()
+    this.profileChangedSubcription?.unsubscribe()
   }
 
   ngOnInit(): void {
@@ -36,6 +38,13 @@ export class AppComponent implements OnInit, OnDestroy {
             (data) => this.profile = data
           )
         }
+      }
+    )
+    this.profileChangedSubcription = this.userService.profiledChanged.subscribe(
+      () => {
+        this.userService.getCurrentProfile().subscribe(
+          (data) => this.profile = data
+        )
       }
     )
   }

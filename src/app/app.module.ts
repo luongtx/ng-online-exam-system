@@ -21,6 +21,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptorService } from './services/auth-interceptor.service';
 import { RegisterComponent } from './register/register.component';
+import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RegisterComponent } from './register/register.component';
     ExamUnitComponent,
     ExamListComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ExamRecentsComponent
   ],
   imports: [
     BrowserModule,

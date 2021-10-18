@@ -18,7 +18,7 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" />
+    <img class="avatar mat-elevation-z8" [src]="profile?.imageSrc" routerLink="/profile" />
 
     <h4 class="name">{{profile?.fullName}}</h4>
     <p class="email">{{profile?.email}}</p>
@@ -30,7 +30,7 @@
       <span class="ml-1">Exams Explorer</span>
     </button>
 
-    <button mat-button class="menu-button" routerLink="/recent-exams">
+    <button mat-button class="menu-button" [routerLink]="['exams', 'recent']">
       <i class="fas fa-list"></i>
       <span class="ml-1">Recent Exams</span>
     </button>

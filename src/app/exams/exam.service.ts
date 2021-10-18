@@ -19,6 +19,10 @@ export class ExamService {
     return this.http.get<Exam[]>(this.API_END_POINT);
   }
 
+  getRecentExams() {
+    return this.http.get<ExamResult[]>(this.API_END_POINT + "recent");
+  }
+
   getById(id: number) {
     return this.http.get<Exam>(this.API_END_POINT + id);
   }
@@ -81,7 +85,6 @@ export class ExamService {
         listAns.push(ans)
       }
     )
-    console.log(listAns);
     return listAns
   }
 

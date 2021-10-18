@@ -12,6 +12,11 @@ export class ExamReviewComponent implements OnInit {
   constructor(private examService: ExamService) { }
 
   ngOnInit(): void {
+    this.examResult = history.state;
+    if (this.examResult?.examId) {
+      console.log(this.examResult);
+      this.animateProgress(this.examResult?.score, this.examResult?.status)
+    }
     this.examService.examResult.subscribe(
       (result) => {
         this.examResult = result
