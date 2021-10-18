@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionsComponent } from './exams/exam-unit/questions/questions.component';
@@ -17,7 +17,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { ExamsComponent } from './exams/exams.component';
 import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
 import { ExamListComponent } from './exams/exam-list/exam-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { BasicAuthInterceptorService } from './services/auth-interceptor.service';
+import { RegisterComponent } from './register/register.component';
+import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,10 @@ import { HttpClientModule } from '@angular/common/http';
     ProfileComponent,
     ExamsComponent,
     ExamUnitComponent,
-    ExamListComponent
+    ExamListComponent,
+    LoginComponent,
+    RegisterComponent,
+    ExamRecentsComponent
   ],
   imports: [
     BrowserModule,
@@ -40,9 +47,12 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

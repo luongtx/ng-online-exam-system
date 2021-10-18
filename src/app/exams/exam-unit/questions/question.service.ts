@@ -6,7 +6,7 @@ import { Question } from "./question.model";
 export class QuestionService {
 
   markForReview(question: Question, marked: boolean) {
-    question.isMarkedForReview = marked;
+    question.markedForReview = marked;
   }
 
   selectAnswer(answer: Answer, checked: boolean) {

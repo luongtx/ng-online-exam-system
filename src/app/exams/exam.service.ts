@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
+import { ExamResult } from "./exam-review/exam-result.model";
 import { Answer } from "./exam-unit/questions/answer.model";
 import { Question } from "./exam-unit/questions/question.model";
 import { Exam } from "./exam.model";
@@ -16,6 +17,10 @@ export class ExamService {
 
   getExams() {
     return this.http.get<Exam[]>(this.API_END_POINT);
+  }
+
+  getRecentExams() {
+    return this.http.get<ExamResult[]>(this.API_END_POINT + "recent");
   }
 
   getById(id: number) {
@@ -38,7 +43,7 @@ export class ExamService {
 
   filterMarkForReviews(exam: Exam): Question[] {
     const questions = exam.questions.filter(
-      question => question.isMarkedForReview
+      question => question.markedForReview
     );
     return questions ? questions : [];
   }
@@ -46,7 +51,7 @@ export class ExamService {
   clearAllUserProgress(exam: Exam) {
     exam.questions.forEach(
       (question) => {
-        question.isMarkedForReview = false;
+        question.markedForReview = false;
         question.answers.forEach(
           (ans) => {
             ans.checked = false
@@ -61,8 +66,26 @@ export class ExamService {
     this.shutdownTimer();
   }
 
-  submitExam() {
+  examResult: Subject<ExamResult> = new Subject()
+  submitExam(exam: Exam) {
     this.shutdownTimer();
+    return this.http.post<ExamResult>(this.API_END_POINT + exam.id + "/submit",
+      this.createRequestForSubmittedAns(exam)
+    ).subscribe(
+      result => this.examResult.next(result)
+    )
+  }
+
+  createRequestForSubmittedAns(exam: Exam): number[][] {
+    let listAns: number[][] = [];
+    exam.questions.forEach(
+      question => {
+        let ans = question.answers.filter(ans => ans.checked).map(ans => ans.id)
+        if (!ans) ans = []
+        listAns.push(ans)
+      }
+    )
+    return listAns
   }
 
   minInterval: any;
