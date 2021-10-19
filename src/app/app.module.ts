@@ -1,27 +1,29 @@
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminComponent } from './admin/admin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QuestionsComponent } from './exams/exam-unit/questions/questions.component';
-import { QuestionDetailComponent } from './exams/exam-unit/questions/question-detail/question-detail.component';
-import { ExamDetailComponent } from './exams/exam-detail/exam-detail.component';
-import { ExamReviewComponent } from './exams/exam-review/exam-review.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { ProfileComponent } from './profile/profile.component';
-import { ExamsComponent } from './exams/exams.component';
-import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
-import { ExamListComponent } from './exams/exam-list/exam-list.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
 import { BasicAuthInterceptorService } from './auth/auth-interceptor.service';
-import { RegisterComponent } from './register/register.component';
+import { ExamDetailComponent } from './exams/exam-detail/exam-detail.component';
+import { ExamListComponent } from './exams/exam-list/exam-list.component';
 import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.component';
+import { ExamReviewComponent } from './exams/exam-review/exam-review.component';
+import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
+import { QuestionDetailComponent } from './exams/exam-unit/questions/question-detail/question-detail.component';
+import { QuestionsComponent } from './exams/exam-unit/questions/questions.component';
+import { ExamsComponent } from './exams/exams.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { RegisterComponent } from './register/register.component';
+import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.componen
     ExamListComponent,
     LoginComponent,
     RegisterComponent,
-    ExamRecentsComponent
+    ExamRecentsComponent,
+    AdminComponent,
+    ExamsManageComponent
   ],
   imports: [
     BrowserModule,

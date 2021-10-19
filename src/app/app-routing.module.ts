@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
 import { ExamDetailComponent } from './exams/exam-detail/exam-detail.component';
 import { ExamListComponent } from './exams/exam-list/exam-list.component';
 import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
 
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'manage-exams', component: ExamsManageComponent }
 ];
 
 @NgModule({
