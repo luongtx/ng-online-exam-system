@@ -5,6 +5,8 @@ import { catchError, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from "rxjs";
 import { AppConstants } from "../constants/app.constants";
 import { Profile } from "../profile/profile.model";
+import { User } from "./user.model";
+import { RoleConstants } from "../constants/role.constants";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -17,10 +19,12 @@ export class AuthService {
   }
 
   login(user: LoginRequest) {
-    this.httpClient.post<any>(AppConstants.API_END_POINT + "login", user).pipe(
+    this.httpClient.post<User>(AppConstants.API_END_POINT + "login", user).pipe(
       tap((data) => {
-        localStorage.setItem("auth", data.token);
-        localStorage.setItem("user", user.username);
+        localStorage.setItem(AppConstants.AUTH, data.token);
+        if (data.roles.includes(RoleConstants.ROLE_ADMIN)) {
+          localStorage.setItem(AppConstants.ADMIN, AppConstants.TRUE);
+        }
         this.errorMessage.next("");
         this.isLoggedin.next(true)
       }),
