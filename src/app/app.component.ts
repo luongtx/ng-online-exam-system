@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   loggedInSubcription?: Subscription;
   profile?: Profile;
   profileChangedSubcription?: Subscription;
+  isAdmin = false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loggedInSubcription = this.loginService.isLoggedin.subscribe(
       (value) => {
         this.isLoggedin = value
+        this.isAdmin = this.loginService.checkAdminRole();
         this.profile = new Profile();
         if (this.isLoggedin) {
           this.userService.getCurrentProfile().subscribe(
