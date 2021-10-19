@@ -1,9 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { ExamResult } from "./exam-review/exam-result.model";
-import { Answer } from "./exam-unit/questions/answer.model";
-import { Question } from "./exam-unit/questions/question.model";
+import { Subject } from "rxjs";
+import { Question } from "../exam-unit/questions/question.model";
+import { ExamResult } from "./exam-result.model";
 import { Exam } from "./exam.model";
 
 @Injectable({ providedIn: 'root' })

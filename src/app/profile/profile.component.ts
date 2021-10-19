@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppConstants } from '../constants/app.constants';
-import { UserService } from '../services/user.service';
+import { UserService } from '../auth/user.service';
 import { Profile } from './profile.model';
 
 @Component({
