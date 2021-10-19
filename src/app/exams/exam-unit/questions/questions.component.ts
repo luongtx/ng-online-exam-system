@@ -12,7 +12,7 @@ import { Question } from './question.model';
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   exam!: Exam;
-  questions?: Question[];
+  questions: Question[] = [];
   timer: { min: number, sec: number } = { min: 0, sec: 0 };
   timerSubscription?: Subscription
   timeOutSubcription?: Subscription;
@@ -55,11 +55,11 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         break;
       case "2":
         //fitler unanswered questions
-        this.exam.questions = this.examService.filterUnAnsweredQuestion(this.exam)
+        this.questions = this.examService.filterUnAnsweredQuestion(this.exam.questions)
         break;
       case "3":
         //filter marked for review question
-        this.exam.questions = this.examService.filterMarkForReviews(this.exam);
+        this.questions = this.examService.filterMarkForReviews(this.exam.questions);
         break;
       default:
         break;
@@ -67,7 +67,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.examService.filterUnAnsweredQuestion(this.exam).length) {
+    if (this.examService.filterUnAnsweredQuestion(this.exam.questions).length) {
       if (confirm("Are you sure to submit, there are some questions not answered yet?")) {
         this.submitExam()
       };

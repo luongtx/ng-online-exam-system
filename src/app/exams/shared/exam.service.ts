@@ -30,21 +30,21 @@ export class ExamService {
     return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
   }
 
-  filterUnAnsweredQuestion(exam: Exam): Question[] {
-    const questions = exam.questions.filter(
+  filterUnAnsweredQuestion(questions: Question[]): Question[] {
+    const list = questions.filter(
       question => {
         const answersChecked = question.answers.filter(ans => ans.checked)
         return !answersChecked || !answersChecked.length;
       }
     );
-    return questions ? questions : [];
+    return list ? list : [];
   }
 
-  filterMarkForReviews(exam: Exam): Question[] {
-    const questions = exam.questions.filter(
+  filterMarkForReviews(questions: Question[]): Question[] {
+    const list = questions.filter(
       question => question.markedForReview
     );
-    return questions ? questions : [];
+    return list ? list : [];
   }
 
   clearAllUserProgress(exam: Exam) {
