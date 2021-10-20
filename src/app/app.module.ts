@@ -8,7 +8,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdminComponent } from './admin/admin.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BasicAuthInterceptorService } from './auth/auth-interceptor.service';
@@ -24,6 +23,8 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
+import { ExamDetailManageComponent } from './admin/exam-detail-manage/exam-detail-manage.component';
+import { ExamEditOverallComponent } from './admin/exam-edit-overall/exam-edit-overall.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +40,9 @@ import { ExamsManageComponent } from './admin/exams-manange/exams-manange.compon
     LoginComponent,
     RegisterComponent,
     ExamRecentsComponent,
-    AdminComponent,
-    ExamsManageComponent
+    ExamsManageComponent,
+    ExamDetailManageComponent,
+    ExamEditOverallComponent
   ],
   imports: [
     BrowserModule,

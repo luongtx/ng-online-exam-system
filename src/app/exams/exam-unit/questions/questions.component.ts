@@ -12,7 +12,7 @@ import { Question } from './question.model';
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   exam!: Exam;
-  questions: Question[] = [];
+  questions?: Question[] = [];
   timer: { min: number, sec: number } = { min: 0, sec: 0 };
   timerSubscription?: Subscription
   timeOutSubcription?: Subscription;

@@ -1,0 +1,12 @@
+table {
+  cursor: pointer;
+}
+
+h1 {
+  background-color: lightgray;
+}
+
+img,
+#form-upload {
+  max-width: 200px;
+}
