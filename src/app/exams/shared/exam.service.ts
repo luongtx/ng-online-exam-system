@@ -35,6 +35,14 @@ export class ExamService {
     return this.http.post<Exam>(this.API_END_POINT + "save", exam)
   }
 
+  saveExamQuestions(questions: Question[], examId: number) {
+    return this.http.post(this.API_END_POINT + examId + "/questions/save", questions);
+  }
+
+  saveQuestion(question: Question, examId: number) {
+    return this.http.post(this.API_END_POINT + examId + "/question/save", question);
+  }
+
   deleteExam(id: number): Observable<any> {
     return this.http.delete(this.API_END_POINT + "delete/" + id)
   }
@@ -105,7 +113,7 @@ export class ExamService {
     let listAns: number[][] = [];
     exam.questions?.forEach(
       question => {
-        let ans = question.answers.filter(ans => ans.checked).map(ans => ans.id)
+        let ans = question.answers.filter(ans => ans.checked).map(ans => ans.id!)
         if (!ans) ans = []
         listAns.push(ans)
       }

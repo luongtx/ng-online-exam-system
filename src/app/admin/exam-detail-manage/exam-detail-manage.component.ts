@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Question } from 'src/app/exams/exam-unit/questions/question.model';
 import { Exam } from 'src/app/exams/shared/exam.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
 import { FileUtils } from 'src/app/utils/file.util.service';
@@ -13,6 +14,12 @@ export class ExamDetailManageComponent implements OnInit {
   exam: Exam = new Exam();
   examCopy: Exam = new Exam();
   editable: boolean = false;
+
+  qEditable: boolean = false;
+  questionCopy: Question = {
+    content: "",
+    answers: []
+  };
   constructor(private route: ActivatedRoute, private examService: ExamService) { }
 
   ngOnInit(): void {
@@ -24,7 +31,8 @@ export class ExamDetailManageComponent implements OnInit {
             this.exam = data
             this.examService.getQuestionsByExamId(this.exam.id).subscribe(
               (data) => {
-                this.exam.questions = data;
+                this.exam.questions = data
+                // this.questionCopy = data[0]
               }
             )
           }
@@ -43,8 +51,29 @@ export class ExamDetailManageComponent implements OnInit {
     this.examCopy = { ... this.exam }
   }
 
-  onFormClosed() {
+  onFormExamClosed() {
     this.editable = false
+  }
+
+  onQuestionSaved(event: any) {
+
+  }
+
+  onQuestionClicked(question: Question) {
+    // console.log(question.answers);
+    this.qEditable = true
+    this.questionCopy = { ...question }
+  }
+
+  onQuestionFormClosed() {
+    this.qEditable = false
+  }
+
+  onAddQuestionClicked() {
+    this.qEditable = true
+    this.questionCopy = {
+      answers: [{}]
+    }
   }
 
 }

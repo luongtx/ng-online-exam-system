@@ -1,11 +1,11 @@
 import { Answer } from "./answer.model";
 
 export class Question {
-  public id: number
-  public content: string
+  public id?: number
+  public content?: string
   public answers: Answer[];
-  public multipleOptions: boolean;
-  public markedForReview: boolean;
+  public multipleOptions?: boolean;
+  public markedForReview?: boolean;
 
   constructor(id: number,content: string, answers: Answer[], isMultipleOptions: boolean) {
     this.id = id;

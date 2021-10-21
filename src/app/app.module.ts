@@ -1,6 +1,7 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,6 +26,7 @@ import { RegisterComponent } from './register/register.component';
 import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
 import { ExamDetailManageComponent } from './admin/exam-detail-manage/exam-detail-manage.component';
 import { ExamEditOverallComponent } from './admin/exam-edit-overall/exam-edit-overall.component';
+import { QuestionManageComponent } from './admin/exam-detail-manage/question-manage/question-manage.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { ExamEditOverallComponent } from './admin/exam-edit-overall/exam-edit-ov
     ExamRecentsComponent,
     ExamsManageComponent,
     ExamDetailManageComponent,
-    ExamEditOverallComponent
+    ExamEditOverallComponent,
+    QuestionManageComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,8 @@ import { ExamEditOverallComponent } from './admin/exam-edit-overall/exam-edit-ov
     MatIconModule,
     MatDividerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptorService, multi: true }
