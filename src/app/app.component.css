@@ -43,7 +43,7 @@ mat-sidenav-container {
     font-weight: normal;
 }
 
-.designation {
+.email {
     margin-top: 2px;
     font-size: 0.7rem;
     color: lightgrey;
@@ -53,4 +53,8 @@ mat-divider {
     margin-top: 16px;
     margin-bottom: 16px;
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+.tool-bar-spacer {
+  flex: 1 1 auto;
 }

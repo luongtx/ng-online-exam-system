@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Exam } from '../exam.model';
+import { Exam } from '../shared/exam.model';
 
 @Component({
   selector: 'app-exam-unit',

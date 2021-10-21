@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Exam } from '../../exam.model';
-import { ExamService } from '../../exam.service';
+import { Exam } from '../../shared/exam.model';
+import { ExamService } from '../../shared/exam.service';
+import { Question } from './question.model';
 
 @Component({
   selector: 'app-questions',
@@ -11,6 +12,7 @@ import { ExamService } from '../../exam.service';
 })
 export class QuestionsComponent implements OnInit, OnDestroy {
   exam!: Exam;
+  questions?: Question[] = [];
   timer: { min: number, sec: number } = { min: 0, sec: 0 };
   timerSubscription?: Subscription
   timeOutSubcription?: Subscription;
@@ -25,7 +27,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           (exam) => {
             this.exam = exam;
             this.examService.getQuestionsByExamId(id).subscribe(
-              (questions) => this.exam.questions = questions
+              (questions) => {
+                this.exam.questions = questions
+                this.questions = this.exam.questions;
+              }
             )
             this.examService.startTimerForExam(this.exam.duration);
           }
@@ -46,17 +51,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     switch (value) {
       case "1":
         //all questions
-        this.examService.getQuestionsByExamId(this.exam.id).subscribe(
-          (questions) => this.exam.questions = questions
-        )
+        this.questions = this.exam.questions;
         break;
       case "2":
         //fitler unanswered questions
-        this.exam.questions = this.examService.filterUnAnsweredQuestion(this.exam)
+        this.questions = this.examService.filterUnAnsweredQuestion(this.exam.questions)
         break;
       case "3":
         //filter marked for review question
-        this.exam.questions = this.examService.filterMarkForReviews(this.exam);
+        this.questions = this.examService.filterMarkForReviews(this.exam.questions);
         break;
       default:
         break;
@@ -64,7 +67,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (this.examService.filterUnAnsweredQuestion(this.exam).length) {
+    if (this.examService.filterUnAnsweredQuestion(this.exam.questions).length) {
       if (confirm("Are you sure to submit, there are some questions not answered yet?")) {
         this.submitExam()
       };
@@ -79,7 +82,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   submitExam() {
-    this.examService.submitExam();
+    this.examService.submitExam(this.exam);
     this.router.navigate(['..', 'review'], { relativeTo: this.activatedRoute });
   }
 

@@ -1,7 +1,6 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Answer } from '../answer.model';
 import { Question } from '../question.model';
-import { QuestionService } from '../question.service';
 
 @Component({
   selector: 'app-question-detail',
@@ -10,23 +9,24 @@ import { QuestionService } from '../question.service';
 })
 export class QuestionDetailComponent implements OnInit {
   @Input() question!: Question
-  constructor(private questionService: QuestionService) { }
+  @Input() index!: number;
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   convertToChar(num: number) {
-    return String.fromCharCode(64+num);
+    return String.fromCharCode(64 + num);
   }
 
   markForReview: boolean = false;
   onClickReviewMarker() {
     this.markForReview = !this.markForReview
-    this.questionService.markForReview(this.question, this.markForReview);
+    this.question.markedForReview = this.markForReview;
   }
 
   onCheckEvent(answer: Answer, event: any) {
-    this.questionService.selectAnswer(answer, event.target.checked)
+    answer.checked = event.target.checked;
   }
 
 }

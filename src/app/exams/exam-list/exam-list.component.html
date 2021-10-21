@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="row">
-    <div class="col m-3" *ngFor="let exam of exams">
-      <app-exam-unit [exam]="exam"></app-exam-unit>
-    </div>
+<div class="row">
+  <div class="col m-3" *ngFor="let exam of exams">
+    <app-exam-unit [exam]="exam"></app-exam-unit>
+  </div>
+  <div class="col text-center mt-3" *ngIf="!exams || exams.length==0">
+    <h1>No exams available at the moment</h1>
   </div>
 </div>
-

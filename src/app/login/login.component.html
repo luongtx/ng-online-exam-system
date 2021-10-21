@@ -1,0 +1,35 @@
+<div class="row mt-3 justify-content-center">
+  <div class="col-5">
+    <div class="card">
+      <div class="card-body">
+        <form #formSignIn="ngForm" class="form-signin">
+          <div class="row m-3 justify-content-center">
+            <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+          </div>
+          <div class="form-group">
+            <input id="username" type="text" class="form-control" placeholder="Username" #usernameInput>
+          </div>
+          <div class="form-group">
+            <input id="password" type="text" class="form-control" placeholder="Password" #passwordInput>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="" value="remember-me">
+                Remember me
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-primary btn-block" (click)="login(usernameInput, passwordInput)">Sign
+              in</button>
+          </div>
+          <span class="text-danger">{{errorMessage}}</span>
+        </form>
+        <span class="text-primary text-center">
+          No account? <a style="cursor: pointer;" [routerLink]="['..','register']">Register</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="row m-3 justify-content-center">
+  <div class="col-7">
+    <div class="card">
+      <div class="card-body">
+        <div class="row m-3 justify-content-center">
+          <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        </div>
+        <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="form.username" required minlength="3"
+              maxlength="20" #username="ngModel" />
+            <div class="text-danger" *ngIf="f.submitted && username.invalid">
+              <span *ngIf="username.errors?.required">Username is required</span>
+              <span *ngIf="username.errors?.minlength">Username is at least 3 characters</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
+              minlength="6" #password="ngModel" />
+            <div class="text-danger" *ngIf="f.submitted && password.invalid">
+              <span *ngIf="password.errors?.required">Password is required</span>
+              <span *ngIf="password.errors?.minlength">Password is at least 6 characters</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="repassword">Retype password</label>
+            <input type="password" class="form-control" name="repassword" required minlength="6" #repassword />
+            <div class="text-danger" *ngIf="f.submitted && repassword.value != password.value">
+              <span>Retype password is mismatch</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fullName">Full name</label>
+            <input type="fullName" class="form-control" name="fullName" [(ngModel)]="form.fullName" required
+              #fullName="ngModel" />
+            <div class="text-danger" *ngIf="f.submitted && fullName.invalid">
+              <span *ngIf="fullName.errors?.required">Fullname is required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNo">Phone number</label>
+            <input type="phone" class="form-control" name="phoneNo" [(ngModel)]="form.phoneNo"/>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" email />
+            <div class="text-danger" *ngIf="f.submitted && email.invalid">
+              <span *ngIf="email.errors?.email">Email is invalid</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" name="birthDay" class="form-control" [(ngModel)]="form.birthDay" required
+              pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$" #birthDay="ngModel">
+            <div class="text-danger" *ngIf="f.submitted && birthDay.invalid">
+              <span *ngIf="birthDay.errors?.required">Birth Day is required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="gender"> Gender </label>
+            <select name="gender" class="custom-select" [(ngModel)]="form.gender">
+              <option value="male" selected>Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+          </div>
+          <div class="alert alert-danger" *ngIf="serverErr">
+            {{serverErr}}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

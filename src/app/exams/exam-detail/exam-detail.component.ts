@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Exam } from '../exam.model';
-import { ExamService } from '../exam.service';
-
+import { Exam } from '../shared/exam.model';
+import { ExamService } from '../shared/exam.service';
 @Component({
   selector: 'app-exam-detail',
   templateUrl: './exam-detail.component.html',

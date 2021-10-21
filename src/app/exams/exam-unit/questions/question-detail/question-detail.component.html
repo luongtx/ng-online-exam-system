@@ -1,5 +1,5 @@
-<h1>{{question?.id}}: {{question?.content}}?</h1>
-<div *ngIf="question?.isMultipleOptions">
+<h1>{{index+1}}: {{question?.content}}?</h1>
+<div>
   <div class="form-check shadow" *ngFor="let answer of question?.answers; let i = index">
     <label class="form-check-label">
       <input type="checkbox" class="form-check-input" [checked]="answer.checked" [value]="i"
@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<div *ngIf="!question?.isMultipleOptions">
+<!-- <div *ngIf="!question?.multipleOptions">
   <div class="form-check shadow" *ngFor="let answer of question?.answers; let i = index">
     <label class="form-check-label">
       <input class="form-check-input" type="radio" [id]="'radio'+i" name="radio" [checked]="answer.checked" [value]="i"
@@ -17,6 +17,6 @@
       {{answer.content}}
     </label>
   </div>
-</div>
+</div> -->
 <span class="mt-3 float-right">Mark for review <i (click)="onClickReviewMarker()"
-    [ngClass]="question.isMarkedForReview?'fas fa-star': 'far fa-star'"></i></span>
+    [ngClass]="question.markedForReview?'fas fa-star': 'far fa-star'"></i></span>

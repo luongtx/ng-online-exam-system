@@ -1,31 +1,41 @@
 <mat-toolbar class="mat-elevation-z8">
-  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
-    <mat-icon *ngIf="!sidenav.opened">
-      menu
-    </mat-icon>
-    <mat-icon *ngIf="sidenav.opened">
-      close
-    </mat-icon>
-  </button>
-  <span class="ml-3">Online examination</span>
+  <mat-toolbar-row>
+    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+        menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+        close
+      </mat-icon>
+    </button>
+    <span class="ml-3">Online examination</span>
+    <span class="tool-bar-spacer"></span>
+    <span class="float-right" *ngIf="!isLoggedin" routerLink="/login" style="cursor: pointer;">Login</span>
+    <span class="float-right" *ngIf="isLoggedin" (click)="onClickLogout()" style="cursor: pointer;">Logout</span>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <img class="avatar mat-elevation-z8" src="https://source.unsplash.com/c_GmwfHBDzk/200x200" />
+    <img class="avatar mat-elevation-z8" [src]="profile?.imageSrc" routerLink="/profile" />
 
-    <h4 class="name">John Smith</h4>
-    <p class="designation">Software Engineer</p>
+    <h4 class="name">{{profile?.fullName}}</h4>
+    <p class="email">{{profile?.email}}</p>
 
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" routerLink="/exams">
+    <button mat-button class="menu-button" routerLink="/manage-exams" *ngIf="isAdmin">
+      <i class="fas fa-tasks"></i>
+      <span class="ml-1">Manage Exams</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/exams" *ngIf="!isAdmin">
       <i class="fas fa-home"></i>
       <span class="ml-1">Exams Explorer</span>
     </button>
 
-    <button mat-button class="menu-button" routerLink="/recent-exams">
+    <button mat-button class="menu-button" [routerLink]="['exams', 'recent']" *ngIf="!isAdmin">
       <i class="fas fa-list"></i>
       <span class="ml-1">Recent Exams</span>
     </button>
@@ -44,7 +54,7 @@
 
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="content">
+    <div class="container">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

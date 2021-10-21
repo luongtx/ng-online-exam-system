@@ -1,14 +1,13 @@
-<div class="container">
-  <div class="row mt-3">
-    <div class="col text-center mx-auto">
-      <img [src]='exam?.bannerImage' style="max-width: 250px;" alt="Image is loadding">
-      <h1>{{exam?.title}}</h1>
-      <h3>{{exam?.description}}</h3>
-      <p><b>Duration: {{exam?.duration}} minutes</b></p>
-      <p><b>Passing Score: {{exam?.passingScore}} %</b></p>
-      <p><b>Number of questions: {{exam?.questions?.length}}</b></p>
-    </div>
+<div class="row mt-3">
+  <div class="col text-center mx-auto">
+    <img [src]='exam?.bannerImageSource' style="max-width: 250px;" alt="Image is loadding">
+    <h1>Title: {{exam?.title}}</h1>
+    <h3>Description: {{exam?.description}}</h3>
+    <p><b>Exam code: {{exam?.examCode}}</b></p>
+    <p><b>Duration: {{exam?.duration}} minutes</b></p>
+    <p><b>Passing Score: {{exam?.passingScore}} %</b></p>
+    <p><b>Number of questions: {{exam?.numberOfQuestions}}</b></p>
   </div>
-  <button class="btn btn-secondary float-left" routerLink='..'>Back</button>
-  <button class="btn btn-primary float-right" routerLink='start'>Start</button>
 </div>
+<button class="btn btn-secondary float-left" routerLink='..'>Back</button>
+<button class="btn btn-primary float-right" routerLink='start'>Start</button>
