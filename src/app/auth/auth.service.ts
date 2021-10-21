@@ -51,4 +51,8 @@ export class AuthService {
     localStorage.clear()
     this.isLoggedin.next(false)
   }
+
+  checkAdminRole(): boolean {
+    return localStorage.getItem("admin") ? true : false;
+  }
 }

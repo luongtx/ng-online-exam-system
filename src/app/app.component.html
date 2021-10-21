@@ -10,8 +10,8 @@
     </button>
     <span class="ml-3">Online examination</span>
     <span class="tool-bar-spacer"></span>
-    <a class="float-right" *ngIf="!isLoggedin" routerLink="/login" style="cursor: pointer;">Login</a>
-    <a class="float-right" *ngIf="isLoggedin" (click)="onClickLogout()" style="cursor: pointer;">Logout</a>
+    <span class="float-right" *ngIf="!isLoggedin" routerLink="/login" style="cursor: pointer;">Login</span>
+    <span class="float-right" *ngIf="isLoggedin" (click)="onClickLogout()" style="cursor: pointer;">Logout</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -25,12 +25,17 @@
 
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" routerLink="/exams">
+    <button mat-button class="menu-button" routerLink="/manage-exams" *ngIf="isAdmin">
+      <i class="fas fa-tasks"></i>
+      <span class="ml-1">Manage Exams</span>
+    </button>
+
+    <button mat-button class="menu-button" routerLink="/exams" *ngIf="!isAdmin">
       <i class="fas fa-home"></i>
       <span class="ml-1">Exams Explorer</span>
     </button>
 
-    <button mat-button class="menu-button" [routerLink]="['exams', 'recent']">
+    <button mat-button class="menu-button" [routerLink]="['exams', 'recent']" *ngIf="!isAdmin">
       <i class="fas fa-list"></i>
       <span class="ml-1">Recent Exams</span>
     </button>
@@ -49,7 +54,7 @@
 
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="content">
+    <div class="container">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>

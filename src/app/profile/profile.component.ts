@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../auth/user.service';
+import { FileUtils } from '../utils/file.util.service';
 import { Profile } from './profile.model';
 
 @Component({
@@ -40,16 +41,7 @@ export class ProfileComponent implements OnInit {
 
   async onFileChanged(event: any) {
     let file = event.target.files[0];
-    this.profile.imageSrc = await this.toBase64(file) as string;
-  }
-
-  toBase64(file: File) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = error => reject(error);
-    })
+    this.profile.imageSrc = await FileUtils.toBase64(file) as string;
   }
 
   async onUploadFile(fileInput: HTMLInputElement) {

@@ -1,35 +1,33 @@
-<div class="container">
-  <div class="row mt-3">
+<div class="row mt-3">
+  <div class="col">
+    <div class="timer float-left">
+      <span class="minutes">{{timer.min < 10 ? '0' +timer.min: timer.min}}:</span>
+          <span class="seconds">{{timer.sec < 10 ? '0' +timer.sec : timer.sec }}</span>
+    </div>
+    <select class="custom-select float-right">
+      <option value="1" selected (click)="onChangeFilterOption('1')">All questions</option>
+      <option value="2" (click)="onChangeFilterOption('2')">Not answered</option>
+      <option value="3" (click)="onChangeFilterOption('3')">Mark for review</option>
+    </select>
+  </div>
+</div>
+<div *ngIf="questions?.length">
+  <div class="row border-top m-3 p-3" *ngFor="let question of questions; let i = index">
     <div class="col">
-      <div class="timer float-left">
-        <span class="minutes">{{timer.min < 10 ? '0' +timer.min: timer.min}}:</span>
-            <span class="seconds">{{timer.sec < 10 ? '0' +timer.sec : timer.sec }}</span>
-      </div>
-      <select class="custom-select float-right">
-        <option value="1" selected (click)="onChangeFilterOption('1')">All questions</option>
-        <option value="2" (click)="onChangeFilterOption('2')">Not answered</option>
-        <option value="3" (click)="onChangeFilterOption('3')">Mark for review</option>
-      </select>
+      <app-question-detail [question]="question" [index]="i"></app-question-detail>
     </div>
   </div>
-  <div *ngIf="exam?.questions?.length">
-    <div class="row border-top m-3 p-3" *ngFor="let question of exam?.questions">
-      <div class="col">
-        <app-question-detail [question]="question"></app-question-detail>
-      </div>
+</div>
+<div *ngIf="!questions?.length">
+  <div class="row p-5">
+    <div class="col text-center">
+      <h1>No questions found!</h1>
     </div>
   </div>
-  <div *ngIf="!exam?.questions?.length">
-    <div class="row p-5">
-      <div class="col text-center">
-        <h1>No questions found!</h1>
-      </div>
-    </div>
-  </div>
-  <div class="row p-3">
-    <div class="col">
-      <button class="btn btn-secondary float-left" (click)="onExit()">Exit</button>
-      <button class="btn btn-primary float-right" (click)="onSubmit()">Submit</button>
-    </div>
+</div>
+<div class="row p-3">
+  <div class="col">
+    <button class="btn btn-secondary float-left" (click)="onExit()">Exit</button>
+    <button class="btn btn-primary float-right" (click)="onSubmit()">Submit</button>
   </div>
 </div>

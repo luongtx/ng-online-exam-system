@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Question } from "../exam-unit/questions/question.model";
 import { ExamResult } from "./exam-result.model";
 import { Exam } from "./exam.model";
@@ -13,42 +13,80 @@ export class ExamService {
 
   timer?: Subject<{ min: number, sec: number }> = new Subject();
   timeOut?: Subject<any> = new Subject();
+  examSaved: Subject<Exam> = new Subject();
 
-  getExams() {
+  getExams(): Observable<Exam[]> {
     return this.http.get<Exam[]>(this.API_END_POINT);
   }
 
-  getRecentExams() {
+  getRecentExams(): Observable<ExamResult[]> {
     return this.http.get<ExamResult[]>(this.API_END_POINT + "recent");
   }
 
-  getById(id: number) {
+  getById(id: number): Observable<Exam> {
     return this.http.get<Exam>(this.API_END_POINT + id);
   }
 
-  getQuestionsByExamId(id: number) {
+  getQuestionsByExamId(id?: number): Observable<Question[]> {
     return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
   }
 
-  filterUnAnsweredQuestion(exam: Exam): Question[] {
-    const questions = exam.questions.filter(
+  saveExam(exam: Exam): Observable<any> {
+    return this.http.post<Exam>(this.API_END_POINT + "save", exam)
+  }
+
+  saveExamQuestions(questions: Question[], examId: number) {
+    return this.http.post(this.API_END_POINT + examId + "/questions/save", questions);
+  }
+
+  saveQuestion(question: Question, examId: number) {
+    return this.http.post(this.API_END_POINT + examId + "/question/save", question);
+  }
+
+  deleteExam(id: number): Observable<any> {
+    return this.http.delete(this.API_END_POINT + "delete/" + id)
+  }
+
+  deleteQuestion(id: number): Observable<any> {
+    return this.http.delete(this.API_END_POINT + "question/" + id + "/delete");
+  }
+
+  uploadBanner(file: File, examId?: number): Observable<number> {
+    let formData = new FormData()
+    formData.append('file', file)
+    let reqParams = new HttpParams();
+    if (examId) {
+      reqParams = reqParams.append('id', examId) // set doesn't work so use append
+      console.log(reqParams)
+    }
+    return this.http.post<number>(this.API_END_POINT + "upload", formData, { params: reqParams });
+  }
+
+  onExamSaved(exam: Exam) {
+    this.examSaved.next(exam)
+  }
+
+  filterUnAnsweredQuestion(questions?: Question[]): Question[] {
+    if (!questions) return [];
+    const list = questions.filter(
       question => {
         const answersChecked = question.answers.filter(ans => ans.checked)
         return !answersChecked || !answersChecked.length;
       }
     );
-    return questions ? questions : [];
+    return list ? list : [];
   }
 
-  filterMarkForReviews(exam: Exam): Question[] {
-    const questions = exam.questions.filter(
+  filterMarkForReviews(questions?: Question[]): Question[] {
+    if (!questions) return [];
+    const list = questions.filter(
       question => question.markedForReview
     );
-    return questions ? questions : [];
+    return list ? list : [];
   }
 
   clearAllUserProgress(exam: Exam) {
-    exam.questions.forEach(
+    exam.questions?.forEach(
       (question) => {
         question.markedForReview = false;
         question.answers.forEach(
@@ -77,9 +115,9 @@ export class ExamService {
 
   createRequestForSubmittedAns(exam: Exam): number[][] {
     let listAns: number[][] = [];
-    exam.questions.forEach(
+    exam.questions?.forEach(
       question => {
-        let ans = question.answers.filter(ans => ans.checked).map(ans => ans.id)
+        let ans = question.answers.filter(ans => ans.checked).map(ans => ans.id!)
         if (!ans) ans = []
         listAns.push(ans)
       }
@@ -90,7 +128,8 @@ export class ExamService {
   minInterval: any;
   secInterval: any;
   timeOutInterval: any;
-  startTimerForExam(duration: number) {
+  startTimerForExam(duration?: number) {
+    if (!duration) return
     let minLeft = duration - 1;
     let secondLeft = 59;
     this.timer?.next({ min: minLeft, sec: secondLeft });

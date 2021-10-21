@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ExamUnitManageComponent } from './admin/exam-unit-manage/exam-unit-manage.component';
+import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
+import { AppComponent } from './app.component';
 import { ExamDetailComponent } from './exams/exam-detail/exam-detail.component';
 import { ExamListComponent } from './exams/exam-list/exam-list.component';
 import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.component';
@@ -11,7 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'exams', pathMatch: 'full' },
+  { path: '', component: AppComponent },
   {
     path: 'exams', component: ExamsComponent, children: [
       { path: 'recent', component: ExamRecentsComponent },
@@ -24,7 +27,9 @@ const routes: Routes = [
 
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'manage-exams', component: ExamsManageComponent },
+  { path: 'manage-exams/:id', component: ExamUnitManageComponent }
 ];
 
 @NgModule({
