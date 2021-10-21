@@ -1,0 +1,11 @@
+.del {
+  text-align: center;
+}
+
+.fas {
+  font-size: 20px;
+}
+
+.fas:hover {
+  color: red;
+}

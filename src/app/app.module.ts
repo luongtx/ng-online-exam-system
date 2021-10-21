@@ -24,9 +24,10 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
-import { ExamDetailManageComponent } from './admin/exam-detail-manage/exam-detail-manage.component';
+import { ExamUnitManageComponent } from './admin/exam-unit-manage/exam-unit-manage.component';
 import { ExamEditOverallComponent } from './admin/exam-edit-overall/exam-edit-overall.component';
-import { QuestionManageComponent } from './admin/exam-detail-manage/question-manage/question-manage.component';
+import { QuestionManageComponent } from './admin/exam-unit-manage/question-manage/question-manage.component';
+import { QuestionsManageComponent } from './admin/exam-unit-manage/questions-manage/questions-manage.component';
 
 @NgModule({
   declarations: [
@@ -43,9 +44,10 @@ import { QuestionManageComponent } from './admin/exam-detail-manage/question-man
     RegisterComponent,
     ExamRecentsComponent,
     ExamsManageComponent,
-    ExamDetailManageComponent,
+    ExamUnitManageComponent,
     ExamEditOverallComponent,
-    QuestionManageComponent
+    QuestionManageComponent,
+    QuestionsManageComponent
   ],
   imports: [
     BrowserModule,
