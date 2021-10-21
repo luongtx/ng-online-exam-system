@@ -23,33 +23,49 @@ export class QuestionsManageComponent implements OnInit {
     this.examId = +this.route.snapshot.params['id']
   }
 
-  onQuestionSaved(event: any) {
-
+  onQuestionSaved(question: Question) {
+    console.log(question);
+    this.examService.saveQuestion(question, this.examId).subscribe(
+      () => {
+        this.loadQuestions()
+        this.editable = false
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    )
   }
 
-  onQuestionClicked(question: Question) {
+  loadQuestions() {
+    this.examService.getQuestionsByExamId(this.examId).subscribe(
+      (data) => {
+        this.questions = data
+      }
+    )
+  }
+
+  onEditClicked(question: Question) {
     // console.log(question.answers);
     this.editable = true
     this.questionCopy = { ...question }
   }
 
-  onQuestionFormClosed() {
+  onFormClosed() {
     this.editable = false
   }
 
-  onAddQuestionClicked() {
+  onAddClicked() {
     this.editable = true
     this.questionCopy = {
       answers: [{}]
     }
   }
 
-  onDeleteClicked(index: number) {
+  onDeleteClicked(question: Question) {
     if (confirm("Delete this question?")) {
-      this.questions?.splice(index, 1)
-      this.examService.saveExamQuestions(this.questions!, this.examId).subscribe(
+      this.examService.deleteQuestion(question.id!).subscribe(
         () => {
-          alert("Delete question successfully!")
+          this.loadQuestions()
         },
         (err: HttpErrorResponse) => {
           console.log(err);

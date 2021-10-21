@@ -9,6 +9,7 @@ import { Question } from '../question.model';
 })
 export class QuestionDetailComponent implements OnInit {
   @Input() question!: Question
+  @Input() index!: number;
   constructor() { }
 
   ngOnInit(): void {

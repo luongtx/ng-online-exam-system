@@ -13,7 +13,7 @@ export class QuestionManageComponent implements OnInit, OnChanges {
   @Input() question?: Question;
   @Output() saved = new EventEmitter();
   @Output() closed = new EventEmitter();
-  constructor(private examService: ExamService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.loadForm()
@@ -25,6 +25,7 @@ export class QuestionManageComponent implements OnInit, OnChanges {
       for (let answer of this.question?.answers) {
         formArrayAnswers.push(
           new FormGroup({
+            'id': new FormControl(answer?.id),
             'content': new FormControl(answer.content, Validators.required),
             'correct': new FormControl(answer?.correct)
           })
@@ -32,6 +33,7 @@ export class QuestionManageComponent implements OnInit, OnChanges {
       }
     }
     this.formQuestion = new FormGroup({
+      'id': new FormControl(this.question?.id),
       'content': new FormControl(this.question?.content, Validators.required),
       'answers': formArrayAnswers
     })
