@@ -47,6 +47,10 @@ export class ExamService {
     return this.http.delete(this.API_END_POINT + "delete/" + id)
   }
 
+  deleteQuestion(id: number): Observable<any> {
+    return this.http.delete(this.API_END_POINT + "question/" + id + "/delete");
+  }
+
   uploadBanner(file: File, examId?: number): Observable<number> {
     let formData = new FormData()
     formData.append('file', file)

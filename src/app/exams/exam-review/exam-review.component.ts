@@ -15,47 +15,48 @@ export class ExamReviewComponent implements OnInit {
     this.examResult = history.state;
     if (this.examResult?.examId) {
       console.log(this.examResult);
-      this.animateProgress(this.examResult?.score, this.examResult?.status)
+      this.animateProgress(this.examResult?.score, this.examResult?.status, 10)
     }
     this.examService.examResult.subscribe(
       (result) => {
         this.examResult = result
-        this.animateProgress(this.examResult.score, this.examResult.status)
+        this.animateProgress(this.examResult.score, this.examResult.status, 30)
       }
     )
   }
 
-  animateProgress(progressValue: number, progressStatus: boolean) {
-    const STROKE_DASH_VALUE = 472;
-    const SCORE = "Score: ";
+  animateProgress(progressValue: number, progressStatus: boolean, runningPace: number) {
+    let timeOut = runningPace * progressValue / 1000;
+    const FULL_STROKE_VALUE = 472;
+    const SCORE_LITERAL = "Score: ";
     var animatedCircleStyle = document.createElement('style');
-    var keyFrame =
-      '@keyframes anim {\
-        100% {\
-          stroke-dashoffset: OFFSET;\
-        }\
-      }';
-    animatedCircleStyle.innerHTML = keyFrame.replace(/OFFSET/g, (STROKE_DASH_VALUE - STROKE_DASH_VALUE * progressValue / 100) + '');
-    document.getElementsByTagName('circle')[0].appendChild(animatedCircleStyle);
-
-    let score = document.getElementById("score") as HTMLDivElement;
-    let status = document.getElementById("status") as HTMLDivElement
+    let strokeDashOffset = (FULL_STROKE_VALUE - FULL_STROKE_VALUE * progressValue / 100);
+    animatedCircleStyle.innerHTML = `@keyframes anim {\
+      100% {\
+        stroke-dashoffset: ${strokeDashOffset};\
+      }\
+    }`;
+    const circleElement = document.getElementsByTagName('circle')[0];
+    circleElement.appendChild(animatedCircleStyle);
+    circleElement.style.animation = `anim ${timeOut}s linear forwards`
+    let scoreDiv = document.getElementById("score") as HTMLDivElement;
+    let statusDiv = document.getElementById("status") as HTMLDivElement
     let counter = 0;
-    setInterval(
+    let interval = setInterval(
       () => {
         if (counter >= progressValue) {
-          clearInterval();
+          clearInterval(interval);
           if (progressStatus) {
-            status.innerHTML = "Passed!";
-            status.classList.add("text-success");
+            statusDiv.innerHTML = "Passed!";
+            statusDiv.classList.add("text-success");
           } else {
-            status.innerHTML = "Failed!";
-            status.classList.add("text-danger");
+            statusDiv.innerHTML = "Failed!";
+            statusDiv.classList.add("text-danger");
           }
           return;
         }
         counter++;
-        score.innerHTML = SCORE + counter + "%"
-      }, 20);
+        scoreDiv.innerHTML = SCORE_LITERAL + counter + "%"
+      }, runningPace);
   }
 }

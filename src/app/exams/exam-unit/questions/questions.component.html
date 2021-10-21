@@ -12,9 +12,9 @@
   </div>
 </div>
 <div *ngIf="questions?.length">
-  <div class="row border-top m-3 p-3" *ngFor="let question of questions">
+  <div class="row border-top m-3 p-3" *ngFor="let question of questions; let i = index">
     <div class="col">
-      <app-question-detail [question]="question"></app-question-detail>
+      <app-question-detail [question]="question" [index]="i"></app-question-detail>
     </div>
   </div>
 </div>

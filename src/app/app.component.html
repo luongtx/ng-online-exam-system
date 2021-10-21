@@ -10,8 +10,8 @@
     </button>
     <span class="ml-3">Online examination</span>
     <span class="tool-bar-spacer"></span>
-    <a class="float-right" *ngIf="!isLoggedin" routerLink="/login" style="cursor: pointer;">Login</a>
-    <a class="float-right" *ngIf="isLoggedin" (click)="onClickLogout()" style="cursor: pointer;">Logout</a>
+    <span class="float-right" *ngIf="!isLoggedin" routerLink="/login" style="cursor: pointer;">Login</span>
+    <span class="float-right" *ngIf="isLoggedin" (click)="onClickLogout()" style="cursor: pointer;">Logout</span>
   </mat-toolbar-row>
 </mat-toolbar>
 

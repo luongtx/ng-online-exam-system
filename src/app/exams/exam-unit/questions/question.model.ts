@@ -4,14 +4,14 @@ export class Question {
   public id?: number
   public content?: string
   public answers: Answer[];
-  public multipleOptions?: boolean;
+  // public multipleOptions?: boolean;
   public markedForReview?: boolean;
 
-  constructor(id: number,content: string, answers: Answer[], isMultipleOptions: boolean) {
+  constructor(id: number,content: string, answers: Answer[]) {
     this.id = id;
     this.content = content;
     this.answers = answers;
-    this.multipleOptions = isMultipleOptions;
+    // this.multipleOptions = isMultipleOptions;
     this.markedForReview = false;
   }
 }
