@@ -11,10 +11,9 @@ import { ExamService } from 'src/app/exams/shared/exam.service';
 })
 export class QuestionsManageComponent implements OnInit {
   @Input() questions?: Question[] = []
-  editable: boolean = false
+  editable: boolean = true
   questionCopy: Question = {
-    content: "",
-    answers: []
+    answers: [{}]
   }
   examId!: number;
   constructor(private examService: ExamService, private route: ActivatedRoute) { }
@@ -28,7 +27,6 @@ export class QuestionsManageComponent implements OnInit {
     this.examService.saveQuestion(question, this.examId).subscribe(
       () => {
         this.loadQuestions()
-        this.editable = false
       },
       (error: HttpErrorResponse) => {
         console.log(error);

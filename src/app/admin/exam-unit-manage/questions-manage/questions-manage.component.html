@@ -24,7 +24,7 @@
 </div>
 <app-question-manage *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
   (closed)="onFormClosed()"></app-question-manage>
-<div class="row mt-3">
+<div class="row mt-3" *ngIf="!editable">
   <div class="col">
     <button class="btn btn-outline-info float-right" (click)="onAddClicked()">
       New question
