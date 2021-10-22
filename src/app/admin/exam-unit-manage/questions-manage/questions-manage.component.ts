@@ -14,8 +14,7 @@ export class QuestionsManageComponent implements OnInit {
   questions?: Question[] = []
   editable: boolean = false
   questionCopy: Question = {
-    content: "",
-    answers: []
+    answers: [{}]
   }
   examId!: number;
 
@@ -36,7 +35,6 @@ export class QuestionsManageComponent implements OnInit {
     this.examService.saveQuestion(question, this.examId).subscribe(
       () => {
         this.loadQuestions()
-        this.editable = false
       },
       (error: HttpErrorResponse) => {
         console.log(error);
