@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
-import { ExamService, PageRequest, PageResponse } from 'src/app/exams/shared/exam.service';
-
+import { ExamService } from 'src/app/exams/shared/exam.service';
+import { PageRequest, PageResponse } from "src/app/utils/page.util";
 @Component({
   selector: 'app-questions-manage',
   templateUrl: './questions-manage.component.html',
@@ -23,7 +23,6 @@ export class QuestionsManageComponent implements OnInit {
 
   pageRes: PageResponse = {
     data: [],
-    totalItems: 0,
     totalPages: 0
   }
 
@@ -78,11 +77,12 @@ export class QuestionsManageComponent implements OnInit {
 
   onEntriesPerPageChange(event: any) {
     this.pageReq.size = +event.target.value;
+    this.pageReq.page = 0;//reset to first page
     this.requestPageData()
   }
 
   requestPageData() {
-    this.examService.getQuestionsPaginated(this.examId, this.pageReq.page, this.pageReq.size)
+    this.examService.getQuestionsPaginated(this.examId, this.pageReq)
       .subscribe(
         (data) => {
           this.pageRes = data;

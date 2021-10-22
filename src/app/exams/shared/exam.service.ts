@@ -4,6 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { Question } from "../exam-unit/questions/question.model";
 import { ExamResult } from "./exam-result.model";
 import { Exam } from "./exam.model";
+import { PageRequest, PageResponse } from "src/app/utils/page.util";
 
 @Injectable({ providedIn: 'root' })
 export class ExamService {
@@ -19,11 +20,12 @@ export class ExamService {
   //   return this.http.get<Exam[]>(this.API_END_POINT);
   // }
 
-  getExamsPaginated(page?: number, size?: number): Observable<PageResponse> {
-    if (page == undefined && size == undefined) {
+  getExamsPaginated(pageReq?: PageRequest): Observable<PageResponse> {
+    if (!pageReq) {
       return this.http.get<PageResponse>(this.API_END_POINT);
     }
-    return this.http.get<PageResponse>(this.API_END_POINT + `?page=${page}&size=${size}`);
+    let reqParams = `?page=${pageReq.page}&size=${pageReq.size}`;
+    return this.http.get<PageResponse>(this.API_END_POINT + reqParams);
   }
 
   getRecentExams(): Observable<ExamResult[]> {
@@ -38,11 +40,12 @@ export class ExamService {
   //   return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
   // }
 
-  getQuestionsPaginated(examId: number, page?: number, size?: number): Observable<PageResponse> {
-    if (page == undefined && size == undefined) {
+  getQuestionsPaginated(examId: number, pageReq?: PageRequest): Observable<PageResponse> {
+    if (!pageReq) {
       return this.http.get<PageResponse>(this.API_END_POINT + examId + "/questions");
     }
-    return this.http.get<PageResponse>(this.API_END_POINT + examId + `/questions?page=${page}&size=${size}`)
+    let reqParams = `?page=${pageReq.page}&size=${pageReq.size}`;
+    return this.http.get<PageResponse>(this.API_END_POINT + examId + "/questions" + reqParams);
   }
 
 
@@ -171,16 +174,4 @@ export class ExamService {
     clearInterval(this.minInterval);
     clearInterval(this.secInterval)
   }
-}
-
-export interface PageResponse {
-  data: any[],
-  totalItems: number,
-  totalPages: number
-}
-
-export interface PageRequest {
-  page: number,
-  size: number,
-  pages?: number[]
 }

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ExamService, PageRequest, PageResponse } from 'src/app/exams/shared/exam.service';
+import { ExamService } from 'src/app/exams/shared/exam.service';
+import { PageRequest, PageResponse } from "src/app/utils/page.util";
 
 @Component({
   selector: 'app-exams-manange',
@@ -18,7 +19,6 @@ export class ExamsManageComponent implements OnInit {
 
   pageRes: PageResponse = {
     data: [],
-    totalItems: 0,
     totalPages: 0
   }
 
@@ -44,7 +44,7 @@ export class ExamsManageComponent implements OnInit {
   }
 
   requestPageData() {
-    this.examService.getExamsPaginated(this.pageReq.page, this.pageReq.size)
+    this.examService.getExamsPaginated(this.pageReq)
       .subscribe(
         (data) => {
           this.pageRes = data;
