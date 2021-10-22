@@ -1,8 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Exam } from 'src/app/exams/shared/exam.model';
-import { ExamService } from 'src/app/exams/shared/exam.service';
-import { Page } from 'src/app/shared/page.model';
+import { ExamService, PageRequest, PageResponse } from 'src/app/exams/shared/exam.service';
 
 @Component({
   selector: 'app-exams-manange',
@@ -10,30 +8,24 @@ import { Page } from 'src/app/shared/page.model';
   styleUrls: ['./exams-manange.component.css']
 })
 export class ExamsManageComponent implements OnInit {
-  exams: Exam[] = [];
   isNew: boolean = false;
   constructor(private examService: ExamService) { }
 
-  page: Page = {
+  pageReq: PageRequest = {
     page: 0,
     size: 5
   }
 
-  ngOnInit(): void {
-    this.loadData()
-    this.examService.examSaved.subscribe(
-      () => this.loadData()
-    )
+  pageRes: PageResponse = {
+    data: [],
+    totalItems: 0,
+    totalPages: 0
   }
 
-  loadData() {
-    this.examService.getExamsPaginated(this.page.page, this.page.size).subscribe(
-      (data) => {
-        this.exams = data.data;
-        this.page.totalItem = data.totalItems;
-        this.page.totalPages = data.totalPages;
-        this.page.pages = [...Array(data.totalPages).keys()];
-      }
+  ngOnInit(): void {
+    this.requestPageData()
+    this.examService.examSaved.subscribe(
+      () => this.requestPageData()
     )
   }
 
@@ -42,7 +34,7 @@ export class ExamsManageComponent implements OnInit {
       this.examService.deleteExam(id).subscribe(
         () => {
           alert("Delete exam successfully!")
-          this.loadData()
+          this.requestPageData()
         },
         (err: HttpErrorResponse) => {
           console.log(err);
@@ -51,33 +43,34 @@ export class ExamsManageComponent implements OnInit {
     }
   }
 
-  requestDataOnPage(pageNum: number) {
-    this.examService.getExamsPaginated(this.page.page, this.page.size)
+  requestPageData() {
+    this.examService.getExamsPaginated(this.pageReq.page, this.pageReq.size)
       .subscribe(
         (data) => {
-          this.exams = data.data
+          this.pageRes = data;
+          this.pageReq.pages = [...Array(data.totalPages).keys()]
         }
       )
   }
 
   //Pagination
   onPreviousPage() {
-    if (this.page.page > 0) {
-      this.page.page--
-      this.requestDataOnPage(this.page.page)
+    if (this.pageReq.page > 0) {
+      this.pageReq.page--
+      this.requestPageData()
     }
   }
 
   onNextPage() {
-    if (this.page.page < this.page.totalPages! - 1) {
-      this.page.page++
-      this.requestDataOnPage(this.page.page)
+    if (this.pageReq.page < this.pageRes!.totalPages - 1) {
+      this.pageReq.page++
+      this.requestPageData()
     }
   }
 
   onSpecifiedPage(pageIndex: number) {
-    this.page.page = pageIndex;
-    this.requestDataOnPage(this.page.page)
+    this.pageReq.page = pageIndex;
+    this.requestPageData()
   }
 
 }

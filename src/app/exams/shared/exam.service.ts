@@ -178,3 +178,9 @@ export interface PageResponse {
   totalItems: number,
   totalPages: number
 }
+
+export interface PageRequest {
+  page: number,
+  size: number,
+  pages?: number[]
+}

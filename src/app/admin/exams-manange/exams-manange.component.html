@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let exam of exams">
+      <tr *ngFor="let exam of pageRes?.data">
         <th scope="row">{{exam.id}}</th>
         <td>{{exam.examCode}}</td>
         <td>{{exam.title}}</td>
@@ -30,13 +30,13 @@
   <div class="col">
     <nav aria-label="Page navigation" style="cursor: pointer;">
       <ul class="pagination justify-content-end">
-        <li class="page-item" [ngClass]="{'disabled': page.page <= 0}"><a class="page-link"
+        <li class="page-item" [ngClass]="{'disabled': pageReq.page <= 0}"><a class="page-link"
             (click)="onPreviousPage()">Previous</a>
         </li>
-        <li class="page-item" *ngFor="let pageNum of page.pages" [ngClass]="{'active': pageNum == page.page}"><a
+        <li class="page-item" *ngFor="let pageNum of pageReq.pages" [ngClass]="{'active': pageNum == pageReq.page}"><a
             (click)="onSpecifiedPage(pageNum)" class="page-link">{{pageNum+1}}</a>
         </li>
-        <li class="page-item" [ngClass]="{'disabled': page.page >= page.totalPages! - 1}"><a class="page-link"
+        <li class="page-item" [ngClass]="{'disabled': pageReq.page >= pageRes.totalPages - 1}"><a class="page-link"
             (click)="onNextPage()">Next</a>
         </li>
       </ul>
