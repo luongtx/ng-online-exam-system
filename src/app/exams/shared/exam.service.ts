@@ -27,9 +27,14 @@ export class ExamService {
     return this.http.get<Exam>(this.API_END_POINT + id);
   }
 
-  getQuestionsByExamId(id?: number): Observable<Question[]> {
-    return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
+  // getQuestions(id?: number): Observable<Question[]> {
+  //   return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
+  // }
+
+  getQuestionsPaginated(examId: number, page?: number, size?: number): Observable<GetResponseQuestions> {
+    return this.http.get<GetResponseQuestions>(this.API_END_POINT + examId + `/questions?page=${page}&size=${size}`)
   }
+
 
   saveExam(exam: Exam): Observable<any> {
     return this.http.post<Exam>(this.API_END_POINT + "save", exam)
@@ -156,4 +161,10 @@ export class ExamService {
     clearInterval(this.minInterval);
     clearInterval(this.secInterval)
   }
+}
+
+export interface GetResponseQuestions {
+  questions: Question[],
+  totalItems: number,
+  totalPages: number
 }

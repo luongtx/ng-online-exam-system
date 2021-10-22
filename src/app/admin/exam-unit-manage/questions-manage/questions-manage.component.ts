@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
-import { ExamService } from 'src/app/exams/shared/exam.service';
+import { ExamService, GetResponseQuestions } from 'src/app/exams/shared/exam.service';
+import { Page } from 'src/app/shared/page.model';
 
 @Component({
   selector: 'app-questions-manage',
@@ -10,17 +11,24 @@ import { ExamService } from 'src/app/exams/shared/exam.service';
   styleUrls: ['./questions-manage.component.css']
 })
 export class QuestionsManageComponent implements OnInit {
-  @Input() questions?: Question[] = []
+  questions?: Question[] = []
   editable: boolean = false
   questionCopy: Question = {
     content: "",
     answers: []
   }
   examId!: number;
+
+  page: Page = {
+    page: 0,
+    size: 5
+  }
+
   constructor(private examService: ExamService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.examId = +this.route.snapshot.params['id']
+    this.loadQuestions()
   }
 
   onQuestionSaved(question: Question) {
@@ -37,11 +45,16 @@ export class QuestionsManageComponent implements OnInit {
   }
 
   loadQuestions() {
-    this.examService.getQuestionsByExamId(this.examId).subscribe(
-      (data) => {
-        this.questions = data
-      }
-    )
+    this.examService.getQuestionsPaginated(this.examId, this.page.page, this.page.size)
+      .subscribe(
+        (data: GetResponseQuestions) => {
+          // console.log(data);
+          this.questions = data.questions
+          this.page.totalItem = data.totalItems
+          this.page.totalPages = data.totalPages;
+          this.page.pages = [...Array(data.totalPages).keys()]
+        }
+      )
   }
 
   onEditClicked(question: Question) {
@@ -72,6 +85,40 @@ export class QuestionsManageComponent implements OnInit {
         }
       )
     }
+  }
+
+  onEntriesPerPageChange(event: any) {
+    this.page.size = +event.target.value;
+    this.loadQuestions()
+  }
+
+  requestDataOnPage(pageNum: number) {
+    this.examService.getQuestionsPaginated(this.examId, pageNum, this.page.size)
+      .subscribe(
+        (data: GetResponseQuestions) => {
+          this.questions = data.questions
+        }
+      )
+  }
+
+  //Pagination
+  onPreviousPage() {
+    if (this.page.page > 0) {
+      this.page.page--
+      this.requestDataOnPage(this.page.page)
+    }
+  }
+
+  onNextPage() {
+    if (this.page.page < this.page.totalPages! - 1) {
+      this.page.page++
+      this.requestDataOnPage(this.page.page)
+    }
+  }
+
+  onSpecifiedPage(pageIndex: number) {
+    this.page.page = pageIndex;
+    this.requestDataOnPage(this.page.page)
   }
 
 }

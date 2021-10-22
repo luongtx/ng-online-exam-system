@@ -26,9 +26,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         this.examService.getById(id).subscribe(
           (exam) => {
             this.exam = exam;
-            this.examService.getQuestionsByExamId(id).subscribe(
-              (questions) => {
-                this.exam.questions = questions
+            this.examService.getQuestionsPaginated(id).subscribe(
+              (data) => {
+                this.exam.questions = data.questions;
                 this.questions = this.exam.questions;
               }
             )

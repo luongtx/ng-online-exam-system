@@ -22,12 +22,6 @@ export class ExamUnitManageComponent implements OnInit {
         this.examService.getById(id).subscribe(
           (data) => {
             this.exam = data
-            this.examService.getQuestionsByExamId(this.exam.id).subscribe(
-              (data) => {
-                this.exam.questions = data
-                // this.questionCopy = data[0]
-              }
-            )
           }
         )
       }

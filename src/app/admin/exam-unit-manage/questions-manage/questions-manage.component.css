@@ -9,3 +9,18 @@
 .fas:hover {
   color: red;
 }
+
+.page-link {
+  color: #262e3f;
+}
+
+.page-item.active .page-link {
+  background-color: #262e3f;
+  border-color: #262e3f;
+}
+
+select {
+  width: fit-content;
+  background: lightgray;
+  border: none;
+}
