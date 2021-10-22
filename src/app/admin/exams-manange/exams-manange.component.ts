@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Exam } from 'src/app/exams/shared/exam.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
+import { Page } from 'src/app/shared/page.model';
 
 @Component({
   selector: 'app-exams-manange',
@@ -13,6 +14,11 @@ export class ExamsManageComponent implements OnInit {
   isNew: boolean = false;
   constructor(private examService: ExamService) { }
 
+  page: Page = {
+    page: 0,
+    size: 5
+  }
+
   ngOnInit(): void {
     this.loadData()
     this.examService.examSaved.subscribe(
@@ -21,9 +27,12 @@ export class ExamsManageComponent implements OnInit {
   }
 
   loadData() {
-    this.examService.getExams().subscribe(
+    this.examService.getExamsPaginated(this.page.page, this.page.size).subscribe(
       (data) => {
-        this.exams = data;
+        this.exams = data.data;
+        this.page.totalItem = data.totalItems;
+        this.page.totalPages = data.totalPages;
+        this.page.pages = [...Array(data.totalPages).keys()];
       }
     )
   }
@@ -40,6 +49,35 @@ export class ExamsManageComponent implements OnInit {
         }
       )
     }
+  }
+
+  requestDataOnPage(pageNum: number) {
+    this.examService.getExamsPaginated(this.page.page, this.page.size)
+      .subscribe(
+        (data) => {
+          this.exams = data.data
+        }
+      )
+  }
+
+  //Pagination
+  onPreviousPage() {
+    if (this.page.page > 0) {
+      this.page.page--
+      this.requestDataOnPage(this.page.page)
+    }
+  }
+
+  onNextPage() {
+    if (this.page.page < this.page.totalPages! - 1) {
+      this.page.page++
+      this.requestDataOnPage(this.page.page)
+    }
+  }
+
+  onSpecifiedPage(pageIndex: number) {
+    this.page.page = pageIndex;
+    this.requestDataOnPage(this.page.page)
   }
 
 }

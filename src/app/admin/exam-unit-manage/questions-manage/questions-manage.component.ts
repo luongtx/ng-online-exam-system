@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
-import { ExamService, GetResponseQuestions } from 'src/app/exams/shared/exam.service';
+import { ExamService, PageResponse } from 'src/app/exams/shared/exam.service';
 import { Page } from 'src/app/shared/page.model';
 
 @Component({
@@ -47,9 +47,9 @@ export class QuestionsManageComponent implements OnInit {
   loadQuestions() {
     this.examService.getQuestionsPaginated(this.examId, this.page.page, this.page.size)
       .subscribe(
-        (data: GetResponseQuestions) => {
+        (data: PageResponse) => {
           // console.log(data);
-          this.questions = data.questions
+          this.questions = data.data
           this.page.totalItem = data.totalItems
           this.page.totalPages = data.totalPages;
           this.page.pages = [...Array(data.totalPages).keys()]
@@ -95,8 +95,8 @@ export class QuestionsManageComponent implements OnInit {
   requestDataOnPage(pageNum: number) {
     this.examService.getQuestionsPaginated(this.examId, pageNum, this.page.size)
       .subscribe(
-        (data: GetResponseQuestions) => {
-          this.questions = data.questions
+        (data: PageResponse) => {
+          this.questions = data.data
         }
       )
   }

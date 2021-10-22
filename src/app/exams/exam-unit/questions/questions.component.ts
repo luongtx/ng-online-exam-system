@@ -28,7 +28,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             this.exam = exam;
             this.examService.getQuestionsPaginated(id).subscribe(
               (data) => {
-                this.exam.questions = data.questions;
+                this.exam.questions = data.data;
                 this.questions = this.exam.questions;
               }
             )

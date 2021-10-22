@@ -26,6 +26,23 @@
     </tbody>
   </table>
 </div>
+<div class="row">
+  <div class="col">
+    <nav aria-label="Page navigation" style="cursor: pointer;">
+      <ul class="pagination justify-content-end">
+        <li class="page-item" [ngClass]="{'disabled': page.page <= 0}"><a class="page-link"
+            (click)="onPreviousPage()">Previous</a>
+        </li>
+        <li class="page-item" *ngFor="let pageNum of page.pages" [ngClass]="{'active': pageNum == page.page}"><a
+            (click)="onSpecifiedPage(pageNum)" class="page-link">{{pageNum+1}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{'disabled': page.page >= page.totalPages! - 1}"><a class="page-link"
+            (click)="onNextPage()">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
 <div class="row d-flex justify-content-end">
   <button class="btn btn-outline-info" (click)="isNew = true">
     New Exam

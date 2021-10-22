@@ -15,8 +15,15 @@ export class ExamService {
   timeOut?: Subject<any> = new Subject();
   examSaved: Subject<Exam> = new Subject();
 
-  getExams(): Observable<Exam[]> {
-    return this.http.get<Exam[]>(this.API_END_POINT);
+  // getExams(): Observable<Exam[]> {
+  //   return this.http.get<Exam[]>(this.API_END_POINT);
+  // }
+
+  getExamsPaginated(page?: number, size?: number): Observable<PageResponse> {
+    if (page == undefined && size == undefined) {
+      return this.http.get<PageResponse>(this.API_END_POINT);
+    }
+    return this.http.get<PageResponse>(this.API_END_POINT + `?page=${page}&size=${size}`);
   }
 
   getRecentExams(): Observable<ExamResult[]> {
@@ -31,8 +38,11 @@ export class ExamService {
   //   return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
   // }
 
-  getQuestionsPaginated(examId: number, page?: number, size?: number): Observable<GetResponseQuestions> {
-    return this.http.get<GetResponseQuestions>(this.API_END_POINT + examId + `/questions?page=${page}&size=${size}`)
+  getQuestionsPaginated(examId: number, page?: number, size?: number): Observable<PageResponse> {
+    if (page == undefined && size == undefined) {
+      return this.http.get<PageResponse>(this.API_END_POINT + examId + "/questions");
+    }
+    return this.http.get<PageResponse>(this.API_END_POINT + examId + `/questions?page=${page}&size=${size}`)
   }
 
 
@@ -163,8 +173,8 @@ export class ExamService {
   }
 }
 
-export interface GetResponseQuestions {
-  questions: Question[],
+export interface PageResponse {
+  data: any[],
   totalItems: number,
   totalPages: number
 }
