@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Exam } from 'src/app/exams/shared/exam.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
 
@@ -9,7 +10,7 @@ import { PageRequest, PageResponse } from "src/app/utils/page.util";
   styleUrls: ['./exams-manange.component.css']
 })
 export class ExamsManageComponent implements OnInit {
-  isNew: boolean = false;
+  editable: boolean = false;
   constructor(private examService: ExamService) { }
 
   pageReq: PageRequest = {
@@ -29,11 +30,10 @@ export class ExamsManageComponent implements OnInit {
     )
   }
 
-  onDeleteExam(id: number) {
+  onClickDelete(id: number) {
     if (confirm("Are you sure to delete this exam")) {
       this.examService.deleteExam(id).subscribe(
         () => {
-          alert("Delete exam successfully!")
           this.requestPageData()
         },
         (err: HttpErrorResponse) => {
@@ -41,6 +41,17 @@ export class ExamsManageComponent implements OnInit {
         }
       )
     }
+  }
+
+  examCopy: Exam = {}
+  onClickEdit(exam: Exam) {
+    this.examCopy = { ...exam };
+    this.editable = true;
+  }
+
+  onClickNew() {
+    this.examCopy = {};
+    this.editable = true;
   }
 
   requestPageData() {
@@ -51,6 +62,12 @@ export class ExamsManageComponent implements OnInit {
           this.pageReq.pages = [...Array(data.totalPages).keys()]
         }
       )
+  }
+
+  onEntriesPerPageChange(event: any) {
+    this.pageReq.size = event.target.value;
+    this.pageReq.page = 0;
+    this.requestPageData();
   }
 
   //Pagination

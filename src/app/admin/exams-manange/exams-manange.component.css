@@ -14,5 +14,12 @@ table {
 select {
   width: fit-content;
   background: lightgray;
-  border: none;
+}
+
+.fas {
+  font-size: 20px;
+}
+
+.fas:hover {
+  color: red;
 }

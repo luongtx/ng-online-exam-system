@@ -18,10 +18,12 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <img class="avatar mat-elevation-z8" [src]="profile?.imageSrc" routerLink="/profile" />
+    <div class="user-info" *ngIf="isLoggedin">
+      <img class="avatar mat-elevation-z8" [src]="profile?.imageSrc" routerLink="/profile" />
 
-    <h4 class="name">{{profile?.fullName}}</h4>
-    <p class="email">{{profile?.email}}</p>
+      <h4 class="name">{{profile?.fullName}}</h4>
+      <p class="email">{{profile?.email}}</p>
+    </div>
 
     <mat-divider></mat-divider>
 
@@ -32,17 +34,17 @@
 
     <button mat-button class="menu-button" routerLink="/exams" *ngIf="!isAdmin">
       <i class="fas fa-home"></i>
-      <span class="ml-1">Exams Explorer</span>
+      <span class="ml-1">All Exams</span>
     </button>
 
-    <button mat-button class="menu-button" [routerLink]="['exams', 'recent']" *ngIf="!isAdmin">
+    <button mat-button class="menu-button" [routerLink]="['exams', 'recent']" *ngIf="!isAdmin && isLoggedin">
       <i class="fas fa-list"></i>
       <span class="ml-1">Recent Exams</span>
     </button>
 
-    <button mat-button class="menu-button" routerLink="/profile">
+    <button mat-button class="menu-button" routerLink="/profile" *ngIf="isLoggedin">
       <i class="fas fa-user"></i>
-      <span class="ml-1">Profile</span>
+      <span class="ml-1">Manage Profile</span>
     </button>
 
     <mat-divider></mat-divider>
