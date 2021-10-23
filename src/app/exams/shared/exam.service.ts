@@ -151,16 +151,16 @@ export class ExamService {
     let minLeft = duration - 1;
     let secondLeft = 59;
     this.timer?.next({ min: minLeft, sec: secondLeft });
-    this.secInterval = setInterval(
-      () => {
-        this.timer?.next({ min: minLeft, sec: --secondLeft })
-      }, 1000
-    )
     this.minInterval = setInterval(
       () => {
         secondLeft = 59;
         this.timer?.next({ min: --minLeft, sec: secondLeft })
-      }, 60 * 1000 - 1
+      }, 60 * 1000
+    )
+    this.secInterval = setInterval(
+      () => {
+        this.timer?.next({ min: minLeft, sec: --secondLeft })
+      }, 1000
     )
     this.timeOutInterval = setInterval(
       () => {

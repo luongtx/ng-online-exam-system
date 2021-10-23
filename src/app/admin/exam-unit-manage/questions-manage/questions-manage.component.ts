@@ -37,7 +37,8 @@ export class QuestionsManageComponent implements OnInit {
     console.log(question);
     this.examService.saveQuestion(question, this.examId).subscribe(
       () => {
-        this.requestPageData()
+        this.requestPageData();
+        this.editable = false;
       },
       (error: HttpErrorResponse) => {
         console.log(error);

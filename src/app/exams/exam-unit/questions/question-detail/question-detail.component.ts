@@ -15,10 +15,6 @@ export class QuestionDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  convertToChar(num: number) {
-    return String.fromCharCode(64 + num);
-  }
-
   markForReview: boolean = false;
   onClickReviewMarker() {
     this.markForReview = !this.markForReview

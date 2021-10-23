@@ -13,6 +13,7 @@ import { Question } from './question.model';
 export class QuestionsComponent implements OnInit, OnDestroy {
   exam!: Exam;
   questions?: Question[] = [];
+  filteredQuestions?: Question[];
   timer: { min: number, sec: number } = { min: 0, sec: 0 };
   timerSubscription?: Subscription
   timeOutSubcription?: Subscription;
@@ -20,6 +21,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     private router: Router) { }
 
   ngOnInit(): void {
+    console.log("onInit");
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         const id = +params['id'];
@@ -30,6 +32,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
               (data) => {
                 this.exam.questions = data.data;
                 this.questions = this.exam.questions;
+                this.filteredQuestions = this.questions;
+                this.page.totalPages = Math.ceil(this.questions.length / this.page.size);
+                this.fetchPageData();
               }
             )
             this.examService.startTimerForExam(this.exam.duration);
@@ -51,15 +56,18 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     switch (value) {
       case "1":
         //all questions
-        this.questions = this.exam.questions;
+        this.filteredQuestions = this.exam.questions;
+        this.updatePageAfterFilterApplied();
         break;
       case "2":
         //fitler unanswered questions
-        this.questions = this.examService.filterUnAnsweredQuestion(this.exam.questions)
+        this.filteredQuestions = this.examService.filterUnAnsweredQuestion(this.exam.questions)
+        this.updatePageAfterFilterApplied();
         break;
       case "3":
         //filter marked for review question
-        this.questions = this.examService.filterMarkForReviews(this.exam.questions);
+        this.filteredQuestions = this.examService.filterMarkForReviews(this.exam.questions);
+        this.updatePageAfterFilterApplied();
         break;
       default:
         break;
@@ -91,5 +99,37 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.examService.exitExam(this.exam);
       this.router.navigate(['/exams'])
     };
+  }
+
+  page = {
+    page: 0,
+    size: 3,
+    totalPages: 0
+  }
+
+  fetchPageData() {
+    let startIndex = this.page.page * this.page.size;
+    let tailIndex = startIndex + this.page.size;
+    this.questions = this.filteredQuestions?.slice(startIndex, tailIndex);
+  }
+
+  previousPage() {
+    if (this.page.page > 0) {
+      this.page.page--;
+      this.fetchPageData();
+    }
+  }
+
+  nextPage() {
+    if (this.page.page < this.page.totalPages - 1) {
+      this.page.page++;
+      this.fetchPageData();
+    }
+  }
+
+  updatePageAfterFilterApplied() {
+    this.page.page = 0;
+    this.page.totalPages = Math.ceil(this.filteredQuestions!.length / this.page.size);
+    this.fetchPageData();
   }
 }

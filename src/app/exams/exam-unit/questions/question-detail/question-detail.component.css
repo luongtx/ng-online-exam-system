@@ -1,4 +1,20 @@
 .form-check {
-  margin: 10px;
-  padding: 5px;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.fa-star {
+  font-size: 20px;
+}
+
+.fas.fa-star {
+  color: yellow;
+}
+
+p, div {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.selected {
+  background-color: darkgray;
 }

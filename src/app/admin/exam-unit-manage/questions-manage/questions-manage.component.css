@@ -23,3 +23,7 @@ select {
   width: fit-content;
   background: lightgray;
 }
+
+tbody {
+  background-color: white;
+}

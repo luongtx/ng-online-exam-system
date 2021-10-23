@@ -23,3 +23,7 @@ select {
 .fas:hover {
   color: red;
 }
+
+tbody {
+  background-color: white;
+}
