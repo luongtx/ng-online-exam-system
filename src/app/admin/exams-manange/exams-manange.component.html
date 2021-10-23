@@ -31,8 +31,8 @@
         <td>{{exam.description}}</td>
         <td>{{exam.duration}}</td>
         <td>{{exam.passingScore}}</td>
-        <td (click)="onClickDelete(exam.id!);$event.stopPropagation()"><i class="fas fa-trash"></i></td>
-        <td (click)="onClickEdit(exam);$event.stopPropagation()"><i class="fas fa-edit"></i></td>
+        <td (click)="onClickDelete(exam.id!);$event.stopPropagation()" title=""><i class="fas fa-trash"></i></td>
+        <td (click)="onClickEdit(exam);$event.stopPropagation()" title=""><i class="fas fa-edit"></i></td>
       </tr>
     </tbody>
   </table>
