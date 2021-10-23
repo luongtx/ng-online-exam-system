@@ -90,4 +90,10 @@ export class ExamsManageComponent implements OnInit {
     this.requestPageData()
   }
 
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key == "Enter") {
+      this.requestPageData();
+    }
+  }
+
 }

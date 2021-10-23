@@ -7,5 +7,6 @@ export interface PageResponse {
 export interface PageRequest {
   page: number,
   size: number,
-  pages?: number[]
+  pages?: number[],
+  search?: string
 }
