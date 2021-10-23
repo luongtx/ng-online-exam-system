@@ -8,10 +8,12 @@
         close
       </mat-icon>
     </button>
-    <span class="ml-3">Online examination</span>
+    <span class="ml-3"><i class="fas fa-certificate"></i> Online examination</span>
     <span class="tool-bar-spacer"></span>
-    <span class="float-right" *ngIf="!isLoggedin" routerLink="/login" style="cursor: pointer;">Login</span>
-    <span class="float-right" *ngIf="isLoggedin" (click)="onClickLogout()" style="cursor: pointer;">Logout</span>
+    <span class="float-right auth-switch" *ngIf="!isLoggedin" routerLink="/login" style="cursor: pointer;">Login
+      <i class="fas fa-sign-in-alt"></i></span>
+    <span class="float-right auth-switch" *ngIf="isLoggedin" (click)="onClickLogout()" style="cursor: pointer;">Logout
+      <i class="fas fa-sign-out-alt"></i></span>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -43,7 +45,7 @@
     </button>
 
     <button mat-button class="menu-button" routerLink="/profile" *ngIf="isLoggedin">
-      <i class="fas fa-user"></i>
+      <i class="far fa-address-card"></i>
       <span class="ml-1">Manage Profile</span>
     </button>
 

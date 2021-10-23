@@ -1,3 +1,6 @@
+<div class="row mt-3 justify-content-center">
+  <h1 style="font-weight: bold;">{{exam.title}}</h1>
+</div>
 <div class="row mt-3">
   <div class="col">
     <div class="timer float-left">
@@ -12,7 +15,7 @@
   </div>
 </div>
 <div *ngIf="questions?.length">
-  <div class="row border-top m-3 p-3" *ngFor="let question of questions; let i = index">
+  <div class="row border-top mt-3" *ngFor="let question of questions; let i = index">
     <div class="col">
       <app-question-detail [question]="question" [index]="i"></app-question-detail>
     </div>
@@ -25,7 +28,7 @@
     </div>
   </div>
 </div>
-<div class="row p-3">
+<div class="row mt-3">
   <div class="col">
     <button class="btn btn-secondary float-left" (click)="onExit()">Exit</button>
     <button class="btn btn-primary float-right" (click)="onSubmit()">Submit</button>

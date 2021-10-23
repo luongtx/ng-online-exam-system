@@ -1,30 +1,31 @@
 mat-toolbar {
-  background:  #17202a ;
-  color: white;
+  background: #17202a;
+  color: lightgray;
 }
 
 mat-sidenav {
-    margin: 16px;
-    width: 200px;
-    border-right: none;
-    background:  #17202a ;
-    color: white;
-    border-radius: 10px;
-    padding: 16px;
-    text-align: center;
+  margin: 16px;
+  width: 200px;
+  border-right: none;
+  background: #17202a;
+  color: lightgray;
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
 }
 
 mat-sidenav-container {
-    height: calc(100vh - 65px);
+  height: calc(100vh - 65px);
+  background-color: lightgray;
 }
 
 .menu-button {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    font-size: 1rem;
-    margin-top: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1rem;
+  margin-top: 10px;
 }
 
 .menu-button > mat-icon {
@@ -32,29 +33,33 @@ mat-sidenav-container {
 }
 
 .avatar {
-    margin-top: 16px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+  margin-top: 16px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
 
 .name {
-    margin-top: 8px;
-    font-weight: normal;
+  margin-top: 8px;
+  font-weight: normal;
 }
 
 .email {
-    margin-top: 2px;
-    font-size: 0.7rem;
-    color: lightgrey;
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: lightgrey;
 }
 
 mat-divider {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .tool-bar-spacer {
   flex: 1 1 auto;
+}
+
+.auth-switch:hover {
+  color: darkblue;
 }
