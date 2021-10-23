@@ -10,6 +10,7 @@ import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.componen
 import { ExamReviewComponent } from './exams/exam-review/exam-review.component';
 import { QuestionsComponent } from './exams/exam-unit/questions/questions.component';
 import { ExamsComponent } from './exams/exams.component';
+import { CanDeactivateGuard } from './exams/shared/can-deactivate-guard.service';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
@@ -21,7 +22,7 @@ const routes: Routes = [
       { path: 'recent', component: ExamRecentsComponent },
       { path: '', component: ExamListComponent },
       { path: ':id', component: ExamDetailComponent },
-      { path: ':id/start', component: QuestionsComponent, canActivate: [AuthGuard] },
+      { path: ':id/start', component: QuestionsComponent, canActivate: [AuthGuard], canDeactivate: [CanDeactivateGuard] },
       { path: ':id/review', component: ExamReviewComponent },
     ]
   },

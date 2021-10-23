@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { CanDeactivateComponent } from '../../shared/can-deactivate-guard.service';
 import { Exam } from '../../shared/exam.model';
 import { ExamService } from '../../shared/exam.service';
 import { Question } from './question.model';
@@ -10,7 +11,7 @@ import { Question } from './question.model';
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css']
 })
-export class QuestionsComponent implements OnInit, OnDestroy {
+export class QuestionsComponent implements OnInit, OnDestroy, CanDeactivateComponent {
   exam!: Exam;
   questions?: Question[] = [];
   filteredQuestions?: Question[];
@@ -84,23 +85,24 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.submitExam()
   }
 
+  onExit() {
+    history.back();
+  }
+
   ngOnDestroy(): void {
+    console.log("On destroy");
     this.timerSubscription?.unsubscribe();
     this.timeOutSubcription?.unsubscribe();
   }
 
+  isSubmitted: boolean = false;
   submitExam() {
     this.examService.submitExam(this.exam);
+    this.isSubmitted = true;
     this.router.navigate(['..', 'review'], { relativeTo: this.activatedRoute });
   }
 
-  onExit() {
-    if (confirm("Are you sure to exit, all progress will be lost")) {
-      this.examService.exitExam(this.exam);
-      this.router.navigate(['/exams'])
-    };
-  }
-
+  //pagination
   page = {
     page: 0,
     size: 3,
@@ -131,5 +133,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.page.page = 0;
     this.page.totalPages = Math.ceil(this.filteredQuestions!.length / this.page.size);
     this.fetchPageData();
+  }
+  //detect navigation changes
+  @HostListener('window:beforeunload')
+  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
+    if (!this.isSubmitted) {
+      if (confirm("Your progress will be lost if you leave, continue?")) {
+        this.examService.exitExam(this.exam);
+        return true;
+      }
+      return false;
+    }
+    return true;
   }
 }
