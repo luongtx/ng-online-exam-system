@@ -12,8 +12,8 @@ export class ExamListComponent implements OnInit {
   constructor(private examService: ExamService) { }
 
   ngOnInit(): void {
-    this.examService.getExams().subscribe(
-      (exams) => this.exams = exams
+    this.examService.getExamsPaginated().subscribe(
+      (data) => this.exams = data.data
     )
   }
 

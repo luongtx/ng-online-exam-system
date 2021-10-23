@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Exam } from 'src/app/exams/shared/exam.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
+import { PageRequest, PageResponse } from "src/app/utils/page.util";
 
 @Component({
   selector: 'app-exams-manange',
@@ -9,37 +10,84 @@ import { ExamService } from 'src/app/exams/shared/exam.service';
   styleUrls: ['./exams-manange.component.css']
 })
 export class ExamsManageComponent implements OnInit {
-  exams: Exam[] = [];
-  isNew: boolean = false;
+  editable: boolean = false;
   constructor(private examService: ExamService) { }
 
+  pageReq: PageRequest = {
+    page: 0,
+    size: 5
+  }
+
+  pageRes: PageResponse = {
+    data: [],
+    totalPages: 0
+  }
+
   ngOnInit(): void {
-    this.loadData()
+    this.requestPageData()
     this.examService.examSaved.subscribe(
-      () => this.loadData()
+      () => this.requestPageData()
     )
   }
 
-  loadData() {
-    this.examService.getExams().subscribe(
-      (data) => {
-        this.exams = data;
-      }
-    )
-  }
-
-  onDeleteExam(id: number) {
+  onClickDelete(id: number) {
     if (confirm("Are you sure to delete this exam")) {
       this.examService.deleteExam(id).subscribe(
         () => {
-          alert("Delete exam successfully!")
-          this.loadData()
+          this.requestPageData()
         },
         (err: HttpErrorResponse) => {
           console.log(err);
         }
       )
     }
+  }
+
+  examCopy: Exam = {}
+  onClickEdit(exam: Exam) {
+    this.examCopy = { ...exam };
+    this.editable = true;
+  }
+
+  onClickNew() {
+    this.examCopy = {};
+    this.editable = true;
+  }
+
+  requestPageData() {
+    this.examService.getExamsPaginated(this.pageReq)
+      .subscribe(
+        (data) => {
+          this.pageRes = data;
+          this.pageReq.pages = [...Array(data.totalPages).keys()]
+        }
+      )
+  }
+
+  onEntriesPerPageChange(event: any) {
+    this.pageReq.size = event.target.value;
+    this.pageReq.page = 0;
+    this.requestPageData();
+  }
+
+  //Pagination
+  onPreviousPage() {
+    if (this.pageReq.page > 0) {
+      this.pageReq.page--
+      this.requestPageData()
+    }
+  }
+
+  onNextPage() {
+    if (this.pageReq.page < this.pageRes!.totalPages - 1) {
+      this.pageReq.page++
+      this.requestPageData()
+    }
+  }
+
+  onSpecifiedPage(pageIndex: number) {
+    this.pageReq.page = pageIndex;
+    this.requestPageData()
   }
 
 }

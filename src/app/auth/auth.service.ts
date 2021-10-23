@@ -5,16 +5,16 @@ import { catchError, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from "rxjs";
 import { AppConstants } from "../constants/app.constants";
 import { Profile } from "../profile/profile.model";
-import { User } from "./user.model";
+import { User } from "../common/user.model";
 import { RoleConstants } from "../constants/role.constants";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   errorMessage: Subject<string> = new Subject();
-  isLoggedin: Subject<boolean> = new Subject();
+  authenticated: Subject<boolean> = new Subject();
   constructor(private httpClient: HttpClient) {
     setTimeout(
-      () => this.isLoggedin.next(localStorage.length ? true : false), 500
+      () => this.authenticated.next(localStorage.length ? true : false), 500
     )
   }
 
@@ -26,7 +26,7 @@ export class AuthService {
           localStorage.setItem(AppConstants.ADMIN, AppConstants.TRUE);
         }
         this.errorMessage.next("");
-        this.isLoggedin.next(true)
+        this.authenticated.next(true)
       }),
       catchError(this.handleError())
     ).subscribe()
@@ -48,11 +48,16 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.clear()
-    this.isLoggedin.next(false)
+    localStorage.removeItem("auth");
+    localStorage.removeItem("admin");
+    this.authenticated.next(false);
   }
 
   checkAdminRole(): boolean {
     return localStorage.getItem("admin") ? true : false;
+  }
+
+  checkAuthenticated(): boolean {
+    return localStorage.getItem("auth") ? true : false;
   }
 }

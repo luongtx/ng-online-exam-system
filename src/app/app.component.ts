@@ -3,7 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { Profile } from './profile/profile.model';
-import { UserService } from './auth/user.service';
+import { UserService } from './common/user.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private loginService: AuthService,
+    private authService: AuthService,
     private userService: UserService
   ) { }
 
@@ -30,23 +30,23 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loggedInSubcription = this.loginService.isLoggedin.subscribe(
+    this.loggedInSubcription = this.authService.authenticated.subscribe(
       (value) => {
         this.isLoggedin = value
-        this.isAdmin = this.loginService.checkAdminRole();
+        this.isAdmin = this.authService.checkAdminRole();
         if (this.isLoggedin) {
           this.userService.getCurrentProfile().subscribe(
             (data) => this.profile = data,
             (error) => {
               console.log(error);
-              this.loginService.logout()
+              this.authService.logout()
             }
           )
         }
-        if(this.isAdmin){
-          this.router.navigate(['manage-exams'], {relativeTo: this.route})
+        if (this.isAdmin) {
+          this.router.navigate(['manage-exams'], { relativeTo: this.route })
         } else {
-          this.router.navigate(['exams'], {relativeTo: this.route})
+          this.router.navigate(['exams'], { relativeTo: this.route })
         }
       }
     )
@@ -59,14 +59,9 @@ export class AppComponent implements OnInit, OnDestroy {
     )
   }
 
-  onClickExplore() {
-    console.log("explore");
-    this.router.navigate(['exams'], { relativeTo: this.route })
-  }
-
   onClickLogout() {
     if (confirm("Are you sure to logout?")) {
-      this.loginService.logout();
+      this.authService.logout();
       this.router.navigate(['../login'], { relativeTo: this.route })
     }
   }

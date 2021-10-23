@@ -3,8 +3,7 @@
     class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let exam of exams">
     <div class="row">
       <div class="col-3 my-auto">
-        <img _ngcontent-ejr-c50="" alt="Image is loadding" style="max-width: 100px;"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSBORrJDrMqEgkBc9OuhgX2a5qvwFm8Oxffj20HLl4cU2Qsgwe9U60L1lL0BqmNe6fiyo&amp;usqp=CAU">
+        <img _ngcontent-ejr-c50="" alt="Image is loadding" style="max-width: 100px;" [src]="exam.bannerImage">
       </div>
       <div class="col-9">
         <h2 class="mb-1">{{exam.title}}</h2>

@@ -4,6 +4,7 @@ import { Observable, Subject } from "rxjs";
 import { Question } from "../exam-unit/questions/question.model";
 import { ExamResult } from "./exam-result.model";
 import { Exam } from "./exam.model";
+import { PageRequest, PageResponse } from "src/app/utils/page.util";
 
 @Injectable({ providedIn: 'root' })
 export class ExamService {
@@ -15,8 +16,16 @@ export class ExamService {
   timeOut?: Subject<any> = new Subject();
   examSaved: Subject<Exam> = new Subject();
 
-  getExams(): Observable<Exam[]> {
-    return this.http.get<Exam[]>(this.API_END_POINT);
+  // getExams(): Observable<Exam[]> {
+  //   return this.http.get<Exam[]>(this.API_END_POINT);
+  // }
+
+  getExamsPaginated(pageReq?: PageRequest): Observable<PageResponse> {
+    if (!pageReq) {
+      return this.http.get<PageResponse>(this.API_END_POINT);
+    }
+    let reqParams = `?page=${pageReq.page}&size=${pageReq.size}`;
+    return this.http.get<PageResponse>(this.API_END_POINT + reqParams);
   }
 
   getRecentExams(): Observable<ExamResult[]> {
@@ -27,9 +36,18 @@ export class ExamService {
     return this.http.get<Exam>(this.API_END_POINT + id);
   }
 
-  getQuestionsByExamId(id?: number): Observable<Question[]> {
-    return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
+  // getQuestions(id?: number): Observable<Question[]> {
+  //   return this.http.get<Question[]>(this.API_END_POINT + id + '/questions')
+  // }
+
+  getQuestionsPaginated(examId: number, pageReq?: PageRequest): Observable<PageResponse> {
+    if (!pageReq) {
+      return this.http.get<PageResponse>(this.API_END_POINT + examId + "/questions");
+    }
+    let reqParams = `?page=${pageReq.page}&size=${pageReq.size}`;
+    return this.http.get<PageResponse>(this.API_END_POINT + examId + "/questions" + reqParams);
   }
+
 
   saveExam(exam: Exam): Observable<any> {
     return this.http.post<Exam>(this.API_END_POINT + "save", exam)
@@ -133,16 +151,16 @@ export class ExamService {
     let minLeft = duration - 1;
     let secondLeft = 59;
     this.timer?.next({ min: minLeft, sec: secondLeft });
-    this.secInterval = setInterval(
-      () => {
-        this.timer?.next({ min: minLeft, sec: --secondLeft })
-      }, 1000
-    )
     this.minInterval = setInterval(
       () => {
         secondLeft = 59;
         this.timer?.next({ min: --minLeft, sec: secondLeft })
-      }, 60 * 1000 - 1
+      }, 60 * 1000
+    )
+    this.secInterval = setInterval(
+      () => {
+        this.timer?.next({ min: minLeft, sec: --secondLeft })
+      }, 1000
     )
     this.timeOutInterval = setInterval(
       () => {

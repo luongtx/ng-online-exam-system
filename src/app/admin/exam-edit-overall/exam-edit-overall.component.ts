@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Exam } from 'src/app/exams/shared/exam.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
-import { FileUtils } from 'src/app/utils/file.util.service';
+import { FileUtils } from 'src/app/utils/file.util';
 
 @Component({
   selector: 'app-exam-edit-overall',
@@ -47,7 +47,7 @@ export class ExamEditOverallComponent implements OnInit {
     this.examService.saveExam(this.exam).subscribe(
       () => {
         this.examService.onExamSaved(this.exam);
-        alert("Save exam successfully!")
+        // alert("Save exam successfully!")
         this.onClosed()
       },
       (error: HttpErrorResponse) => {
