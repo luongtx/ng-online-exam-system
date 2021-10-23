@@ -3,7 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { Profile } from './profile/profile.model';
-import { UserService } from './auth/user.service';
+import { UserService } from './common/user.service';
 
 @Component({
   selector: 'app-root',

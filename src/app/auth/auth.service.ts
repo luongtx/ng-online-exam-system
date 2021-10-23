@@ -5,7 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from "rxjs";
 import { AppConstants } from "../constants/app.constants";
 import { Profile } from "../profile/profile.model";
-import { User } from "./user.model";
+import { User } from "../common/user.model";
 import { RoleConstants } from "../constants/role.constants";
 
 @Injectable({ providedIn: 'root' })
