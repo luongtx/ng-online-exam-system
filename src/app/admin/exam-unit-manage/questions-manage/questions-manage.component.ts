@@ -34,11 +34,11 @@ export class QuestionsManageComponent implements OnInit {
   }
 
   onQuestionSaved(question: Question) {
-    console.log(question);
+    // console.log(question);
     this.examService.saveQuestion(question, this.examId).subscribe(
       () => {
         this.requestPageData();
-        this.editable = false;
+        alert("Save successfully!")
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -48,8 +48,9 @@ export class QuestionsManageComponent implements OnInit {
 
   onEditClicked(question: Question) {
     // console.log(question.answers);
-    this.editable = true
-    this.questionCopy = { ...question }
+    this.editable = true;
+    this.questionCopy = { ...question };
+    this.scrollToElement("#qEdit");
   }
 
   onFormClosed() {
@@ -61,6 +62,7 @@ export class QuestionsManageComponent implements OnInit {
     this.questionCopy = {
       answers: [{}]
     }
+    this.scrollToElement("#qEdit")
   }
 
   onDeleteClicked(question: Question) {
@@ -110,6 +112,11 @@ export class QuestionsManageComponent implements OnInit {
   onSpecifiedPage(pageIndex: number) {
     this.pageReq.page = pageIndex;
     this.requestPageData()
+  }
+
+  scrollToElement(elementRef: string) {
+    const element = document.querySelector(elementRef);
+    element?.scrollIntoView();
   }
 
 }

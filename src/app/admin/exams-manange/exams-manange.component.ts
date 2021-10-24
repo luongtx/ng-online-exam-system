@@ -47,11 +47,13 @@ export class ExamsManageComponent implements OnInit {
   onClickEdit(exam: Exam) {
     this.examCopy = { ...exam };
     this.editable = true;
+    this.scrollToElement("#edit");
   }
 
   onClickNew() {
     this.examCopy = {};
     this.editable = true;
+    this.scrollToElement("#edit");
   }
 
   requestPageData() {
@@ -94,6 +96,11 @@ export class ExamsManageComponent implements OnInit {
     if (event.key == "Enter") {
       this.requestPageData();
     }
+  }
+
+  scrollToElement(elementRef: string) {
+    const element = document.querySelector(elementRef);
+    element?.scrollIntoView();
   }
 
 }

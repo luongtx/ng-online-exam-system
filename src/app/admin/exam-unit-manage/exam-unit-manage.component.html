@@ -27,8 +27,10 @@
       </h3>
     </div>
   </div>
-
-  <app-exam-edit-overall (closed)="onFormExamClosed()" *ngIf="editable" [exam]="examCopy"></app-exam-edit-overall>
+  <div id="edit">
+    <app-exam-edit-overall (closed)="onFormExamClosed()" *ngIf="editable" [exam]="examCopy">
+    </app-exam-edit-overall>
+  </div>
 
   <div class="row mt-3">
     <div class="col">

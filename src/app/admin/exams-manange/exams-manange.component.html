@@ -61,4 +61,7 @@
     New Exam
   </button>
 </div>
-<app-exam-edit-overall [exam]="examCopy" *ngIf="editable" (closed)="editable=false"></app-exam-edit-overall>
+<div id="edit">
+  <app-exam-edit-overall [exam]="examCopy" *ngIf="editable" (closed)="editable=false">
+  </app-exam-edit-overall>
+</div>

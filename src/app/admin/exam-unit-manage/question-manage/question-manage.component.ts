@@ -60,7 +60,7 @@ export class QuestionManageComponent implements OnInit, OnChanges {
     this.saved.next(this.formQuestion?.value)
   }
 
-  onCancel() {
+  onClose() {
     this.closed.next(true)
   }
 
