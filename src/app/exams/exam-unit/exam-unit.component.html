@@ -1,7 +1,7 @@
-<div class="card shadow bg-white rounded" style="width: 18rem;">
+<div class="card shadow bg-white rounded">
   <img [src]='exam?.bannerImageSource' class="card-img-top" [routerLink]='[exam?.id]'>
   <div class="card-body">
-    <h3 class="card-title"><b>{{exam?.title}}</b></h3>
+    <h4 class="card-title"><b>{{exam?.title}}</b></h4>
     <p class="card-text">{{exam?.description}}</p>
     <p class="card-text"> <b>Duration: {{exam?.duration}} mins </b></p>
     <a class="btn btn-primary float-left" [routerLink]='[exam?.id, "start"]'>Start</a>

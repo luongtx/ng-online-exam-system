@@ -57,6 +57,7 @@ export class ExamsManageComponent implements OnInit {
     WindowUtils.scrollToElement("#eEdit");
   }
 
+  //Pagination
   requestPageData() {
     this.examService.getExamsPaginated(this.pageReq)
       .subscribe(
@@ -67,13 +68,6 @@ export class ExamsManageComponent implements OnInit {
       )
   }
 
-  onEntriesPerPageChange(event: any) {
-    this.pageReq.size = event.target.value;
-    this.pageReq.page = 0;
-    this.requestPageData();
-  }
-
-  //Pagination
   onPreviousPage() {
     if (this.pageReq.page > 0) {
       this.pageReq.page--
@@ -91,6 +85,12 @@ export class ExamsManageComponent implements OnInit {
   onSpecifiedPage(pageIndex: number) {
     this.pageReq.page = pageIndex;
     this.requestPageData()
+  }
+
+  onEntriesPerPageChange(event: any) {
+    this.pageReq.size = event.target.value;
+    this.pageReq.page = 0;
+    this.requestPageData();
   }
 
   onKeyDown(event: KeyboardEvent) {
