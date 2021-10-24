@@ -39,9 +39,11 @@
       <hr>
       <div class="row">
         <div class="col">
-          <button type="button" class="btn btn-outline-info float-left" (click)="onAddAnswer()">New answer</button>
-          <button type="submit" class="btn btn-outline-info float-right" [disabled]="!formQuestion.valid">Save</button>
-          <button type="button" class="btn btn-outline-danger float-right mr-3" (click)="onCancel()">Cancel</button>
+          <button type="button" class="btn btn-outline-danger float-right" (click)="onClose()">Close</button>
+          <button type="submit" class="btn btn-outline-info float-right mr-3"
+            [disabled]="!formQuestion.valid">Save</button>
+          <button type="button" class="btn btn-outline-info float-right mr-3" (click)="onAddAnswer()">Add
+            answer</button>
         </div>
       </div>
     </form>

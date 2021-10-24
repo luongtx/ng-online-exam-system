@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
+import { WindowUtils } from 'src/app/utils/window.util';
 @Component({
   selector: 'app-questions-manage',
   templateUrl: './questions-manage.component.html',
@@ -34,11 +35,11 @@ export class QuestionsManageComponent implements OnInit {
   }
 
   onQuestionSaved(question: Question) {
-    console.log(question);
+    // console.log(question);
     this.examService.saveQuestion(question, this.examId).subscribe(
       () => {
         this.requestPageData();
-        this.editable = false;
+        alert("Save successfully!")
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -48,8 +49,9 @@ export class QuestionsManageComponent implements OnInit {
 
   onEditClicked(question: Question) {
     // console.log(question.answers);
-    this.editable = true
-    this.questionCopy = { ...question }
+    this.editable = true;
+    this.questionCopy = { ...question };
+    WindowUtils.scrollToElement("#qEdit");
   }
 
   onFormClosed() {
@@ -61,6 +63,7 @@ export class QuestionsManageComponent implements OnInit {
     this.questionCopy = {
       answers: [{}]
     }
+    WindowUtils.scrollToElement("#qEdit");
   }
 
   onDeleteClicked(question: Question) {

@@ -1,7 +1,19 @@
 .card {
   cursor: pointer;
+  position: relative;
+  width: 18rem;
+  height: 33rem;
 }
 
-img {
-  background-image: url('https://miro.medium.com/max/352/1*L8DJfg003QUh02WiAQLc7g.png');
+.btn {
+  position: absolute;
+  bottom: 10px;
+}
+
+.btn.float-left {
+  left: 10px;
+}
+
+.btn.float-right {
+  right: 10px;
 }

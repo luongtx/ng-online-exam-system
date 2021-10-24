@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
-import { ExamService } from 'src/app/exams/shared/exam.service';
+import { WindowUtils } from 'src/app/utils/window.util';
 
 @Component({
   selector: 'app-question-manage',
@@ -50,6 +50,7 @@ export class QuestionManageComponent implements OnInit, OnChanges {
         'correct': new FormControl(false)
       })
     )
+    WindowUtils.scrollToElement("#qEdit");
   }
 
   onDeleteAnswer(index: number) {
@@ -60,7 +61,7 @@ export class QuestionManageComponent implements OnInit, OnChanges {
     this.saved.next(this.formQuestion?.value)
   }
 
-  onCancel() {
+  onClose() {
     this.closed.next(true)
   }
 

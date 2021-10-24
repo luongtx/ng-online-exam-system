@@ -19,11 +19,6 @@
   border-color: #262e3f;
 }
 
-select {
-  width: fit-content;
-  background: lightgray;
-}
-
 tbody {
   background-color: white;
 }

@@ -1,0 +1,12 @@
+nav {
+  cursor: pointer;
+  margin-right: 60px;
+}
+.page-link {
+  color: #262e3f;
+}
+
+.page-item.active .page-link {
+  background-color: #262e3f;
+  border-color: #262e3f;
+}

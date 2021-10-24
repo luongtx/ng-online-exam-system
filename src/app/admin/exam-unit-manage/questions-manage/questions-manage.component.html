@@ -13,14 +13,14 @@
 </div>
 <div class="row">
   <div class="col">
-    <table class="table table-bordered table-hover mt-3">
+    <table class="table table-bordered table-hover mt-3" id="table">
       <thead class="thead-dark">
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col" class="text-center">Content</th>
+          <th scope="col" style="width: 10%;">ID</th>
+          <th scope="col" style="width: 70%;">Content</th>
           <!-- <th scope="col">Multi-Option</th> -->
-          <th scope="col">Update</th>
-          <th scope="col">Delete</th>
+          <th scope="col" style="width: 10%;">Update</th>
+          <th scope="col" style="width: 10%;">Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +28,7 @@
           <th scope="row">{{question.id}}</th>
           <td>{{question.content}}</td>
           <!-- <td><input type="checkbox" [checked]="question.multipleOptions" disabled></td> -->
-          <td (click)="onEditClicked(question)"><i class="fas fa-edit"></i></td>
+          <td (click)="onEditClicked(question);"><i class="fas fa-edit"></i></td>
           <td (click)="onDeleteClicked(question)"><i class="fas fa-trash"></i></td>
         </tr>
       </tbody>
@@ -52,8 +52,10 @@
     </nav>
   </div>
 </div>
-<app-question-manage *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
-  (closed)="onFormClosed()"></app-question-manage>
+<div id="qEdit">
+  <app-question-manage *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
+    (closed)="onFormClosed()"></app-question-manage>
+</div>
 <div class="row mt-3" *ngIf="!editable">
   <div class="col">
     <button class="btn btn-outline-info float-right" (click)="onAddClicked()">
