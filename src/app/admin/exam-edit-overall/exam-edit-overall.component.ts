@@ -47,8 +47,7 @@ export class ExamEditOverallComponent implements OnInit {
     this.examService.saveExam(this.exam).subscribe(
       () => {
         this.examService.onExamSaved(this.exam);
-        // alert("Save exam successfully!")
-        this.onClosed()
+        alert("Save exam successfully!")
       },
       (error: HttpErrorResponse) => {
         console.log(error);

@@ -100,7 +100,11 @@ export class ExamsManageComponent implements OnInit {
 
   scrollToElement(elementRef: string) {
     const element = document.querySelector(elementRef);
-    element?.scrollIntoView();
+    setTimeout(
+      () => {
+        element?.scrollIntoView();
+      }, 10
+    )
   }
 
 }
