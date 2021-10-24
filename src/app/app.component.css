@@ -63,3 +63,8 @@ mat-divider {
 .auth-switch:hover {
   color: blue;
 }
+
+.container {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}

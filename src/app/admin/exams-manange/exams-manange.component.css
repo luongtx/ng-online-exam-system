@@ -11,11 +11,6 @@ table {
   border-color: #262e3f;
 }
 
-select {
-  width: fit-content;
-  background: lightgray;
-}
-
 .fas {
   font-size: 20px;
 }

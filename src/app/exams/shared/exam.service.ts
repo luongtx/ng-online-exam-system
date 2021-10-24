@@ -25,7 +25,8 @@ export class ExamService {
       return this.http.get<PageResponse>(this.API_END_POINT);
     }
     pageReq.search ??= "";
-    let reqParams = `?page=${pageReq.page}&size=${pageReq.size}&search=${pageReq.search}`;
+    pageReq.sort ??= "id";
+    let reqParams = `?page=${pageReq.page}&size=${pageReq.size}&search=${pageReq.search}&sort=${pageReq.sort}`;
     return this.http.get<PageResponse>(this.API_END_POINT + reqParams);
   }
 

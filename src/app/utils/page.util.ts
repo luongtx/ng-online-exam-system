@@ -8,5 +8,6 @@ export interface PageRequest {
   page: number,
   size: number,
   pages?: number[],
-  search?: string
+  search?: string,
+  sort?: string
 }

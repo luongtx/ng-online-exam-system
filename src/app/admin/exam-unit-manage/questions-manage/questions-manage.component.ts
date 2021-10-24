@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
+import { WindowUtils } from 'src/app/utils/window.util';
 @Component({
   selector: 'app-questions-manage',
   templateUrl: './questions-manage.component.html',
@@ -50,7 +51,7 @@ export class QuestionsManageComponent implements OnInit {
     // console.log(question.answers);
     this.editable = true;
     this.questionCopy = { ...question };
-    this.scrollToElement("#qEdit");
+    WindowUtils.scrollToElement("#qEdit");
   }
 
   onFormClosed() {
@@ -62,7 +63,7 @@ export class QuestionsManageComponent implements OnInit {
     this.questionCopy = {
       answers: [{}]
     }
-    this.scrollToElement("#qEdit")
+    WindowUtils.scrollToElement("#qEdit");
   }
 
   onDeleteClicked(question: Question) {
@@ -112,15 +113,6 @@ export class QuestionsManageComponent implements OnInit {
   onSpecifiedPage(pageIndex: number) {
     this.pageReq.page = pageIndex;
     this.requestPageData()
-  }
-
-  scrollToElement(elementRef: string) {
-    const element = document.querySelector(elementRef);
-    setTimeout(
-      () => {
-        element?.scrollIntoView();
-      }, 10
-    )
   }
 
 }

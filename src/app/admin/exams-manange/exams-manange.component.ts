@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Exam } from 'src/app/exams/shared/exam.model';
 import { ExamService } from 'src/app/exams/shared/exam.service';
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
+import { WindowUtils } from 'src/app/utils/window.util';
 
 @Component({
   selector: 'app-exams-manange',
@@ -47,13 +48,13 @@ export class ExamsManageComponent implements OnInit {
   onClickEdit(exam: Exam) {
     this.examCopy = { ...exam };
     this.editable = true;
-    this.scrollToElement("#edit");
+    WindowUtils.scrollToElement("#eEdit");
   }
 
   onClickNew() {
     this.examCopy = {};
     this.editable = true;
-    this.scrollToElement("#edit");
+    WindowUtils.scrollToElement("#eEdit");
   }
 
   requestPageData() {
@@ -98,13 +99,9 @@ export class ExamsManageComponent implements OnInit {
     }
   }
 
-  scrollToElement(elementRef: string) {
-    const element = document.querySelector(elementRef);
-    setTimeout(
-      () => {
-        element?.scrollIntoView();
-      }, 10
-    )
+  onSortFilterChanged(event: any) {
+    this.pageReq.sort = event.target.value;
+    this.requestPageData();
   }
 
 }

@@ -1,12 +1,22 @@
 <div class="row mt-3">
   <div style="width: -webkit-fill-available;">
     <label for="entry" style="float: left;">
-      Show
+      Show:
       <select name="entry" (change)="onEntriesPerPageChange($event)">
         <option value="5" selected>5 entries</option>
         <option value="10">10 entries</option>
         <option value="15">15 entries</option>
         <option value="15">20 entries</option>
+      </select>
+    </label>
+    <label for="sort" style="margin-left: 15px;">
+      Sort by:
+      <select name="sort" (change)="onSortFilterChanged($event)">
+        <option value="id" selected>ID</option>
+        <option value="examCode">ExamCode</option>
+        <option value="title">Title</option>
+        <option value="duration">Duration</option>
+        <option value="passingScore">Passing score</option>
       </select>
     </label>
     <input type="search" name="search" style="float: right;" placeholder="enter to search" (keydown)="onKeyDown($event)"
@@ -17,14 +27,14 @@
   <table class="table table-bordered table-hover">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">ExamCode</th>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Duration (min)</th>
-        <th scope="col">Passing Score (%)</th>
-        <th scope="col">Delete</th>
-        <th scope="col">Update</th>
+        <th scope="col" style="width: 3%;">ID</th>
+        <th scope="col" style="width: 9%;">ExamCode</th>
+        <th scope="col" style="width: 12%;">Title</th>
+        <th scope="col" style="width: 15%;">Description</th>
+        <th scope="col" style="width: 9%;">Duration (min)</th>
+        <th scope="col" style="width: 9%;">Passing Score (%)</th>
+        <th scope="col" style="width: 3%;">Delete</th>
+        <th scope="col" style="width: 3%;">Update</th>
       </tr>
     </thead>
     <tbody>
@@ -61,7 +71,7 @@
     New Exam
   </button>
 </div>
-<div id="edit">
+<div id="eEdit">
   <app-exam-edit-overall [exam]="examCopy" *ngIf="editable" (closed)="editable=false">
   </app-exam-edit-overall>
 </div>
