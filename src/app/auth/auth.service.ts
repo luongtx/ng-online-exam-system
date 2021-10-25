@@ -14,19 +14,18 @@ export class AuthService {
   authenticated: Subject<boolean> = new Subject();
   constructor(private httpClient: HttpClient) {
     setTimeout(
-      () => this.authenticated.next(localStorage.length ? true : false), 500
-    )
+      () => this.authenticated.next(localStorage.length ? true : false), 100
+    );
+    this.autoLogout();
   }
 
   login(user: LoginRequest) {
     this.httpClient.post<User>(AppConstants.API_END_POINT + "login", user).pipe(
       tap((data) => {
-        localStorage.setItem(AppConstants.AUTH, data.token);
-        if (data.roles.includes(RoleConstants.ROLE_ADMIN)) {
-          localStorage.setItem(AppConstants.ADMIN, AppConstants.TRUE);
-        }
+        localStorage.setItem("_user", JSON.stringify(data));
         this.errorMessage.next("");
-        this.authenticated.next(true)
+        this.authenticated.next(true);
+        this.autoLogout();
       }),
       catchError(this.handleError())
     ).subscribe()
@@ -48,16 +47,52 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem("auth");
-    localStorage.removeItem("admin");
+    localStorage.removeItem("_user");
+    this._user = undefined;
     this.authenticated.next(false);
   }
 
   checkAdminRole(): boolean {
-    return localStorage.getItem("admin") ? true : false;
+    let _user = this.getUser();
+    if (_user) {
+      return _user.roles.includes(RoleConstants.ROLE_ADMIN);
+    }
+    return false;
   }
 
   checkAuthenticated(): boolean {
-    return localStorage.getItem("auth") ? true : false;
+    return localStorage.getItem("_user") ? true : false;
+  }
+
+  _user?: User;
+  getUser() {
+    if (this._user) {
+      return this._user;
+    }
+    let userStr = localStorage.getItem("_user");
+    if (userStr) {
+      this._user = JSON.parse(userStr) as User;
+    }
+    return this._user;
+  }
+
+  getUserToken() {
+    let _user = this.getUser();
+    return _user?.token;
+  }
+
+  autoLogout() {
+    let _user = this.getUser();
+    let expiredTime = _user?.expiredAt;
+    if (expiredTime) {
+      let timeOut = expiredTime - Date.now();
+      console.log(timeOut);
+      setTimeout(
+        () => {
+          this.logout();
+          alert("Your session has expired, please login again!")
+        }, timeOut
+      )
+    }
   }
 }

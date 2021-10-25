@@ -16,7 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '', redirectTo: '/exams', pathMatch: 'full' },
   {
     path: 'exams', component: ExamsComponent, children: [
       { path: 'recent', component: ExamRecentsComponent },

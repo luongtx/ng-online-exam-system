@@ -33,20 +33,18 @@ export class AppComponent implements OnInit, OnDestroy {
     this.loggedInSubcription = this.authService.authenticated.subscribe(
       (value) => {
         this.isLoggedin = value
-        this.isAdmin = this.authService.checkAdminRole();
         if (this.isLoggedin) {
           this.userService.getCurrentProfile().subscribe(
             (data) => this.profile = data,
             (error) => {
               console.log(error);
-              this.authService.logout()
+              // this.authService.logout()
             }
           )
-        }
-        if (this.isAdmin) {
-          this.router.navigate(['manage-exams'], { relativeTo: this.route })
-        } else {
-          this.router.navigate(['exams'], { relativeTo: this.route })
+          this.isAdmin = this.authService.checkAdminRole();
+          if (this.isAdmin) {
+            this.router.navigate(['manage-exams'], { relativeTo: this.route })
+          }
         }
       }
     )
