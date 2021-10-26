@@ -42,9 +42,11 @@ export class AppComponent implements OnInit, OnDestroy {
             }
           )
           this.isAdmin = this.authService.checkAdminRole();
-          if (this.isAdmin) {
-            this.router.navigate(['manage-exams'], { relativeTo: this.route })
-          }
+          // if (this.isAdmin) {
+          //   this.router.navigate(['manage-exams'], { relativeTo: this.route })
+          // }
+        } else {
+          this.router.navigate(['/login'], { relativeTo: this.route });
         }
       }
     )

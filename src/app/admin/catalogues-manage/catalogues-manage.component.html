@@ -1,0 +1,69 @@
+<div class="row mt-3">
+  <div class="col">
+    <label for="entry" style="float: left;">
+      Show:
+      <select name="entry" (change)="onEntriesPerPageChange($event)">
+        <option value="5" selected>5 entries</option>
+        <option value="10">10 entries</option>
+        <option value="15">15 entries</option>
+        <option value="15">20 entries</option>
+      </select>
+    </label>
+    <input type="search" name="search" style="float: right;" placeholder="enter to search" (keydown)="onKeyDown($event)"
+      [(ngModel)]="pageReq.search">
+  </div>
+</div>
+<div class="row mt-3">
+  <div class="col">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col" style="width: 10%;">ID</th>
+          <th scope="col" style="width: 40%;">Catalogue Name</th>
+          <th scope="col" style="width: 20%;">Number Of Questions</th>
+          <th scope="col" style="width: 10%;">Parent ID</th>
+          <th scope="col" style="width: 5%;">Delete</th>
+          <th scope="col" style="width: 5%;">Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let category of pageRes?.data" title="click to get into detail page">
+          <th scope="row">{{category.id}}</th>
+          <td>{{category.name}}</td>
+          <td>{{category.numberOfQuestions}}</td>
+          <td>{{category.parentId}}</td>
+          <td (click)="onClickDelete(category.id!);$event.stopPropagation()" title=""><i class="fas fa-trash"></i></td>
+          <td (click)="onClickEdit(category);$event.stopPropagation()" title=""><i class="fas fa-edit"></i></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row justify-content-end">
+  <div class="col">
+    <nav aria-label="Page navigation" style="cursor: pointer;">
+      <ul class="pagination justify-content-end">
+        <li class="page-item" [ngClass]="{'disabled': pageReq.page <= 0}"><a class="page-link"
+            (click)="onPreviousPage()">Previous</a>
+        </li>
+        <li class="page-item" *ngFor="let pageNum of pageReq.pages" [ngClass]="{'active': pageNum == pageReq.page}"><a
+            (click)="onSpecifiedPage(pageNum)" class="page-link">{{pageNum+1}}</a>
+        </li>
+        <li class="page-item" [ngClass]="{'disabled': pageReq.page >= pageRes.totalPages - 1}"><a class="page-link"
+            (click)="onNextPage()">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+<div class="row d-flex justify-content-end">
+  <div class="col">
+    <button *ngIf="!editable" class="btn btn-outline-info" (click)="onClickNew()">
+      New Catalogue
+    </button>
+  </div>
+</div>
+<div *ngIf="editable" id="catEdit">
+  <h1 class="text-center mt-3">Catalogue details</h1>
+  <app-catalogue-edit [category]="categoryCopy" (closed)="onFormClosed()"></app-catalogue-edit>
+</div>

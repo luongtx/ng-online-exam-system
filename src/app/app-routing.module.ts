@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CataloguesManageComponent } from './admin/catalogues-manage/catalogues-manage.component';
 import { ExamUnitManageComponent } from './admin/exam-unit-manage/exam-unit-manage.component';
 import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
 import { AppComponent } from './app.component';
@@ -16,7 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/exams', pathMatch: 'full' },
+  { path: '', redirectTo: '/profile', pathMatch: 'full' },
   {
     path: 'exams', component: ExamsComponent, children: [
       { path: 'recent', component: ExamRecentsComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'manage-exams', component: ExamsManageComponent },
-  { path: 'manage-exams/:id', component: ExamUnitManageComponent }
+  { path: 'manage-exams/:id', component: ExamUnitManageComponent },
+  { path: 'catalogues', component: CataloguesManageComponent }
 ];
 
 @NgModule({

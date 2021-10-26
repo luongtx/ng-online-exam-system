@@ -28,6 +28,9 @@ import { ExamUnitManageComponent } from './admin/exam-unit-manage/exam-unit-mana
 import { ExamEditOverallComponent } from './admin/exam-edit-overall/exam-edit-overall.component';
 import { QuestionManageComponent } from './admin/exam-unit-manage/question-manage/question-manage.component';
 import { QuestionsManageComponent } from './admin/exam-unit-manage/questions-manage/questions-manage.component';
+import { CataloguesManageComponent } from './admin/catalogues-manage/catalogues-manage.component';
+import { CatalogueEditComponent } from './admin/catalogues-manage/catalogue-edit/catalogue-edit.component';
+import { CatalogueQuestionsComponent } from './admin/catalogues-manage/catalogue-questions/catalogue-questions.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { QuestionsManageComponent } from './admin/exam-unit-manage/questions-man
     ExamUnitManageComponent,
     ExamEditOverallComponent,
     QuestionManageComponent,
-    QuestionsManageComponent
+    QuestionsManageComponent,
+    CataloguesManageComponent,
+    CatalogueEditComponent,
+    CatalogueQuestionsComponent
   ],
   imports: [
     BrowserModule,
