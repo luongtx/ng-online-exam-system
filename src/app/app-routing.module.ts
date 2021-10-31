@@ -16,7 +16,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/profile', pathMatch: 'full' },
   {
     path: 'exams', component: ExamsComponent, children: [
       { path: 'recent', component: ExamRecentsComponent },
@@ -30,9 +29,10 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'manage-exams', component: ExamsManageComponent },
-  { path: 'manage-exams/:id', component: ExamUnitManageComponent },
-  { path: 'catalogues', component: CataloguesManageComponent }
+  { path: 'admin', redirectTo: '/admin/exams', pathMatch: 'full' },
+  { path: 'admin/exams', component: ExamsManageComponent, canActivate: [AuthGuard] },
+  { path: 'admin/exams/:id', component: ExamUnitManageComponent, canActivate: [AuthGuard] },
+  { path: 'admin/catalogues', component: CataloguesManageComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
