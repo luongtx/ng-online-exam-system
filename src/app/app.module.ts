@@ -1,7 +1,6 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +8,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CatalogueEditComponent } from './admin/catalogues/catalogue-edit/catalogue-edit.component';
+import { CatalogueQuestionsComponent } from './admin/catalogues/catalogue-questions/catalogue-questions.component';
+import { CataloguesManageComponent } from './admin/catalogues/catalogues-manage/catalogues-manage.component';
+import { ExamEditComponent } from './admin/exams/exam-edit/exam-edit.component';
+import { ExamUnitManageComponent } from './admin/exams/exam-unit-manage/exam-unit-manage.component';
+import { QuestionManageComponent } from './admin/exams/exam-unit-manage/question-manage/question-manage.component';
+import { QuestionsManageComponent } from './admin/exams/exam-unit-manage/questions-manage/questions-manage.component';
+import { ExamsManageComponent } from './admin/exams/exams-manange/exams-manange.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BasicAuthInterceptorService } from './auth/auth-interceptor.service';
@@ -23,14 +30,6 @@ import { ExamsComponent } from './exams/exams.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
-import { ExamsManageComponent } from './admin/exams-manange/exams-manange.component';
-import { ExamUnitManageComponent } from './admin/exam-unit-manage/exam-unit-manage.component';
-import { ExamEditOverallComponent } from './admin/exam-edit-overall/exam-edit-overall.component';
-import { QuestionManageComponent } from './admin/exam-unit-manage/question-manage/question-manage.component';
-import { QuestionsManageComponent } from './admin/exam-unit-manage/questions-manage/questions-manage.component';
-import { CataloguesManageComponent } from './admin/catalogues-manage/catalogues-manage.component';
-import { CatalogueEditComponent } from './admin/catalogues-manage/catalogue-edit/catalogue-edit.component';
-import { CatalogueQuestionsComponent } from './admin/catalogues-manage/catalogue-questions/catalogue-questions.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,7 @@ import { CatalogueQuestionsComponent } from './admin/catalogues-manage/catalogue
     ExamRecentsComponent,
     ExamsManageComponent,
     ExamUnitManageComponent,
-    ExamEditOverallComponent,
+    ExamEditComponent,
     QuestionManageComponent,
     QuestionsManageComponent,
     CataloguesManageComponent,

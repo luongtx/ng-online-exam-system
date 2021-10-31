@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
 import { PageRequest, PageResponse } from 'src/app/utils/page.util';
 import { WindowUtils } from 'src/app/utils/window.util';
-import { CatalogueService } from '../catalogue.service';
+import { CatalogueService } from '../catalogues-manage/catalogue.service';
 
 @Component({
   selector: 'app-catalogue-questions',

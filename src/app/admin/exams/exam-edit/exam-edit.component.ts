@@ -6,10 +6,10 @@ import { FileUtils } from 'src/app/utils/file.util';
 
 @Component({
   selector: 'app-exam-edit-overall',
-  templateUrl: './exam-edit-overall.component.html',
-  styleUrls: ['./exam-edit-overall.component.css']
+  templateUrl: './exam-edit.component.html',
+  styleUrls: ['./exam-edit.component.css']
 })
-export class ExamEditOverallComponent implements OnInit {
+export class ExamEditComponent implements OnInit {
   @Input() exam: Exam = new Exam()
   @Output() closed = new EventEmitter<boolean>();
   serverErr?: string;

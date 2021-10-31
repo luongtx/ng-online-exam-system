@@ -1,8 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WindowUtils } from 'src/app/utils/window.util';
-import { Category } from '../catalogue.model';
-import { CatalogueService } from '../catalogue.service';
+import { Category } from '../catalogues-manage/catalogue.model';
+import { CatalogueService } from '../catalogues-manage/catalogue.service';
 
 @Component({
   selector: 'app-catalogue-edit',
