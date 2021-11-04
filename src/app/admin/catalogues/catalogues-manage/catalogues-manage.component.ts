@@ -26,7 +26,7 @@ export class CataloguesManageComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestPageData();
-    this.catalogueService.catalogueSaved.subscribe(
+    this.catalogueService.cataloguesChanged.subscribe(
       () => {
         this.requestPageData();
       }
@@ -34,7 +34,16 @@ export class CataloguesManageComponent implements OnInit {
   }
 
   onClickDelete(id: number) {
-
+    if (confirm("Are you sure to delete this catalog?")) {
+      this.catalogueService.delete(id, false).subscribe(
+        () => {
+          alert("delete catalog successfully!")
+          this.catalogueService.cataloguesChanged.next();
+        }, (error) => {
+          alert("failed to delete this catalog")
+        }
+      );
+    }
   }
 
   onClickEdit(category: Category) {

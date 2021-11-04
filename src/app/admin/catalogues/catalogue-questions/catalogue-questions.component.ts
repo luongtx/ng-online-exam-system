@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { Question } from 'src/app/exams/exam-unit/questions/question.model';
 import { PageRequest, PageResponse } from 'src/app/utils/page.util';
 import { WindowUtils } from 'src/app/utils/window.util';
@@ -10,7 +9,7 @@ import { CatalogueService } from '../catalogues-manage/catalogue.service';
   templateUrl: './catalogue-questions.component.html',
   styleUrls: ['./catalogue-questions.component.css']
 })
-export class CatalogueQuestionsComponent implements OnInit {
+export class CatalogueQuestionsComponent implements OnInit, OnChanges {
   @Input() categoryId!: number;
   editable: boolean = false
   questionCopy: Question = {
@@ -31,11 +30,23 @@ export class CatalogueQuestionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestPageData();
+    this.catalogueService.cataloguesChanged.subscribe(
+      () => {
+        this.requestPageData();
+      }
+    )
   }
 
   onQuestionSaved(question: Question) {
     // console.log(question);
-
+    this.catalogueService.saveQuestion(this.categoryId, question).subscribe(
+      () => {
+        alert("Save question successfully!");
+        this.catalogueService.cataloguesChanged.next();
+      }, () => {
+        alert("Cannot save question due to error!");
+      }
+    )
   }
 
   onEditClicked(question: Question) {
@@ -57,9 +68,14 @@ export class CatalogueQuestionsComponent implements OnInit {
     WindowUtils.scrollToElement("#qEdit");
   }
 
-  onDeleteClicked(question: Question) {
+  onDeleteClicked(id: number) {
     if (confirm("Delete this question?")) {
-
+      this.catalogueService.deleteQuestion(id).subscribe(
+        () => {
+          alert("This question is successfully removed from this catalog");
+          this.catalogueService.cataloguesChanged.next();
+        }
+      )
     }
   }
 
@@ -99,4 +115,7 @@ export class CatalogueQuestionsComponent implements OnInit {
     this.requestPageData()
   }
 
+  ngOnChanges() {
+    this.requestPageData();
+  }
 }

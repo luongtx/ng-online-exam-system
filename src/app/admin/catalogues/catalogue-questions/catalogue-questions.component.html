@@ -17,7 +17,7 @@
     </label>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="pageRes.data.length > 0">
   <div class="col">
     <table class="table table-bordered table-hover mt-3" id="table">
       <thead class="thead-dark">
@@ -35,13 +35,13 @@
           <td>{{question.content}}</td>
           <!-- <td><input type="checkbox" [checked]="question.multipleOptions" disabled></td> -->
           <td (click)="onEditClicked(question);"><i class="fas fa-edit"></i></td>
-          <td (click)="onDeleteClicked(question)"><i class="fas fa-trash"></i></td>
+          <td (click)="onDeleteClicked(question.id)"><i class="fas fa-trash"></i></td>
         </tr>
       </tbody>
     </table>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="pageRes.data.length > 0">
   <div class="col">
     <nav aria-label="Page navigation" style="cursor: pointer;">
       <ul class="pagination justify-content-end">
@@ -62,7 +62,7 @@
   <app-question-manage *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
     (closed)="onFormClosed()"></app-question-manage>
 </div>
-<!-- <div class="row mt-3" *ngIf="!editable">
+<div class="row mt-3">
   <div class="col">
     <button class="btn btn-outline-info" (click)="onAddClicked()">
       New question
@@ -71,4 +71,4 @@
       Import questions
     </button>
   </div>
-</div> -->
+</div>

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { WindowUtils } from 'src/app/utils/window.util';
 import { Category } from '../catalogues-manage/catalogue.model';
 import { CatalogueService } from '../catalogues-manage/catalogue.service';
@@ -13,11 +13,9 @@ export class CatalogueEditComponent implements OnInit {
   @Input() category!: Category
   @Output() closed = new EventEmitter<boolean>();
   parents?: Category[];
-  questionsView = false;
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit(): void {
-    this.questionsView = false;
     this.catalogueService.getCategoriesPaginated().subscribe(
       (data) => {
         this.parents = data.data;
@@ -28,7 +26,7 @@ export class CatalogueEditComponent implements OnInit {
   onSubmit() {
     this.catalogueService.saveCategory(this.category).subscribe(
       () => {
-        this.catalogueService.catalogueSaved.next();
+        this.catalogueService.cataloguesChanged.next();
         alert("Save catalogue successfully!")
       },
       (error: HttpErrorResponse) => {
@@ -42,7 +40,6 @@ export class CatalogueEditComponent implements OnInit {
   }
 
   viewCatalogQuestions() {
-    this.questionsView = true;
     WindowUtils.scrollToElement(".catalogue-questions");
   }
 }

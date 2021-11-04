@@ -20,16 +20,13 @@
   </div>
 
   <div class="form-group row">
-    <div class="col">
-      <button type="button" class="btn btn-outline-info" (click)="viewCatalogQuestions()"
-        *ngIf="category.id && !questionsView">View all
-        questions</button>
+    <div class="col"> 
       <button type="button" class="btn btn-outline-danger float-right" (click)="onClosed()">Close</button>
       <button type="submit" class="btn btn-outline-info float-right mr-3">Save</button>
     </div>
   </div>
 </form>
 <div class="catalogue-questions">
-  <app-catalogue-questions *ngIf="questionsView && category.id" [categoryId]="category.id">
+  <app-catalogue-questions *ngIf="category.id" [categoryId]="category.id">
   </app-catalogue-questions>
 </div>
