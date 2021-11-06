@@ -16,6 +16,15 @@ export class CatalogueEditComponent implements OnInit {
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit(): void {
+    this.loadCategories();
+    this.catalogueService.cataloguesChanged.subscribe(
+      () => {
+        this.loadCategories();
+      }
+    )
+  }
+
+  loadCategories() {
     this.catalogueService.getCategoriesPaginated().subscribe(
       (data) => {
         this.parents = data.data;
@@ -24,6 +33,7 @@ export class CatalogueEditComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.category);
     this.catalogueService.saveCategory(this.category).subscribe(
       () => {
         this.catalogueService.cataloguesChanged.next();
