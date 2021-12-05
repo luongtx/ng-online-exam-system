@@ -87,6 +87,7 @@ export class ExamService {
   }
 
   filterUnAnsweredQuestion(questions?: Question[]): Question[] {
+    console.log(questions);
     if (!questions) return [];
     const list = questions.filter(
       question => {

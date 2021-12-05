@@ -7,10 +7,10 @@
       <span class="minutes">{{timer.min < 10 ? '0' +timer.min: timer.min}}:</span>
           <span class="seconds">{{timer.sec < 10 ? '0' +timer.sec : timer.sec }}</span>
     </div>
-    <select class="custom-select float-right">
-      <option value="1" selected (click)="onChangeFilterOption('1')">All questions</option>
-      <option value="2" (click)="onChangeFilterOption('2')">Not answered</option>
-      <option value="3" (click)="onChangeFilterOption('3')">Mark for review</option>
+    <select class="custom-select float-right" (change)="onChangeFilterOption($event)">
+      <option [value]="1" selected>All questions</option>
+      <option [value]="2">Not answered</option>
+      <option [value]="3">Mark for review</option>
     </select>
   </div>
 </div>

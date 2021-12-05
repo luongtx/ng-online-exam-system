@@ -53,7 +53,8 @@ export class QuestionsComponent implements OnInit, OnDestroy, CanDeactivateCompo
     )
   }
 
-  onChangeFilterOption(value: string) {
+  onChangeFilterOption(event: Event) {
+    let value = (<HTMLSelectElement>event.target).value;
     switch (value) {
       case "1":
         //all questions
@@ -62,6 +63,7 @@ export class QuestionsComponent implements OnInit, OnDestroy, CanDeactivateCompo
         break;
       case "2":
         //fitler unanswered questions
+        console.log("filter unanswered questions");
         this.filteredQuestions = this.examService.filterUnAnsweredQuestion(this.exam.questions)
         this.updatePageAfterFilterApplied();
         break;
