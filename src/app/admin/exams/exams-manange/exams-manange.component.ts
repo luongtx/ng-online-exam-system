@@ -94,9 +94,7 @@ export class ExamsManageComponent implements OnInit {
   }
 
   onKeyDown(event: KeyboardEvent) {
-    if (event.key == "Enter") {
-      this.requestPageData();
-    }
+    this.requestPageData();
   }
 
   onSortFilterChanged(event: any) {

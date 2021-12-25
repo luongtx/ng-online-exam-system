@@ -30,6 +30,7 @@ import { ExamsComponent } from './exams/exams.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegisterComponent } from './register/register.component';
+import { CataloguesImportComponent } from './admin/catalogues/catalogues-import/catalogues-import.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { RegisterComponent } from './register/register.component';
     QuestionsManageComponent,
     CataloguesManageComponent,
     CatalogueEditComponent,
-    CatalogueQuestionsComponent
+    CatalogueQuestionsComponent,
+    CataloguesImportComponent
   ],
   imports: [
     BrowserModule,

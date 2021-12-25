@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CataloguesImportComponent } from './admin/catalogues/catalogues-import/catalogues-import.component';
 import { CataloguesManageComponent } from './admin/catalogues/catalogues-manage/catalogues-manage.component';
 import { ExamUnitManageComponent } from './admin/exams/exam-unit-manage/exam-unit-manage.component';
 import { ExamsManageComponent } from './admin/exams/exams-manange/exams-manange.component';
@@ -32,7 +33,8 @@ const routes: Routes = [
   { path: 'admin', redirectTo: '/admin/exams', pathMatch: 'full' },
   { path: 'admin/exams', component: ExamsManageComponent, canActivate: [AuthGuard] },
   { path: 'admin/exams/:id', component: ExamUnitManageComponent, canActivate: [AuthGuard] },
-  { path: 'admin/catalogues', component: CataloguesManageComponent, canActivate: [AuthGuard] }
+  { path: 'admin/catalogues', component: CataloguesManageComponent, canActivate: [AuthGuard] },
+  { path: 'admin/catalogues/:id/import', component: CataloguesImportComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
