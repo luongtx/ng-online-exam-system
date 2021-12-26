@@ -8,35 +8,35 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CatalogueEditComponent } from './admin/catalogues/catalogue-edit/catalogue-edit.component';
-import { CatalogueQuestionsComponent } from './admin/catalogues/catalogue-questions/catalogue-questions.component';
-import { CataloguesManageComponent } from './admin/catalogues/catalogues-manage/catalogues-manage.component';
-import { ExamEditComponent } from './admin/exams/exam-edit/exam-edit.component';
-import { ExamUnitManageComponent } from './admin/exams/exam-unit-manage/exam-unit-manage.component';
-import { QuestionManageComponent } from './admin/exams/exam-unit-manage/question-manage/question-manage.component';
-import { QuestionsManageComponent } from './admin/exams/exam-unit-manage/questions-manage/questions-manage.component';
-import { ExamsManageComponent } from './admin/exams/exams-manange/exams-manange.component';
+import { CatalogueEditComponent } from './components/admin/catalogues/catalogue-edit/catalogue-edit.component';
+import { CatalogueQuestionsEditComponent } from './components/admin/catalogues/catalogue-questions-edit/catalogue-questions-edit.component';
+import { CatalogueListEditComponent } from './components/admin/catalogues/catalogue-list-edit/catalogue-list-edit.component';
+import { ExamEditComponent } from './components/admin/exams/exam-edit/exam-edit.component';
+import { ExamItemEditComponent } from './components/admin/exams/exam-item-edit/exam-item-edit.component';
+import { ExamQuestionEditComponent } from './components/admin/exams/exam-item-edit/exam-question-edit/exam-question-edit.component';
+import { ExamQuestionsEditComponent } from './components/admin/exams/exam-item-edit/exam-questions-edit/exam-questions-edit.component';
+import { ExamsManageComponent } from './components/admin/exams/exam-list-edit/exam-list-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BasicAuthInterceptorService } from './auth/auth-interceptor.service';
-import { ExamDetailComponent } from './exams/exam-detail/exam-detail.component';
-import { ExamListComponent } from './exams/exam-list/exam-list.component';
-import { ExamRecentsComponent } from './exams/exam-recents/exam-recents.component';
-import { ExamReviewComponent } from './exams/exam-review/exam-review.component';
-import { ExamUnitComponent } from './exams/exam-unit/exam-unit.component';
-import { QuestionDetailComponent } from './exams/exam-unit/questions/question-detail/question-detail.component';
-import { QuestionsComponent } from './exams/exam-unit/questions/questions.component';
-import { ExamsComponent } from './exams/exams.component';
-import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
-import { CataloguesImportComponent } from './admin/catalogues/catalogues-import/catalogues-import.component';
+import { ExamDetailComponent } from './components/exams/exam-detail/exam-detail.component';
+import { ExamListComponent } from './components/exams/exam-list/exam-list.component';
+import { ExamListRecentsComponent } from './components/exams/exam-list-recents/exam-list-recents.component';
+import { ExamReviewComponent } from './components/exams/exam-review/exam-review.component';
+import { ExamUnitComponent } from './components/exams/exam-unit/exam-unit.component';
+import { QuestionDetailComponent } from './components/exams/exam-unit/question-detail/question-detail.component';
+import { QuestionListComponent } from './components/exams/exam-unit/question-list/question-list.component';
+import { ExamsComponent } from './components/exams/exams.component';
+import { LoginComponent } from './components/login/login.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { RegisterComponent } from './components/register/register.component';
+import { CatalogueImportComponent } from './components/admin/catalogues/catalogue-import/catalogue-import.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuestionDetailComponent,
-    QuestionsComponent,
+    QuestionListComponent,
     ExamDetailComponent,
     ExamReviewComponent,
     ProfileComponent,
@@ -45,16 +45,16 @@ import { CataloguesImportComponent } from './admin/catalogues/catalogues-import/
     ExamListComponent,
     LoginComponent,
     RegisterComponent,
-    ExamRecentsComponent,
+    ExamListRecentsComponent,
     ExamsManageComponent,
-    ExamUnitManageComponent,
+    ExamItemEditComponent,
     ExamEditComponent,
-    QuestionManageComponent,
-    QuestionsManageComponent,
-    CataloguesManageComponent,
+    ExamQuestionEditComponent,
+    ExamQuestionsEditComponent,
+    CatalogueListEditComponent,
     CatalogueEditComponent,
-    CatalogueQuestionsComponent,
-    CataloguesImportComponent
+    CatalogueQuestionsEditComponent,
+    CatalogueImportComponent
   ],
   imports: [
     BrowserModule,

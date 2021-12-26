@@ -1,11 +1,11 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LoginRequest } from "../login/login.model";
+import { LoginRequest } from "../models/login.model";
 import { catchError, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from "rxjs";
 import { AppConstants } from "../constants/app.constants";
-import { Profile } from "../profile/profile.model";
-import { User } from "../common/user.model";
+import { Profile } from "../models/profile.model";
+import { User } from "../models/user.model";
 import { RoleConstants } from "../constants/role.constants";
 
 @Injectable({ providedIn: 'root' })
