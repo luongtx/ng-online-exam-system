@@ -43,6 +43,6 @@ export class CatalogueEditComponent implements OnInit {
 
   viewCatalogQuestions() {
     this.questionsView = true;
-    WindowUtils.scrollToElement(".catalogue-question-list");
+    WindowUtils.scrollToElement(".catalogue-questions");
   }
 }

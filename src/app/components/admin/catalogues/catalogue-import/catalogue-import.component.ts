@@ -24,7 +24,7 @@ export class CatalogueImportComponent implements OnInit {
     totalPages: 0
   }
 
-  constructor(private catalogSerivce: CatalogueService, private activatedRoute: ActivatedRoute) { }
+  constructor(private catalogService: CatalogueService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
@@ -58,7 +58,7 @@ export class CatalogueImportComponent implements OnInit {
   }
 
   requestPageData() {
-    this.catalogSerivce.getAllQuestionsNotIn(this.catalogId, this.pageReq).subscribe(
+    this.catalogService.getAllQuestionsNotIn(this.catalogId, this.pageReq).subscribe(
       (data: PageResponse) => {
         this.pageRes.data = data.data;
       }
@@ -86,7 +86,7 @@ export class CatalogueImportComponent implements OnInit {
   }
 
   onImportClicked() {
-    this.catalogSerivce.saveQuestions(this.catalogId, this.importIds).subscribe(
+    this.catalogService.saveQuestions(this.catalogId, this.importIds).subscribe(
       () => {
         alert("Import question successfully!")
         history.back();
@@ -94,4 +94,7 @@ export class CatalogueImportComponent implements OnInit {
     );
   }
 
+  onImportCancelled() {
+    history.back();
+  }
 }
