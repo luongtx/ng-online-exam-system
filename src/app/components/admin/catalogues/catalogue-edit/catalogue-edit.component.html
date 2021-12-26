@@ -21,15 +21,13 @@
 
   <div class="form-group row">
     <div class="col">
-      <button type="button" class="btn btn-outline-info" (click)="viewCatalogQuestions()"
-        *ngIf="catalog.id && !questionsView">View all
-        questions</button>
       <button type="button" class="btn btn-outline-danger float-right" (click)="onClosed()">Close</button>
       <button type="submit" class="btn btn-outline-info float-right mr-3">Save</button>
     </div>
   </div>
 </form>
+<h1 class="text-center mt-3">Catalog questions</h1>
 <div class="catalogue-questions">
-  <app-catalogue-questions-edit *ngIf="questionsView && catalog.id" [catalogId]="catalog.id">
+  <app-catalogue-questions-edit *ngIf="catalog.id" [catalogId]="catalog.id">
   </app-catalogue-questions-edit>
 </div>

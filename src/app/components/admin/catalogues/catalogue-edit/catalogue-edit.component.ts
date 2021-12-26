@@ -13,11 +13,9 @@ export class CatalogueEditComponent implements OnInit {
   @Input() catalog!: Catalog
   @Output() closed = new EventEmitter<boolean>();
   parents?: Catalog[];
-  questionsView = false;
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit(): void {
-    this.questionsView = false;
     this.catalogueService.getCatalogPaginated().subscribe(
       (data) => {
         this.parents = data.data;
@@ -28,7 +26,7 @@ export class CatalogueEditComponent implements OnInit {
   onSubmit() {
     this.catalogueService.saveCatalog(this.catalog).subscribe(
       () => {
-        this.catalogueService.catalogueSaved.next();
+        this.catalogueService.catalogUpdated.next();
         alert("Save catalogue successfully!")
       },
       (error: HttpErrorResponse) => {
@@ -41,8 +39,4 @@ export class CatalogueEditComponent implements OnInit {
     this.closed.emit();
   }
 
-  viewCatalogQuestions() {
-    this.questionsView = true;
-    WindowUtils.scrollToElement(".catalogue-questions");
-  }
 }

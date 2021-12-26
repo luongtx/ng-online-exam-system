@@ -26,7 +26,7 @@ export class CatalogueListEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.requestPageData();
-    this.catalogueService.catalogueSaved.subscribe(
+    this.catalogueService.catalogUpdated.subscribe(
       () => {
         this.requestPageData();
       }

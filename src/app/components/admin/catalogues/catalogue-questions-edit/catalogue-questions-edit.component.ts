@@ -56,9 +56,17 @@ export class CatalogueQuestionsEditComponent implements OnInit {
     WindowUtils.scrollToElement("#qEdit");
   }
 
-  onDeleteClicked(question: Question) {
-    if (confirm("Delete this question?")) {
-
+  onDeleteClicked(questionId: number) {
+    if (confirm("Remove this question from catalog?")) {
+        this.catalogueService.removeQuestion(questionId).subscribe(
+          ()=> {
+            alert("Remove question successfully!");
+            this.requestPageData();
+            this.catalogueService.catalogUpdated.next();
+          }, () => {
+            alert("Error while removing question");
+          }
+        );
     }
   }
 

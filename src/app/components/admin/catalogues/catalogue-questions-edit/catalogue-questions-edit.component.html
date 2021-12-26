@@ -35,7 +35,7 @@
           <td>{{question.content}}</td>
           <!-- <td><input type="checkbox" [checked]="question.multipleOptions" disabled></td> -->
           <td (click)="onEditClicked(question);"><i class="fas fa-edit"></i></td>
-          <td (click)="onDeleteClicked(question)"><i class="fas fa-trash"></i></td>
+          <td (click)="onDeleteClicked(question.id)"><i class="fas fa-trash"></i></td>
         </tr>
       </tbody>
     </table>
