@@ -27,13 +27,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let category of pageRes?.data" title="click to get into detail page">
-          <th scope="row">{{category.id}}</th>
-          <td>{{category.name}}</td>
-          <td>{{category.numberOfQuestions}}</td>
-          <td>{{category.parentId}}</td>
-          <td (click)="onClickDelete(category.id!);$event.stopPropagation()" title=""><i class="fas fa-trash"></i></td>
-          <td (click)="onClickEdit(category);$event.stopPropagation()" title=""><i class="fas fa-edit"></i></td>
+        <tr *ngFor="let catalog of pageRes?.data" title="click to get into detail page">
+          <th scope="row">{{catalog.id}}</th>
+          <td>{{catalog.name}}</td>
+          <td>{{catalog.numberOfQuestions}}</td>
+          <td>{{catalog.parentId}}</td>
+          <td (click)="onClickDelete(catalog.id!);$event.stopPropagation()" title=""><i class="fas fa-trash"></i></td>
+          <td (click)="onClickEdit(catalog);$event.stopPropagation()" title=""><i class="fas fa-edit"></i></td>
         </tr>
       </tbody>
     </table>
@@ -65,5 +65,5 @@
 </div>
 <div *ngIf="editable" id="catEdit">
   <h1 class="text-center mt-3">Catalogue details</h1>
-  <app-catalogue-edit [category]="categoryCopy" (closed)="onFormClosed()"></app-catalogue-edit>
+  <app-catalogue-edit [catalog]="catalogCopy" (closed)="onFormClosed()"></app-catalogue-edit>
 </div>

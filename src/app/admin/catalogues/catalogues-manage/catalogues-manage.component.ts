@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageRequest, PageResponse } from 'src/app/utils/page.util';
 import { WindowUtils } from 'src/app/utils/window.util';
-import { Category } from './catalogue.model';
+import { Catalog } from './catalogue.model';
 import { CatalogueService } from './catalogue.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { CatalogueService } from './catalogue.service';
 })
 export class CataloguesManageComponent implements OnInit {
   editable: boolean = false;
-  categoryCopy: Category = {};
+  catalogCopy: Catalog = {};
   constructor(private catalogueService: CatalogueService) { }
 
   pageReq: PageRequest = {
@@ -37,15 +37,15 @@ export class CataloguesManageComponent implements OnInit {
 
   }
 
-  onClickEdit(category: Category) {
-    this.categoryCopy = { ...category };
+  onClickEdit(catalog: Catalog) {
+    this.catalogCopy = { ...catalog };
     this.editable = true;
     WindowUtils.scrollToElement("#catEdit");
   }
 
   //Pagination
   requestPageData() {
-    this.catalogueService.getCategoriesPaginated(this.pageReq)
+    this.catalogueService.getCatalogPaginated(this.pageReq)
       .subscribe(
         (data) => {
           this.pageRes = data;
@@ -86,7 +86,7 @@ export class CataloguesManageComponent implements OnInit {
   }
 
   onClickNew() {
-    this.categoryCopy = {};
+    this.catalogCopy = {};
     this.editable = true;
     WindowUtils.scrollToElement("#catEdit");
   }

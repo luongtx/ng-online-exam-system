@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WindowUtils } from 'src/app/utils/window.util';
-import { Category } from '../catalogues-manage/catalogue.model';
+import { Catalog } from '../catalogues-manage/catalogue.model';
 import { CatalogueService } from '../catalogues-manage/catalogue.service';
 
 @Component({
@@ -10,15 +10,15 @@ import { CatalogueService } from '../catalogues-manage/catalogue.service';
   styleUrls: ['./catalogue-edit.component.css']
 })
 export class CatalogueEditComponent implements OnInit {
-  @Input() category!: Category
+  @Input() catalog!: Catalog
   @Output() closed = new EventEmitter<boolean>();
-  parents?: Category[];
+  parents?: Catalog[];
   questionsView = false;
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit(): void {
     this.questionsView = false;
-    this.catalogueService.getCategoriesPaginated().subscribe(
+    this.catalogueService.getCatalogPaginated().subscribe(
       (data) => {
         this.parents = data.data;
       }
@@ -26,7 +26,7 @@ export class CatalogueEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.catalogueService.saveCategory(this.category).subscribe(
+    this.catalogueService.saveCatalog(this.catalog).subscribe(
       () => {
         this.catalogueService.catalogueSaved.next();
         alert("Save catalogue successfully!")

@@ -11,7 +11,7 @@ import { CatalogueService } from '../catalogues-manage/catalogue.service';
   styleUrls: ['./catalogue-questions.component.css']
 })
 export class CatalogueQuestionsComponent implements OnInit {
-  @Input() categoryId!: number;
+  @Input() catalogId!: number;
   editable: boolean = false
   questionCopy: Question = {
     answers: [{}]
@@ -70,7 +70,7 @@ export class CatalogueQuestionsComponent implements OnInit {
   }
 
   requestPageData() {
-    this.catalogueService.getAllQuestions(this.categoryId, this.pageReq)
+    this.catalogueService.getAllQuestions(this.catalogId, this.pageReq)
       .subscribe(
         (data) => {
           this.pageRes = data;

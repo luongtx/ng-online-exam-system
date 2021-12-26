@@ -4,18 +4,18 @@ import { Observable, Subject } from "rxjs";
 import { AppConstants } from "src/app/constants/app.constants";
 import { Question } from "src/app/exams/exam-unit/questions/question.model";
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
-import { Category } from "./catalogue.model";
+import { Catalog } from "./catalogue.model";
 
 @Injectable({ providedIn: 'root' })
 export class CatalogueService {
   catalogueSaved = new Subject<any>();
   constructor(private http: HttpClient) { }
 
-  saveCategory(category: Category): Observable<any> {
-    return this.http.post(AppConstants.API_END_POINT + "catalogues/save", category);
+  saveCatalog(catalog: Catalog): Observable<any> {
+    return this.http.post(AppConstants.API_END_POINT + "catalogues/save", catalog);
   }
 
-  getCategoriesPaginated(pageReq?: PageRequest): Observable<PageResponse> {
+  getCatalogPaginated(pageReq?: PageRequest): Observable<PageResponse> {
     if (!pageReq) {
       return this.http.get<PageResponse>(AppConstants.API_END_POINT + "catalogues");
     }
@@ -25,8 +25,8 @@ export class CatalogueService {
     return this.http.get<PageResponse>(AppConstants.API_END_POINT + "catalogues" + reqParams);
   }
 
-  getAllQuestions(categoryId: number, pageReq?: PageRequest): Observable<PageResponse> {
-    const requestApi = AppConstants.API_END_POINT + "catalogues/" + categoryId + "/questions";
+  getAllQuestions(catalogId: number, pageReq?: PageRequest): Observable<PageResponse> {
+    const requestApi = AppConstants.API_END_POINT + "catalogues/" + catalogId + "/questions";
     if (!pageReq) {
       return this.http.get<PageResponse>(requestApi);
     }
@@ -46,9 +46,9 @@ export class CatalogueService {
     return this.http.get<PageResponse>(requestApi + reqParams);
   }
 
-  saveQuestions(catalogId: number, questions: Question[]): Observable<any> {
-    console.log(questions);
+  saveQuestions(catalogId: number, questionIds: number[]): Observable<any> {
+    console.log(questionIds);
     const requestApi = AppConstants.API_END_POINT + `catalogues/${catalogId}/save/questions`;
-    return this.http.post(requestApi, questions);
+    return this.http.post(requestApi, questionIds);
   }
 }
