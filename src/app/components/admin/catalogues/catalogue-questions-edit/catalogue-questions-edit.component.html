@@ -59,8 +59,8 @@
   </div>
 </div>
 <div id="qEdit">
-  <app-exam-question-edit *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
-    (closed)="onFormClosed()"></app-exam-question-edit>
+  <app-catalogue-question-edit *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
+    (closed)="onFormClosed()"></app-catalogue-question-edit>
 </div>
 <div class="row mt-3" *ngIf="!editable">
   <div class="col">

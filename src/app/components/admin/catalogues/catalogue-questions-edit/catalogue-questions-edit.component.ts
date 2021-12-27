@@ -33,8 +33,15 @@ export class CatalogueQuestionsEditComponent implements OnInit {
   }
 
   onQuestionSaved(question: Question) {
-    // console.log(question);
-
+    this.catalogueService.updateCatalogQuestion(question).subscribe(
+      () => {
+        alert("Update question successfully")
+        this.requestPageData();
+      }, (error) => {
+        alert("Error while updating question")
+        console.log(error)
+      }
+    )
   }
 
   onEditClicked(question: Question) {

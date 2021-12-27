@@ -5,28 +5,30 @@ import { AppConstants } from "src/app/constants/app.constants";
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
 import { Catalog } from "../models/catalogue.model";
 import {QuestionService} from "./question.service";
+import {Question} from "../models/question.model";
 
 @Injectable({ providedIn: 'root' })
 export class CatalogueService {
   catalogUpdated = new Subject<any>();
+  API_CATALOG = AppConstants.API_END_POINT + "catalogues";
   constructor(private http: HttpClient, private questionService: QuestionService) { }
 
   saveCatalog(catalog: Catalog): Observable<any> {
-    return this.http.post(AppConstants.API_END_POINT + "catalogues/save", catalog);
+    return this.http.post(this.API_CATALOG + "/save", catalog);
   }
 
   getCatalogPaginated(pageReq?: PageRequest): Observable<PageResponse> {
     if (!pageReq) {
-      return this.http.get<PageResponse>(AppConstants.API_END_POINT + "catalogues");
+      return this.http.get<PageResponse>(this.API_CATALOG);
     }
     pageReq.search ??= "";
     pageReq.sort ??= "id";
     const reqParams = `?page=${pageReq.page}&size=${pageReq.size}&search=${pageReq.search}&sort=${pageReq.sort}`;
-    return this.http.get<PageResponse>(AppConstants.API_END_POINT + "catalogues" + reqParams);
+    return this.http.get<PageResponse>(this.API_CATALOG + reqParams);
   }
 
   getAllQuestions(catalogId: number, pageReq?: PageRequest): Observable<PageResponse> {
-    const requestApi = AppConstants.API_END_POINT + "catalogues/" + catalogId + "/questions";
+    const requestApi = this.API_CATALOG + "/" + catalogId + "/questions";
     if (!pageReq) {
       return this.http.get<PageResponse>(requestApi);
     }
@@ -38,17 +40,21 @@ export class CatalogueService {
 
   saveQuestions(catalogId: number, questionIds: number[]): Observable<any> {
     console.log(questionIds);
-    const requestApi = AppConstants.API_END_POINT + `catalogues/${catalogId}/save/questions`;
+    const requestApi = this.API_CATALOG + `/${catalogId}/save/questions`;
     return this.http.post(requestApi, questionIds);
   }
 
   removeQuestion(questionId: number) : Observable<any> {
     console.log(questionId);
-    const requestApi = AppConstants.API_END_POINT + `catalogues/remove/question/${questionId}`;
+    const requestApi = this.API_CATALOG + `/remove/question/${questionId}`;
     return this.http.delete(requestApi);
   }
 
   getAllQuestionsNotIn(catalogId: number, pageReq: PageRequest) {
     return this.questionService.getAllQuestionsNotInCatalog(catalogId, pageReq);
+  }
+
+  updateCatalogQuestion(question: Question) {
+    return this.questionService.updateCatalogQuestion(question);
   }
 }

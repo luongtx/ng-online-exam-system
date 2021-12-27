@@ -31,6 +31,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CatalogueImportComponent } from './components/admin/catalogues/catalogue-import/catalogue-import.component';
+import { CatalogueQuestionEditComponent } from './components/admin/catalogues/catalogue-question-edit/catalogue-question-edit.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { CatalogueImportComponent } from './components/admin/catalogues/catalogu
     CatalogueListEditComponent,
     CatalogueEditComponent,
     CatalogueQuestionsEditComponent,
-    CatalogueImportComponent
+    CatalogueImportComponent,
+    CatalogueQuestionEditComponent
   ],
   imports: [
     BrowserModule,
