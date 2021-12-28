@@ -89,6 +89,7 @@ export class ExamQuestionsEditComponent implements OnInit {
     this.examService.getQuestionsPaginated(this.examId, this.pageReq)
       .subscribe(
         (data) => {
+          console.log(data);
           this.pageRes = data;
           this.pageReq.pages = [...Array(data.totalPages).keys()]
         }

@@ -16,10 +16,6 @@ export class ExamService {
   timeOut?: Subject<any> = new Subject();
   examSaved: Subject<Exam> = new Subject();
 
-  // getExams(): Observable<Exam[]> {
-  //   return this.http.get<Exam[]>(this.API_END_POINT);
-  // }
-
   getExamsPaginated(pageReq?: PageRequest): Observable<PageResponse> {
     if (!pageReq) {
       return this.http.get<PageResponse>(this.API_END_POINT);
@@ -49,10 +45,6 @@ export class ExamService {
 
   saveExam(exam: Exam): Observable<any> {
     return this.http.post<Exam>(this.API_END_POINT + "save", exam)
-  }
-
-  saveExamQuestions(questions: Question[], examId: number) {
-    return this.http.post(this.API_END_POINT + examId + "/question-list/save", questions);
   }
 
   saveQuestion(question: Question, examId: number) {

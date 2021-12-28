@@ -10,11 +10,11 @@ import {Question} from "../models/question.model";
 @Injectable({ providedIn: 'root' })
 export class CatalogueService {
   catalogUpdated = new Subject<any>();
-  API_CATALOG = AppConstants.API_END_POINT + "catalogues";
+  API_CATALOG = AppConstants.API_END_POINT + "catalogues/";
   constructor(private http: HttpClient, private questionService: QuestionService) { }
 
   saveCatalog(catalog: Catalog): Observable<any> {
-    return this.http.post(this.API_CATALOG + "/save", catalog);
+    return this.http.post(this.API_CATALOG + "save", catalog);
   }
 
   getCatalogPaginated(pageReq?: PageRequest): Observable<PageResponse> {
@@ -28,7 +28,7 @@ export class CatalogueService {
   }
 
   getAllQuestions(catalogId: number, pageReq?: PageRequest): Observable<PageResponse> {
-    const requestApi = this.API_CATALOG + "/" + catalogId + "/questions";
+    const requestApi = this.API_CATALOG + catalogId + "/questions";
     if (!pageReq) {
       return this.http.get<PageResponse>(requestApi);
     }
@@ -40,13 +40,13 @@ export class CatalogueService {
 
   saveQuestions(catalogId: number, questionIds: number[]): Observable<any> {
     console.log(questionIds);
-    const requestApi = this.API_CATALOG + `/${catalogId}/save/questions`;
+    const requestApi = this.API_CATALOG + `${catalogId}/save/questions`;
     return this.http.post(requestApi, questionIds);
   }
 
   removeQuestion(questionId: number) : Observable<any> {
     console.log(questionId);
-    const requestApi = this.API_CATALOG + `/remove/question/${questionId}`;
+    const requestApi = this.API_CATALOG + `remove/question/${questionId}`;
     return this.http.delete(requestApi);
   }
 

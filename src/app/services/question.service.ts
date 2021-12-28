@@ -7,7 +7,7 @@ import {Question} from "../models/question.model";
 
 @Injectable({providedIn: 'root'})
 export class QuestionService {
-  API_QUESTION = AppConstants.API_END_POINT + "questions";
+  API_QUESTION = AppConstants.API_END_POINT + "questions/";
   constructor(private http: HttpClient) { }
 
   getAllQuestionsNotInCatalog(catalogId: number, pageReq?: PageRequest): Observable<PageResponse> {
@@ -21,7 +21,7 @@ export class QuestionService {
 
   updateCatalogQuestion(question: Question): Observable<any> {
     console.log(question);
-    const requestApi = this.API_QUESTION + "/update";
+    const requestApi = this.API_QUESTION + "update";
     return this.http.post(requestApi,question);
   }
 }

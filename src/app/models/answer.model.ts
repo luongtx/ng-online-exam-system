@@ -4,10 +4,10 @@ export class Answer {
   public correct?: boolean
   public checked?: boolean
 
-  constructor(id: number, content: string, isCorrect: boolean) {
+  constructor(id: number, content: string, correct: boolean) {
     this.id = id;
     this.content = content;
-    this.correct = isCorrect;
+    this.correct = correct;
     this.checked = false
   }
 }
