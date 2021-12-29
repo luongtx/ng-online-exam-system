@@ -55,6 +55,6 @@ export class CatalogueService {
   }
 
   updateCatalogQuestion(question: Question) {
-    return this.questionService.updateCatalogQuestion(question);
+    return this.questionService.save(question);
   }
 }

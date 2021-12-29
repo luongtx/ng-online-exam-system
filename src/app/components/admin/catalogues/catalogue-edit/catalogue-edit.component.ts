@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { WindowUtils } from 'src/app/utils/window.util';
 import { Catalog } from 'src/app/models/catalogue.model';
 import { CatalogueService } from 'src/app/services/catalogue.service';
@@ -16,6 +16,10 @@ export class CatalogueEditComponent implements OnInit {
   constructor(private catalogueService: CatalogueService) { }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
     this.catalogueService.getCatalogPaginated().subscribe(
       (data) => {
         this.parents = data.data;

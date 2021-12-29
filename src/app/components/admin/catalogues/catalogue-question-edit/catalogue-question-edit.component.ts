@@ -1,14 +1,14 @@
-import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Question} from "src/app/models/question.model";
-import {WindowUtils} from "src/app/utils/window.util";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from "@angular/forms";
+import { Question } from "src/app/models/question.model";
+import { WindowUtils } from "src/app/utils/window.util";
 
 @Component({
   selector: 'app-catalogue-question-edit',
   templateUrl: './catalogue-question-edit.component.html',
   styleUrls: ['./catalogue-question-edit.component.css']
 })
-export class CatalogueQuestionEditComponent implements OnInit {
+export class CatalogueQuestionEditComponent implements OnInit, OnChanges {
   formQuestion?: FormGroup;
   @Input() question?: Question;
   @Output() saved = new EventEmitter();
@@ -35,7 +35,9 @@ export class CatalogueQuestionEditComponent implements OnInit {
     this.formQuestion = new FormGroup({
       'id': new FormControl(this.question?.id),
       'content': new FormControl(this.question?.content, Validators.required),
-      'answers': formArrayAnswers
+      'answers': formArrayAnswers,
+      'examId': new FormControl(this.question?.examId),
+      'catalogId': new FormControl(this.question?.catalogId)
     })
   }
 
@@ -58,7 +60,8 @@ export class CatalogueQuestionEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.saved.next(this.formQuestion?.value)
+    this.saved.next(this.formQuestion?.value);
+    this.onClose();
   }
 
   onClose() {
@@ -66,6 +69,7 @@ export class CatalogueQuestionEditComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // console.log("on changes");
     this.loadForm()
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
 import { PageRequest, PageResponse } from 'src/app/utils/page.util';
 import { WindowUtils } from 'src/app/utils/window.util';
@@ -9,12 +9,10 @@ import { CatalogueService } from 'src/app/services/catalogue.service';
   templateUrl: './catalogue-questions-edit.component.html',
   styleUrls: ['./catalogue-questions-edit.component.css']
 })
-export class CatalogueQuestionsEditComponent implements OnInit {
+export class CatalogueQuestionsEditComponent implements OnInit, OnChanges {
   @Input() catalogId!: number;
   editable: boolean = false
-  questionCopy: Question = {
-    answers: [{}]
-  }
+  questionCopy?: Question;
 
   pageReq: PageRequest = {
     page: 0,
@@ -27,6 +25,11 @@ export class CatalogueQuestionsEditComponent implements OnInit {
   }
 
   constructor(private catalogueService: CatalogueService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // console.log("on changes");
+    this.requestPageData();
+  }
 
   ngOnInit(): void {
     this.requestPageData();
@@ -48,7 +51,7 @@ export class CatalogueQuestionsEditComponent implements OnInit {
     // console.log(question.answers);
     this.editable = true;
     this.questionCopy = { ...question };
-    WindowUtils.scrollToElement("#qEdit");
+    WindowUtils.scrollToElement(".edit-catalog-question");
   }
 
   onFormClosed() {
@@ -58,22 +61,24 @@ export class CatalogueQuestionsEditComponent implements OnInit {
   onAddClicked() {
     this.editable = true
     this.questionCopy = {
+      content: "",
+      catalogId: this.catalogId,
       answers: [{}]
     }
-    WindowUtils.scrollToElement("#qEdit");
+    WindowUtils.scrollToElement(".edit-catalog-question");
   }
 
   onDeleteClicked(questionId: number) {
     if (confirm("Remove this question from catalog?")) {
-        this.catalogueService.removeQuestion(questionId).subscribe(
-          ()=> {
-            alert("Remove question successfully!");
-            this.requestPageData();
-            this.catalogueService.catalogUpdated.next();
-          }, () => {
-            alert("Error while removing question");
-          }
-        );
+      this.catalogueService.removeQuestion(questionId).subscribe(
+        () => {
+          alert("Remove question successfully!");
+          this.requestPageData();
+          this.catalogueService.catalogUpdated.next();
+        }, () => {
+          alert("Error while removing question");
+        }
+      );
     }
   }
 

@@ -52,9 +52,11 @@
     </nav>
   </div>
 </div>
-<div id="qEdit">
-  <app-exam-question-edit *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
-    (closed)="onFormClosed()"></app-exam-question-edit>
+<div class="row edit-exam-question">
+  <div class="col">
+    <app-exam-question-edit *ngIf="editable" [question]="questionCopy" (saved)="onQuestionSaved($event)"
+      (closed)="onFormClosed()"></app-exam-question-edit>
+  </div>
 </div>
 <div class="row mt-3" *ngIf="!editable">
   <div class="col">

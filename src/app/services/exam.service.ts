@@ -5,12 +5,13 @@ import { Question } from "../models/question.model";
 import { ExamResult } from "../models/exam-result.model";
 import { Exam } from "../models/exam.model";
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
+import { QuestionService } from "./question.service";
 
 @Injectable({ providedIn: 'root' })
 export class ExamService {
 
   API_END_POINT = "http://localhost:8080/exams/"
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private questionService: QuestionService) { }
 
   timer?: Subject<{ min: number, sec: number }> = new Subject();
   timeOut?: Subject<any> = new Subject();
@@ -47,8 +48,8 @@ export class ExamService {
     return this.http.post<Exam>(this.API_END_POINT + "save", exam)
   }
 
-  saveQuestion(question: Question, examId: number) {
-    return this.http.post(this.API_END_POINT + examId + "/question/save", question);
+  saveQuestion(question: Question) {
+    return this.questionService.save(question);
   }
 
   deleteExam(id: number): Observable<any> {

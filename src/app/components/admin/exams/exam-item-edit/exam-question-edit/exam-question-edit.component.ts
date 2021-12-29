@@ -35,7 +35,9 @@ export class ExamQuestionEditComponent implements OnInit, OnChanges {
     this.formQuestion = new FormGroup({
       'id': new FormControl(this.question?.id),
       'content': new FormControl(this.question?.content, Validators.required),
-      'answers': formArrayAnswers
+      'answers': formArrayAnswers,
+      'examId': new FormControl(this.question?.examId),
+      'catalogId': new FormControl(this.question?.catalogId)
     })
   }
 
@@ -58,7 +60,8 @@ export class ExamQuestionEditComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    this.saved.next(this.formQuestion?.value)
+    this.saved.next(this.formQuestion?.value);
+    this.onClose();
   }
 
   onClose() {
@@ -66,6 +69,7 @@ export class ExamQuestionEditComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    // console.log("on changes");
     this.loadForm()
   }
 

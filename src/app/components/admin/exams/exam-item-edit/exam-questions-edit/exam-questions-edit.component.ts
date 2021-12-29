@@ -12,9 +12,7 @@ import { WindowUtils } from 'src/app/utils/window.util';
 })
 export class ExamQuestionsEditComponent implements OnInit {
   editable: boolean = false
-  questionCopy: Question = {
-    answers: [{}]
-  }
+  questionCopy?: Question;
   examId!: number;
 
   pageReq: PageRequest = {
@@ -36,7 +34,7 @@ export class ExamQuestionsEditComponent implements OnInit {
 
   onQuestionSaved(question: Question) {
     // console.log(question);
-    this.examService.saveQuestion(question, this.examId).subscribe(
+    this.examService.saveQuestion(question).subscribe(
       () => {
         this.requestPageData();
         alert("Save successfully!")
@@ -51,7 +49,7 @@ export class ExamQuestionsEditComponent implements OnInit {
     // console.log(question.answers);
     this.editable = true;
     this.questionCopy = { ...question };
-    WindowUtils.scrollToElement("#qEdit");
+    WindowUtils.scrollToElement(".edit-exam-question");
   }
 
   onFormClosed() {
@@ -61,9 +59,11 @@ export class ExamQuestionsEditComponent implements OnInit {
   onAddClicked() {
     this.editable = true
     this.questionCopy = {
+      examId: this.examId,
+      content: "",
       answers: [{}]
     }
-    WindowUtils.scrollToElement("#qEdit");
+    WindowUtils.scrollToElement(".edit-exam-question");
   }
 
   onDeleteClicked(question: Question) {
@@ -89,7 +89,7 @@ export class ExamQuestionsEditComponent implements OnInit {
     this.examService.getQuestionsPaginated(this.examId, this.pageReq)
       .subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           this.pageRes = data;
           this.pageReq.pages = [...Array(data.totalPages).keys()]
         }

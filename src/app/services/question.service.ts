@@ -19,9 +19,9 @@ export class QuestionService {
     return this.http.get<PageResponse>(this.API_QUESTION + reqParams);
   }
 
-  updateCatalogQuestion(question: Question): Observable<any> {
-    console.log(question);
-    const requestApi = this.API_QUESTION + "update";
+  save(question: Question): Observable<any> {
+    // console.log(question);
+    const requestApi = this.API_QUESTION + "save";
     return this.http.post(requestApi,question);
   }
 }
