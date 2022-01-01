@@ -1,6 +1,6 @@
 <span class="float-right" title="Mark for review"> <i (click)="onClickReviewMarker()"
     [ngClass]="question.markedForReview?'fas fa-star': 'far fa-star'"></i></span>
-<p style="font-size: 1.3em;"><b>{{index+1}}</b>. {{question?.content}}?</p>
+<p style="font-size: 1.3em;"><b>{{index+1}}</b>. {{question?.content}}</p>
 <div>
   <div class="form-check shadow" *ngFor="let answer of question?.answers; let i = index"
     [ngClass]="{'selected': answer.checked}">
