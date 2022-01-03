@@ -15,6 +15,7 @@ import { CanDeactivateGuard } from './guards/can-deactivate-guard.service';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
+import { QuestionsEditComponent } from './components/admin/questions/questions-edit.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'admin/exams/:id', component: ExamItemEditComponent, canActivate: [AuthGuard] },
   { path: 'admin/catalogues', component: CatalogueListEditComponent, canActivate: [AuthGuard] },
   { path: 'admin/catalogues/:id/import', component: CatalogueImportComponent, canActivate: [AuthGuard] },
+  { path: 'admin/questions', component: QuestionsEditComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

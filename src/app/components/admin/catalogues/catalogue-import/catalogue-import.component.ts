@@ -61,6 +61,7 @@ export class CatalogueImportComponent implements OnInit {
     this.catalogService.getAllQuestionsNotIn(this.catalogId, this.pageReq).subscribe(
       (data: PageResponse) => {
         this.pageRes.data = data.data;
+        this.pageReq.pages = [...Array(data.totalPages).keys()]
       }
     );
   }

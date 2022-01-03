@@ -49,6 +49,11 @@
       <span class="ml-1">Catalogues</span>
     </button>
 
+    <button mat-button class="menu-button" [routerLink]="['admin', 'questions']" *ngIf="isAdmin">
+      <i class="fas fa-university"></i>
+      <span class="ml-1">Questions Bank</span>
+    </button>
+
     <button mat-button class="menu-button" routerLink="/profile" *ngIf="isLoggedin">
       <i class="far fa-address-card"></i>
       <span class="ml-1">My Profile</span>

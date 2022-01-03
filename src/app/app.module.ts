@@ -32,6 +32,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CatalogueImportComponent } from './components/admin/catalogues/catalogue-import/catalogue-import.component';
 import { CatalogueQuestionEditComponent } from './components/admin/catalogues/catalogue-question-edit/catalogue-question-edit.component';
+import { QuestionsEditComponent } from './components/admin/questions/questions-edit.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { CatalogueQuestionEditComponent } from './components/admin/catalogues/ca
     CatalogueEditComponent,
     CatalogueQuestionsEditComponent,
     CatalogueImportComponent,
-    CatalogueQuestionEditComponent
+    CatalogueQuestionEditComponent,
+    QuestionsEditComponent
   ],
   imports: [
     BrowserModule,
