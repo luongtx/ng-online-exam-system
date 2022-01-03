@@ -1,4 +1,5 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
 import { QuestionService } from 'src/app/services/question.service';
 import { PageRequest, PageResponse } from 'src/app/utils/page.util';
@@ -9,8 +10,10 @@ import { WindowUtils } from 'src/app/utils/window.util';
   templateUrl: './questions-edit.component.html',
   styleUrls: ['./questions-edit.component.css']
 })
-export class QuestionsEditComponent implements OnInit {
+export class QuestionsEditComponent implements OnInit, OnChanges {
 
+  catalogId?: number;
+  examId?: number;
   editable: boolean = false
   questionCopy?: Question;
 
@@ -64,11 +67,22 @@ export class QuestionsEditComponent implements OnInit {
       content: "",
       answers: [{}]
     }
-    WindowUtils.scrollToElement(".edit-catalog-question");
+    WindowUtils.scrollToElement(".edit-question");
   }
 
   onDeleteClicked(questionId: number) {
-
+    if (confirm("Delete this question?")) {
+      this.questionService.delete(questionId, this.catalogId, this.examId).subscribe(
+        () => {
+          alert("delete question successfully!");
+          this.pageReq.page = 0;
+          this.requestPageData();
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+        }
+      )
+    }
   }
 
   onEntriesPerPageChange(event: any) {
@@ -78,7 +92,7 @@ export class QuestionsEditComponent implements OnInit {
   }
 
   requestPageData() {
-    this.questionService.getAll(this.pageReq)
+    this.questionService.getAll(this.pageReq, this.catalogId, this.examId)
       .subscribe(
         (data) => {
           this.pageRes = data;

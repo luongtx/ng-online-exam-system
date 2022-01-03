@@ -33,6 +33,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { CatalogueImportComponent } from './components/admin/catalogues/catalogue-import/catalogue-import.component';
 import { CatalogueQuestionEditComponent } from './components/admin/catalogues/catalogue-question-edit/catalogue-question-edit.component';
 import { QuestionsEditComponent } from './components/admin/questions/questions-edit.component';
+import { QuestionEditComponent } from './components/admin/questions/question-edit/question-edit.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { QuestionsEditComponent } from './components/admin/questions/questions-e
     CatalogueQuestionsEditComponent,
     CatalogueImportComponent,
     CatalogueQuestionEditComponent,
-    QuestionsEditComponent
+    QuestionsEditComponent,
+    QuestionEditComponent
   ],
   imports: [
     BrowserModule,
