@@ -9,12 +9,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CatalogueEditComponent } from './components/admin/catalogues/catalogue-edit/catalogue-edit.component';
-import { CatalogueQuestionsEditComponent } from './components/admin/catalogues/catalogue-questions-edit/catalogue-questions-edit.component';
 import { CatalogueListEditComponent } from './components/admin/catalogues/catalogue-list-edit/catalogue-list-edit.component';
 import { ExamEditComponent } from './components/admin/exams/exam-edit/exam-edit.component';
 import { ExamItemEditComponent } from './components/admin/exams/exam-item-edit/exam-item-edit.component';
-import { ExamQuestionEditComponent } from './components/admin/exams/exam-item-edit/exam-question-edit/exam-question-edit.component';
-import { ExamQuestionsEditComponent } from './components/admin/exams/exam-item-edit/exam-questions-edit/exam-questions-edit.component';
 import { ExamsManageComponent } from './components/admin/exams/exam-list-edit/exam-list-edit.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,7 +28,6 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CatalogueImportComponent } from './components/admin/catalogues/catalogue-import/catalogue-import.component';
-import { CatalogueQuestionEditComponent } from './components/admin/catalogues/catalogue-question-edit/catalogue-question-edit.component';
 import { QuestionsEditComponent } from './components/admin/questions/questions-edit.component';
 import { QuestionEditComponent } from './components/admin/questions/question-edit/question-edit.component';
 
@@ -52,13 +48,9 @@ import { QuestionEditComponent } from './components/admin/questions/question-edi
     ExamsManageComponent,
     ExamItemEditComponent,
     ExamEditComponent,
-    ExamQuestionEditComponent,
-    ExamQuestionsEditComponent,
     CatalogueListEditComponent,
     CatalogueEditComponent,
-    CatalogueQuestionsEditComponent,
     CatalogueImportComponent,
-    CatalogueQuestionEditComponent,
     QuestionsEditComponent,
     QuestionEditComponent
   ],

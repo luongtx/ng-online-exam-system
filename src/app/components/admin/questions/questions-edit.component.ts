@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
 import { QuestionService } from 'src/app/services/question.service';
 import { PageRequest, PageResponse } from 'src/app/utils/page.util';
@@ -12,8 +12,8 @@ import { WindowUtils } from 'src/app/utils/window.util';
 })
 export class QuestionsEditComponent implements OnInit, OnChanges {
 
-  catalogId?: number;
-  examId?: number;
+  @Input() catalogId?: number;
+  @Input() examId?: number;
   editable: boolean = false
   questionCopy?: Question;
 

@@ -28,6 +28,9 @@
 </form>
 <h1 class="text-center mt-3">Catalog questions</h1>
 <div class="edit-catalogue-questions">
-  <app-catalogue-questions-edit *ngIf="catalog.id" [catalogId]="catalog.id">
-  </app-catalogue-questions-edit>
+  <app-questions-edit *ngIf="catalog.id" [catalogId]="catalog.id">
+  </app-questions-edit>
+  <button class="btn btn-outline-info float-right" [routerLink]="[this.catalog.id, 'import']">
+    Import questions
+  </button>
 </div>
