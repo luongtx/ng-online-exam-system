@@ -1,12 +1,12 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { LoginRequest } from "../models/login.model";
-import { catchError, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from "rxjs";
-import { AppConstants } from "../constants/app.constants";
+import { catchError, tap } from 'rxjs/operators';
+import { environment } from "src/environments/environment";
+import { RoleConstants } from "../constants/role.constants";
+import { LoginRequest } from "../models/login.model";
 import { Profile } from "../models/profile.model";
 import { User } from "../models/user.model";
-import { RoleConstants } from "../constants/role.constants";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   login(user: LoginRequest) {
-    this.httpClient.post<User>(AppConstants.API_END_POINT + "login", user).pipe(
+    this.httpClient.post<User>(environment.apiUrl + "login", user).pipe(
       tap((data) => {
         localStorage.setItem("_user", JSON.stringify(data));
         this.errorMessage.next("");
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   register(profile: Profile) {
-    return this.httpClient.post(AppConstants.API_END_POINT + "register", profile);
+    return this.httpClient.post(environment.apiUrl + "register", profile);
   }
 
   private handleError<T>(result?: T) {

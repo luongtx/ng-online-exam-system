@@ -1,14 +1,14 @@
 <form #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
   <div class="form-group row">
     <div class="col-5">
-      <label for="name">Catalogue name: </label>
+      <label for="name">Topic: </label>
       <input type="text" class="form-control" name="name" [(ngModel)]="catalog.name" #name="ngModel" required>
       <span class="text-danger" *ngIf="f.submitted && name.errors?.required">
-        Catalogue name is required
+        Topic name is required
       </span>
     </div>
     <div class="col-5">
-      <label for="parentId">Catalogue parent: </label>
+      <label for="parentId">Topic parent: </label>
       <select name="parentId" class="form-control" [(ngModel)]="catalog.parentId" #parentId="ngModel">
         <option *ngFor="let parent of parents" [value]="parent.id">{{parent.name}}</option>
       </select>
@@ -26,7 +26,7 @@
     </div>
   </div>
 </form>
-<h1 class="text-center mt-3">Catalog questions</h1>
+<h1 class="text-center mt-3">Topic questions</h1>
 <div class="edit-catalogue-questions">
   <app-questions-edit *ngIf="catalog.id" [catalogId]="catalog.id">
   </app-questions-edit>

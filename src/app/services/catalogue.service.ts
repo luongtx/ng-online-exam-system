@@ -1,16 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { AppConstants } from "src/app/constants/app.constants";
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
+import { environment } from "src/environments/environment";
 import { Catalog } from "../models/catalogue.model";
-import {QuestionService} from "./question.service";
-import {Question} from "../models/question.model";
+import { Question } from "../models/question.model";
+import { QuestionService } from "./question.service";
 
 @Injectable({ providedIn: 'root' })
 export class CatalogueService {
   catalogUpdated = new Subject<any>();
-  API_CATALOG = AppConstants.API_END_POINT + "catalogues/";
+  API_CATALOG = environment.apiUrl + "catalogues/";
   constructor(private http: HttpClient, private questionService: QuestionService) { }
 
   saveCatalog(catalog: Catalog): Observable<any> {

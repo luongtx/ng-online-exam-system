@@ -6,11 +6,12 @@ import { ExamResult } from "../models/exam-result.model";
 import { Exam } from "../models/exam.model";
 import { PageRequest, PageResponse } from "src/app/utils/page.util";
 import { QuestionService } from "./question.service";
+import { environment } from "src/environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class ExamService {
 
-  API_END_POINT = "http://localhost:8080/exams/"
+  API_END_POINT = environment.apiUrl + "exams/";
   constructor(private http: HttpClient, private questionService: QuestionService) { }
 
   timer?: Subject<{ min: number, sec: number }> = new Subject();

@@ -1,13 +1,13 @@
-import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { PageRequest, PageResponse } from "../utils/page.util";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AppConstants } from "../constants/app.constants";
+import { environment } from "src/environments/environment";
 import { Question } from "../models/question.model";
+import { PageRequest, PageResponse } from "../utils/page.util";
 
 @Injectable({ providedIn: 'root' })
 export class QuestionService {
-  API_QUESTION = AppConstants.API_END_POINT + "questions/";
+  API_QUESTION = environment.apiUrl + "questions/";
   constructor(private http: HttpClient) { }
 
   getAll(pageReq?: PageRequest, catalogId?: number, examId?: number): Observable<PageResponse> {
